@@ -40,7 +40,7 @@ const LoginWidget = () => {
       {/* Error Line with Login & Forgot Btn */}
       <div className='frame-column-center btnFrame gap-10 font-size-16'>
         <p id='error-msg' className='text-red'>Error! Please try again.</p>
-        <button className='btn-orange font-size-16 bold'>Login</button>
+        <button className='btn-orange font-size-16 bold'>Register</button>
         <a href='/' className='text-gray'>Back</a>
       </div>
     </div>

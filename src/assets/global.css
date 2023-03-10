@@ -14,8 +14,16 @@ input[type=number]::-webkit-outer-spin-button {
   text-decoration: none;
 }
 
+.background-main{
+  background: #EAEAEA;
+}
+
 .bold {
   font-weight: 700;
+}
+
+.text-white {
+  color: #ffffff;
 }
 
 .text-gray {
@@ -87,6 +95,26 @@ input[type=number]::-webkit-outer-spin-button {
   background: #dd7600;
 }
 
+.btn-brown{
+  background: #3D2D28;
+  border-radius: 8px;
+}
+
+.btn-brown:hover{
+  background: #684b42;
+}
+
 .gap-10 {
   gap: 10px;
+}
+
+.page-container-full{
+  margin-left: 100px;
+  margin-top: 42px;
+  transition: margin-left 0.3s ease;
+}
+
+.page-container {
+  margin-left: 352px;
+  transition: margin-left 0.3s ease;
 }

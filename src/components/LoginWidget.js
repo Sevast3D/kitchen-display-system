@@ -1,8 +1,17 @@
 import React from 'react'
-import './LoginWidget.css'
-import logo from '../assets/Logo.png'
+import { useHistory } from 'react-router-dom';
 
-const LoginWidget = () => {
+import './LoginWidget.css'
+
+import logo from '../assets/Logo.png';
+
+function LoginWidget() {
+  const history = useHistory();
+  
+  const waiter = () => {
+    history.push('/w',);
+  };
+
   return (
     <div className='loginFrame'>
       <div className='logoText frame-column-center'>
@@ -23,7 +32,7 @@ const LoginWidget = () => {
       {/* Error Line with Login & Forgot Btn */}
       <div className='frame-column-center btnFrame gap-10 font-size-16'>
         <p id='error-msg' className='text-red'>Text!</p>
-        <button className='btn-orange font-size-16 bold'>Login</button>
+        <button className='btn-orange font-size-16 bold' onClick={waiter}>Login</button>
         <a href='' className='text-black'>Forgot your password?</a>
       </div>
       {/* Move to Sign Up Section */}
