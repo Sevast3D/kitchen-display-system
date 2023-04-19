@@ -2,14 +2,18 @@ import React from 'react'
 
 
 import toggleIcon from '../../components/UI/Sidebar/assets/icons/sidebar-toggle.png'
+import Profile from '../../components/UI/LoggedProfile/Profile'
 
-function Members({onToggleSidebar}) {
+function Members({ onToggleSidebar }) {
   return (
     <div>
-      <button onClick={onToggleSidebar} className='btn-brown btn-hide-sidebar'>
-        <img src={toggleIcon} className="icon"></img>
+      <div className='top-bar'>
+        <button onClick={onToggleSidebar} className='btn-brown btn-hide-sidebar'>
+          <img src={toggleIcon} className="icon" alt=''></img>
         </button>
-      <h1>Registered Members</h1>
+        <Profile />
+      </div>
+      <h1>Registered</h1>
     </div>
   );
 }

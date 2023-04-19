@@ -1,4 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+/* import the DropDownButton dependency styles */
+@import "../../node_modules/@syncfusion/ej2-base/styles/material.css";
+@import "../../node_modules/@syncfusion/ej2-buttons/styles/material.css";
+@import "../../node_modules/@syncfusion/ej2-popups/styles/material.css";
+@import "../../node_modules/@syncfusion/ej2-splitbuttons/styles/material.css";
 
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { 
@@ -12,6 +17,26 @@ input[type=number]::-webkit-outer-spin-button {
   outline: none;
   border: none;
   text-decoration: none;
+}
+
+:root {
+  /* fonts */
+  --font-inter: Inter;
+
+  /* font sizes */
+  --font-size-base: 16px;
+
+  /* Colors */
+  --color-white: #fff;
+  --color-gainsboro: #e2e2e2;
+  --color-black: #000;
+
+  /* Paddings */
+  --padding-3xs: 10px;
+
+  /* border radiuses */
+  --br-5xl: 24px;
+  --br-3xs: 10px;
 }
 
 .background-main{
@@ -104,17 +129,39 @@ input[type=number]::-webkit-outer-spin-button {
   background: #684b42;
 }
 
+.btn-empty{
+
+  background: transparent;
+}
+
 .gap-10 {
   gap: 10px;
 }
 
 .page-container-full{
   margin-left: 100px;
-  margin-top: 42px;
+  margin-top: 18px;
   transition: margin-left 0.3s ease;
 }
 
 .page-container {
+  margin-top: 18px;
   margin-left: 352px;
   transition: margin-left 0.3s ease;
+}
+
+.top-bar{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px;
+
+  top: 18px;
+}
+
+.e-btn .e-btn-icon.e-icon-right,
+.e-css.e-btn .e-btn-icon.e-icon-right {
+
+  display: none;
 }
