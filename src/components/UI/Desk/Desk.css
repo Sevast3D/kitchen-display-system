@@ -1,0 +1,156 @@
+@keyframes scale-up {
+  0% {
+    transform: scale(0.5);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+.vector-icon {
+  position: relative;
+  width: 11px;
+  height: 13.75px;
+  flex-shrink: 0;
+}
+.add1 {
+  position: relative;
+  font-size: var(--font-size-base);
+  line-height: 120%;
+  font-family: var(--font-inter);
+  color: var(--color-black);
+  text-align: center;
+}
+.add {
+  cursor: pointer;
+  border: 0;
+  padding: 0 var(--padding-3xs);
+  background-color: var(--color-white);
+  flex: 1;
+  border-radius: var(--br-3xs);
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.add:hover {
+  animation: 1s ease 0s infinite normal none scale-up;
+  opacity: 1;
+}
+.dollar-sign-icon {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.button,
+.pay,
+.status-button {
+  display: flex;
+  align-items: center;
+}
+.pay {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background-color: var(--color-white);
+  flex: 1;
+  border-radius: var(--br-3xs);
+  height: 40px;
+  flex-direction: row;
+  justify-content: center;
+  gap: 4px;
+}
+.add:hover,
+.pay:hover {
+  background-color: var(--color-gainsboro);
+}
+.button,
+.status-button {
+  box-sizing: border-box;
+  justify-content: flex-start;
+}
+.status-button {
+  align-self: stretch;
+  border-radius: 12px;
+  height: 40px;
+  flex-shrink: 0;
+  flex-direction: row;
+  padding: var(--padding-3xs) 0;
+  gap: 15px;
+}
+.button {
+  position: absolute;
+  width: 100%;
+  top: 190px;
+  right: 0;
+  left: 0;
+  flex-direction: column;
+  padding: var(--padding-3xs) 15px;
+}
+.p {
+  margin: 0;
+  position: relative;
+  line-height: 100%;
+  font-weight: 700;
+}
+.empty,
+.status1 {
+  position: relative;
+  line-height: 120%;
+  font-weight: 500;
+}
+.empty {
+  margin: 0;
+  font-weight: 700;
+}
+.status {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 5px;
+  font-size: var(--font-size-base);
+}
+.pm {
+  margin: 0;
+  position: relative;
+  font-size: 14px;
+  line-height: 120%;
+  display: none;
+}
+.middle-text,
+.title {
+  position: absolute;
+  width: 100%;
+  top: 58.5px;
+  right: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+.title {
+  top: 0;
+  border-radius: var(--br-5xl) var(--br-5xl) 0 0;
+  background-color: #a0a0a0;
+  height: 42px;
+  overflow: hidden;
+  justify-content: center;
+  font-size: 24px;
+}
+.desk {
+  position: relative;
+  border-radius: var(--br-5xl);
+  background-color: #bebebe;
+  width: 100%;
+  height: 250px;
+  text-align: center;
+  font-size: 96px;
+  color: var(--color-white);
+  font-family: var(--font-inter);
+}
