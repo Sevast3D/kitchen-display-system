@@ -4,6 +4,7 @@
 @import "../../node_modules/@syncfusion/ej2-buttons/styles/material.css";
 @import "../../node_modules/@syncfusion/ej2-popups/styles/material.css";
 @import "../../node_modules/@syncfusion/ej2-splitbuttons/styles/material.css";
+@import 'bootstrap/dist/css/bootstrap.min.css';
 
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { 
@@ -16,7 +17,7 @@ input[type=number]::-webkit-outer-spin-button {
   padding: 0;
   outline: none;
   border: none;
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 :root {
@@ -151,6 +152,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .top-bar{
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -158,10 +160,7 @@ input[type=number]::-webkit-outer-spin-button {
   padding: 0px;
 
   top: 18px;
-}
-
-.e-btn .e-btn-icon.e-icon-right,
-.e-css.e-btn .e-btn-icon.e-icon-right {
-
-  display: none;
+  margin-bottom: 50px;
+  width: 100%;
+  padding-right: 100px;
 }

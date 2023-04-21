@@ -42,7 +42,7 @@ function App() {
 function RouteWithSidebar({ path, component: Component, onToggleSidebar, showSidebar }) {
   return (
     <>
-      {showSidebar && <Sidebar/>}
+      <div className={`sidebar-frame ${showSidebar ? '' : 'hide'} `}><Sidebar /></div>
       <div className={showSidebar ? 'page-container' : 'page-container-full'}>
         <Route path={path} render={(props) => <Component {...props} onToggleSidebar={onToggleSidebar} />} />
       </div>

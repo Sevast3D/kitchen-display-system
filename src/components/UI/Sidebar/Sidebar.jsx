@@ -29,9 +29,9 @@ const Sidebar = ({ children }) => {
         {
           menuItem.map((item, index) => (
             <NavLink to={item.path} key={index}>
-              <div className="row">
-                <img src={item.icon} alt='' className="icons"></img>
-                <div className="text-white font-size-16">{item.name}</div>
+              <div className="row text-white font-size-16">
+                  <img src={item.icon} alt='' className="icons"></img>
+                  {item.name}
               </div>
             </NavLink>
           ))

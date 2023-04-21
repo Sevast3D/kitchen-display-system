@@ -1,34 +1,77 @@
-.container{
+.profile-view {
   display: flex;
   flex-direction: row;
-  justify-content: center;
   align-items: center;
-  padding: 10px;
-  gap: 20px;
-
+  
+  flex-shrink: 0;
+  justify-content: center;
+  gap: 10px;
 }
+
 /* Circular Container to place profile images */
-.circular-container{
+.circular-container {
   width: 40px;
   height: 40px;
-  
+
   border-radius: 20px;
-  overflow: hidden; 
+  overflow: hidden;
 }
 
-.profile-image{
+.profile-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.arrow{
-  width: 24px;
-  height: 24px;
+.dropdown-toggle {
+  border: none;
 }
 
-.user-icon{
+.dropdown-item {
+  display: flex;
+  gap:10px;
+
+  color: white;
+  /* set normal text color */
+}
+
+.dropdown-item:hover {
+  background-color: transparent;
+  color: white;
+  opacity: 60%;
+}
+
+.dropdown-item img{
   width: 24px;
-  height: 24px;
-  background-image: url("./assets/user.png");
+  height: auto;
+}
+
+.btn-check:checked+.btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check)+.btn:active {
+  color: black;
+  background-color: transparent;
+ }
+
+.btn:hover{
+  color: #7e7e7e;
+  background-color: transparent;
+}
+
+.btn-outline-secondary{
+  display: flex;
+  gap: 10px;
+  flex-direction: row;
+  align-items: center;
+
+  color: black;
+}
+
+.dropdownbutton-with-dropdown {
+  width: 121px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-menu{
+  background-color: #A0A0A0;
+  color: white;
 }

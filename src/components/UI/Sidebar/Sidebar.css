@@ -11,7 +11,13 @@
   left: 0px;
   top: 0px;
 
+  left: 0px; /* set initial left position */
+  transition: transform 0.3s ease-in-out;
   background: #3D2D28;
+}
+
+.sidebar-frame.hide {
+  transform: translateX(-300px);
 }
 
 .sidebar-frame .logo{
@@ -30,7 +36,7 @@
   height: 280px;
 }
 
-.sidebar-frame .row{
+.sidebar-frame .menu .row{
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -41,7 +47,7 @@
 }
 
 .sidebar-frame .row .icons{
-  width: 24px;
+  width: auto;
   height: 24px;
 }
 
