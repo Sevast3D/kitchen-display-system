@@ -1,29 +1,22 @@
-@keyframes scale-up {
-  0% {
-    transform: scale(0.5);
-  }
-  to {
-    transform: scale(1);
-  }
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+
+  flex-basis: calc(100% / [number of columns]);
 }
+
 .vector-icon {
   position: relative;
-  width: 11px;
-  height: 13.75px;
+  width: 20px;
+  height: auto;
   flex-shrink: 0;
 }
-.add1 {
-  position: relative;
-  font-size: var(--font-size-base);
-  line-height: 120%;
-  font-family: var(--font-inter);
-  color: var(--color-black);
-  text-align: center;
-}
-.add {
+
+.add-btn {
   cursor: pointer;
   border: 0;
-  padding: 0 var(--padding-3xs);
+  padding: 0;
   background-color: var(--color-white);
   flex: 1;
   border-radius: var(--br-3xs);
@@ -35,10 +28,10 @@
   justify-content: center;
   gap: 10px;
 }
-.add:hover {
-  animation: 1s ease 0s infinite normal none scale-up;
-  opacity: 1;
+.add-btn:hover {
+  background-color: var(--color-gainsboro);
 }
+
 .dollar-sign-icon {
   position: relative;
   width: 20px;
@@ -68,6 +61,11 @@
 .pay:hover {
   background-color: var(--color-gainsboro);
 }
+
+.pay.hidden{
+  display: none;
+}
+
 .button,
 .status-button {
   box-sizing: border-box;
@@ -122,6 +120,9 @@
   line-height: 120%;
   display: none;
 }
+.pm.visible{
+  display: block;
+}
 .middle-text,
 .title {
   position: absolute;
@@ -147,10 +148,31 @@
   position: relative;
   border-radius: var(--br-5xl);
   background-color: #bebebe;
-  width: 100%;
+  width: 210px;
   height: 250px;
   text-align: center;
   font-size: 96px;
   color: var(--color-white);
   font-family: var(--font-inter);
+}
+
+.desk.orange{
+ background-color: #E39A44;
+}
+
+.desk.green{
+  background-color: #93D36C;
+ }
+
+ .desk.red{
+  background-color: #D76666;
+ }
+.title.orange{
+  background-color: #DB7C0D;
+}
+.title.green{
+  background-color: #7FB65E;
+}
+.title.red{
+  background-color: #C95353;
 }
