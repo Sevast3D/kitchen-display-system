@@ -1,27 +1,41 @@
 .product-image-icon {
-  position: absolute;
+  position: relative;
   top: 0;
-  left: 0;
+  left: -1px;
   width: 370px;
   height: 220px;
   object-fit: cover;
+
+ overflow: hidden;
 }
 .textareastandard-formgroup {
   width: 317px;
-  position: absolute;
-  top: 288.33px;
-  left: 21px;
+  position: relative;
 }
-.burger-vita {
+
+.textareastandard-formgroup textarea{
+  resize: none;
+  
+  border-color: var(--color-tan);
+  background-color: #f2e7d5;
+  color: black;
+  
+}
+
+.textareastandard-formgroup textarea::placeholder{
+  color: black;
+}
+
+.amount {
   font-weight: 700;
 }
-.burger-vita,
+.amount,
 .lei {
   margin: 0;
   position: relative;
   line-height: 120%;
 }
-.vector-icon {
+.product-view.vector-icon {
   position: absolute;
   height: 10%;
   width: 68.33%;
@@ -75,11 +89,11 @@
   color: var(--color-white);
 }
 .product-main {
-  position: absolute;
-  top: 235px;
-  left: 21px;
+  position: relative;
   width: 317px;
   height: 38.33px;
+  
+  margin-top: 10px;
 }
 .vector-icon3 {
   position: relative;
@@ -87,7 +101,7 @@
   height: 20.5px;
   flex-shrink: 0;
 }
-.delete-btn {
+.product-view .delete-btn {
   cursor: pointer;
   border: 0;
   padding: var(--padding-11xs);
@@ -103,20 +117,16 @@
   align-items: center;
   justify-content: center;
 }
-.add {
-  position: relative;
-  font-size: var(--font-size-base);
-  line-height: 120%;
-  font-family: var(--font-inter);
-  color: var(--color-white);
-  text-align: left;
+.product-view .delete-btn:hover{
+  opacity: 80%;
 }
-.add-btn,
+
+.product-view .add-btn,
 .buttons {
   display: flex;
   flex-direction: row;
 }
-.add-btn {
+.product-view .add-btn {
   cursor: pointer;
   border: 0;
   padding: var(--padding-3xs);
@@ -129,20 +139,28 @@
   align-items: flex-start;
   justify-content: center;
 }
+
+.product-view .add-btn:hover{
+  opacity: 80%;
+}
 .buttons {
-  position: absolute;
-  top: 387.33px;
-  left: 20px;
-  width: 319px;
+  position: relative;
+  width: 320px;
   align-items: center;
   justify-content: space-between;
+  margin: 15px;
 }
+
 .product-view {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   border-radius: var(--br-5xl);
   background-color: var(--color-whitesmoke);
-  width: 359px;
-  height: 450px;
+  width: 360px;
+  min-height: 450px;
   overflow: hidden;
   max-width: 100%;
   max-height: 100%;
@@ -150,4 +168,14 @@
   font-size: var(--font-size-base);
   color: var(--color-gray-100);
   font-family: var(--font-inter);
+
+  top: 150px;
+  left: 150px;
+}
+
+.modal-content{
+  width: auto;
+  margin-top: 100px;
+  background-color: transparent;
+  border: none;
 }

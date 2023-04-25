@@ -1,4 +1,8 @@
+import { useState, useCallback } from "react";
+
 import "./Desk.css";
+
+import OrderMenu from "../Order/AddOrder.js"
 
 import Dolar from "./Assets/dollarsign.svg";
 import Eat from "./Assets/eat.svg";
@@ -18,17 +22,30 @@ function getDeskStatus(value) {
 
 const Desk = (props) => {
   let currentTime = new Date();
+  let orderList = []
+  
+  const [showPopup, setShowPopup] = useState(false);
+  
+  const handleButtonClick = () =>{
+    setShowPopup(!showPopup);
+  }
+
+  const handleClose = () =>{
+    setShowPopup(false);
+  }
+
+
   return (
     <div className={`desk ${getDeskStatus(props.value[1])}`} id="desk">
       <div className="button" id="button_container">
         <div className="status-button" id="buttons_container2">
-          <button className="add-btn">
+          <button onClick={handleButtonClick} className="add-btn">
             <img className="vector-icon" alt="" src=
               {props.value[1] === 3 ? Clean : Eat} />
             <div className="font-size-16">
               {props.value[1] === 3 ? "Clean" : "Add"}
             </div>
-          </button>
+          </button><OrderMenu list={orderList} showPopup = {showPopup} onClose={handleClose} />
           <button className={`pay ${props.value[1] === 0 || props.value[1] === 3 ? `hidden` : ``}`}>
             <img className="dollar-sign-icon" alt="" src={Dolar} />
             <div className="font-size-16">Pay</div>

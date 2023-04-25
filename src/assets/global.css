@@ -26,17 +26,34 @@ input[type=number]::-webkit-outer-spin-button {
 
   /* font sizes */
   --font-size-base: 16px;
+  --font-size-sm: 14px;
+  --font-size-xs: 12px;
 
   /* Colors */
+  --color-whitesmoke: #ececec;
+  --color-tan: #c1ae92;
   --color-white: #fff;
-  --color-gainsboro: #e2e2e2;
+  --color-gray-100: #212121;
   --color-black: #000;
+  --color-darkgray: #a0a0a0;
+  --color-gainsboro: #e2e2e2;
+
+  /* Gaps */
+  --gap-3xs: 10px;
 
   /* Paddings */
   --padding-3xs: 10px;
+  --padding-11xs: 2px;
+  --padding-10xs: 3px;
+  --padding-11xl: 30px;
+  --padding-xl: 20px;
 
   /* border radiuses */
   --br-5xl: 24px;
+  --br-5xs: 8px;
+  --br-9xs: 4px;
+  --br-11xs: 2px;
+  --br-xs: 12px;
   --br-3xs: 10px;
 }
 

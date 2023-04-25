@@ -47,13 +47,13 @@
 }
 
 .btn-check:checked+.btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check)+.btn:active {
-  color: black;
-  background-color: transparent;
+  color: black !important;
+  background-color: transparent !important;
  }
 
 .btn:hover{
-  color: #7e7e7e;
-  background-color: transparent;
+  color: #7e7e7e !important;
+  background-color: transparent !important;
 }
 
 .btn-outline-secondary{
@@ -62,8 +62,10 @@
   flex-direction: row;
   align-items: center;
 
-  color: black;
+  color: black !important;
+  border-color: transparent !important;
 }
+
 
 .dropdownbutton-with-dropdown {
   width: 121px;
@@ -72,6 +74,8 @@
 }
 
 .dropdown-menu{
-  background-color: #A0A0A0;
-  color: white;
+  background-color: #A0A0A0 !important;
+  color: white !important;
+  display: flex;
+  gap: 5px;
 }

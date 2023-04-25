@@ -8,7 +8,7 @@
   position: relative;
   line-height: 120%;
 }
-.appetizers {
+.category {
   align-self: stretch;
   border-radius: var(--br-5xs);
   background-color: var(--color-darkgray);

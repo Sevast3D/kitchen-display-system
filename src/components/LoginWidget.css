@@ -8,13 +8,15 @@
 
   position: absolute;
   width: 510px;
-  height: 675px;
   right: 114px;
   top: 50%;
   transform: translateY(-50%);
 
   background: #FFFFFF;
   border-radius: 16px;
+  
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .loginFrame .logoText {
