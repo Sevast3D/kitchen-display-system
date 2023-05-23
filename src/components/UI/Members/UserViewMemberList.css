@@ -1,0 +1,54 @@
+.user-image-memebers-view {
+  position: relative;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+}
+.user-name-member {
+  align-self: stretch;
+}
+.phone-number-member,
+.user-name-member {
+  position: relative;
+  line-height: 120%;
+}
+.profile-info,
+.user-profile-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+}
+.user-profile-container {
+  top: 0;
+  left: 0;
+  border-radius: var(--br-5xl);
+  background-color: var(--color-tan);
+  width: 180px;
+  height: 180px;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-9xs);
+}
+.profile-info {
+  width: 37px;
+  top: 11.5px;
+  left: 132.5px;
+}
+.user-profile-container-parent {
+  position: relative;
+  width: 180px;
+  height: 180px;
+}
+.user-view-member-list {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  text-align: center;
+  font-size: var(--font-size-base);
+  color: var(--color-white);
+  font-family: var(--font-inter);
+}
