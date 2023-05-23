@@ -1,6 +1,10 @@
 import "./Payment.css";
-const Payment = ({ onClose }) => {
+
+import Modal from 'react-bootstrap/Modal';
+
+const Payment = ({openPayment, onClose }) => {
   return (
+    <Modal show={openPayment} onHide={onClose} animation={false} centered>
     <div className="payment">
       <p className="payment1" id="font-size-16">
         Payment
@@ -33,11 +37,12 @@ const Payment = ({ onClose }) => {
         <button className="close" onClick={onClose}>
           <div className="close1">Close</div>
         </button>
-        <button className="pay">
+        <button className="pay-btn">
           <b className="pay1">Pay</b>
         </button>
       </div>
     </div>
+    </Modal>
   );
 };
 

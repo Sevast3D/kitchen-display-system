@@ -98,7 +98,7 @@
   font-size: var(--font-size-base);
   line-height: 120%;
   font-family: var(--font-inter);
-  color: var(--color-black);
+  color: var(--color-black) !important;
   text-align: center;
 }
 .close {
@@ -128,7 +128,7 @@
   display: flex;
   justify-content: center;
 }
-.pay {
+.pay-btn {
   cursor: pointer;
   border: 0;
   padding: 8px 35px;
@@ -148,6 +148,7 @@
 }
 .payment {
   position: relative;
+  top: 100px;
   border-radius: var(--br-5xl);
   background-color: var(--color-whitesmoke);
   box-shadow: 0 4px 39px rgba(0, 0, 0, 0.25);

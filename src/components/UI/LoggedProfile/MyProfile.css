@@ -1,4 +1,4 @@
-.vector-icon {
+.vector-icon-profile {
   position: absolute;
   height: 58.33%;
   width: 58.33%;
@@ -29,6 +29,7 @@
   align-items: flex-start;
   justify-content: flex-end;
   cursor: pointer;
+  width: 100% !important;
 }
 .user-image-view-user2 {
   position: relative;
@@ -219,6 +220,7 @@
   border-radius: var(--br-5xl);
   background-color: var(--color-whitesmoke);
   width: 550px;
+  top: 200px;
   overflow: hidden;
   flex-direction: column;
   padding: var(--padding-3xs) var(--padding-11xl) var(--padding-xl);

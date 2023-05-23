@@ -3,6 +3,7 @@ import { useState, useCallback } from "react";
 import "./Desk.css";
 
 import OrderMenu from "../Order/AddOrder.js"
+import Payment from "../Order/Payment.js"
 
 import Dolar from "./Assets/dollarsign.svg";
 import Eat from "./Assets/eat.svg";
@@ -23,15 +24,20 @@ function getDeskStatus(value) {
 const Desk = (props) => {
   let currentTime = new Date();
   let orderList = []
-  
+
   const [showPopup, setShowPopup] = useState(false);
-  
-  const handleButtonClick = () =>{
+  const [showPaymentPopup, setPaymentPopup] = useState(false);
+
+  const handleButtonClick = () => {
     setShowPopup(!showPopup);
   }
 
-  const handleClose = () =>{
+  const handleClose = () => {
     setShowPopup(false);
+  }
+
+  const handleOpenPayment = () => {
+    setPaymentPopup(!showPaymentPopup)
   }
 
 
@@ -45,11 +51,11 @@ const Desk = (props) => {
             <div className="font-size-16">
               {props.value[1] === 3 ? "Clean" : "Add"}
             </div>
-          </button><OrderMenu list={orderList} showPopup = {showPopup} onClose={handleClose} />
-          <button className={`pay ${props.value[1] === 0 || props.value[1] === 3 ? `hidden` : ``}`}>
+          </button><OrderMenu list={orderList} showPopup={showPopup} onClose={handleClose} />
+          <button onClick={handleOpenPayment} className={`pay ${props.value[1] === 0 || props.value[1] === 3 ? `hidden` : ``}`}>
             <img className="dollar-sign-icon" alt="" src={Dolar} />
             <div className="font-size-16">Pay</div>
-          </button>
+          </button><Payment openPayment={showPaymentPopup} onClose={handleOpenPayment} />
         </div>
       </div>
       <div className="middle-text" id="middle_text">

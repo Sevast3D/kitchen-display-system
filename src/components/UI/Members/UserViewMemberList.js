@@ -1,7 +1,14 @@
+import { Dropdown, DropdownButton } from "react-bootstrap";
+import { useState } from 'react';
+
+import ViewUserInfo from ".//ViewUserMemberTab.js"
+
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Dropdown, DropdownButton, SplitButton } from "react-bootstrap";
 import "./UserViewMemberList.css";
+
 const UserViewMemberList = () => {
+  const [isUserInfoPopup, setUserInfoPopup] = useState(false);
+
   return (
     <div className="user-view-member-list">
       <div className="user-profile-container-parent">
@@ -16,13 +23,14 @@ const UserViewMemberList = () => {
         </div>
         <DropdownButton
           className="profile-info"
-          title=" "
+          title=""
           size="sm"
           variant="primary"
           align="start"
           drop="down"
         >
-          <Dropdown.Item>View Profile</Dropdown.Item>
+          <Dropdown.Item onClick={() => setUserInfoPopup(true)}>View Profile</Dropdown.Item>
+          <ViewUserInfo showPopup={isUserInfoPopup} onClose={() => setUserInfoPopup(false)} />
           <Dropdown.Item>Delete</Dropdown.Item>
         </DropdownButton>
       </div>

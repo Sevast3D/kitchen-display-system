@@ -4,9 +4,9 @@ import "./OrderDetails.css";
 
 const OrderDetails = ({ openOrderList, onClose }) => {
   // Porduct Quantity/ Poduct Name/ Restricions / Status Cooked
-  const [orderList, setOrderList] = useState([[2, "Shaorma Mare", "Fara cartofi", 0], [2, "Burger", "Fara ceapa", 0], [1, "Salata", "Alergic Alune", 1]]);
+  const [orderList, setOrderList] = useState([[2, "Burger Vita", "Cola 0.5, Carne Vita Mediu, Cartofi", 0],[2, "Shaorma Mare", "Fara cartofi", 0], [2, "Burger", "Fara ceapa", 0], [1, "Salata", "Alergic Alune", 1]]);
   orderList.sort((a, b) => a[a.length - 1] - b[b.length - 1]);
-  
+
   const handleDelete = (itemToDelete) => {
     const wasModalOpen = openOrderList;
 
@@ -40,6 +40,9 @@ const OrderDetails = ({ openOrderList, onClose }) => {
                   </button>
                 </div>
                 <div className="specification" id="product_specification">
+                  <p className="rare-spicy-chimichurri" id="product_components">
+                    - Rare, Spicy Chimichurri Potatoes
+                  </p>
                   <p className="no-parmesan" id="product_specification">
                     - {item[2]}
                   </p>

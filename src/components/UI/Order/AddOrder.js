@@ -28,7 +28,6 @@ const AddOrder = ({ list, showPopup, onClose }) => {
     setProductViewPopupOpen(!isProductViewPopupOpen);
   }
 
-  // useCallback is used to prevent the PopUp open when the parent AddOrder is rendered.
   const handleOpenOrderList = () => {
     setOrderDetailsPopupOpen(!isOrderDetailsPopupOpen)
   }
