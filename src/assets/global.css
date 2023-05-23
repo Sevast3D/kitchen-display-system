@@ -200,3 +200,24 @@ input[type=number]::-webkit-outer-spin-button {
   width: 100%;
   padding-right: 100px;
 }
+
+.dropdown-menu {
+  background-color: #ffffff !important;
+  color: white !important;
+  display: flex;
+  gap: 5px;
+
+  --bs-dropdown-border-color: rgb(222 222 222) !important;
+  --bs-dropdown-border-radius: 8px !important;
+  --bs-dropdown-border-width: 2px !important;
+  --bs-dropdown-link-active-bg: transparent !important;
+  --bs-dropdown-link-hover-bg: transparent !important;
+  --bs-dropdown-link-color: #919191 !important;
+  --bs-dropdown-link-hover-color: #c7c7c7 !important;
+}
+
+.dropdownbutton-with-dropdown {
+  width: 121px;
+  display: flex;
+  flex-direction: column;
+}

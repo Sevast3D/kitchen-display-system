@@ -1,7 +1,9 @@
 import { Dropdown, DropdownButton } from "react-bootstrap";
 import { useState } from 'react';
 
-import ViewUserInfo from ".//ViewUserMemberTab.js"
+import ViewUserInfo from ".//ViewUserMemberTab.js";
+import userIcon from "./assets/profile.png";
+import deleteIcon from "./assets/delete.png";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./UserViewMemberList.css";
@@ -29,9 +31,15 @@ const UserViewMemberList = () => {
           align="start"
           drop="down"
         >
-          <Dropdown.Item onClick={() => setUserInfoPopup(true)}>View Profile</Dropdown.Item>
+          <Dropdown.Item onClick={() => setUserInfoPopup(true)}>
+            <img src={userIcon}></img>
+            View Profile
+          </Dropdown.Item>
           <ViewUserInfo showPopup={isUserInfoPopup} onClose={() => setUserInfoPopup(false)} />
-          <Dropdown.Item>Delete</Dropdown.Item>
+          <Dropdown.Item>
+            <img src={deleteIcon}></img>
+            Delete
+          </Dropdown.Item>
         </DropdownButton>
       </div>
     </div>

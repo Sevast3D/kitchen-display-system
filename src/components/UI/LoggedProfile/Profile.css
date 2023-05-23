@@ -28,8 +28,8 @@
 }
 
 .dropdown-item {
-  display: flex;
-  gap:10px;
+  display: flex !important;
+  gap: 10px;
 
   color: white;
   /* set normal text color */
@@ -64,18 +64,4 @@
 
   color: black !important;
   border-color: transparent !important;
-}
-
-
-.dropdownbutton-with-dropdown {
-  width: 121px;
-  display: flex;
-  flex-direction: column;
-}
-
-.dropdown-menu{
-  background-color: #A0A0A0 !important;
-  color: white !important;
-  display: flex;
-  gap: 5px;
 }

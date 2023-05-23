@@ -14,7 +14,6 @@ const ViewUserMemberTab = ({ showPopup, onClose }) => {
               src="/user-image-view-user@2x.png"
             />
             <div className="roles">
-              <div className="roles-text1">Roles</div>
               <div className="roles-container">
                 <div className="admin">
                   <div className="chief">{`Admin `}</div>

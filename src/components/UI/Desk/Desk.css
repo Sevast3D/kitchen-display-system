@@ -2,6 +2,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 30px;
+  margin-left: 0px !important;
 
   flex-basis: calc(100% / [number of columns]);
 }
