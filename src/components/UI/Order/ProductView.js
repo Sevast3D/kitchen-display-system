@@ -2,19 +2,20 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Form } from "react-bootstrap";
 import Modal from 'react-bootstrap/Modal';
 import "./ProductView.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import AddOrder from "./AddOrder";
 
-let orderList = []
-
 const ProductView = ({ itemDetails, openProductViewPopup, onClose }) => {
+  const [orderList, setOrderList] = useState([]);
   const [counter, setCounter] = useState(1);
   const [price, setPrice] = useState(itemDetails[3]);
-  const [spec, setSpec] = useState("");
-
+  const [showPopup, setShowPopup] = useState(false);
+  const [showAddOrder, setShowAddOrder] = useState(false);
+  const specRef = useRef();
 
   useEffect(() => {
     setPrice(itemDetails[3]);
+    // console.log(orderList)
   }, [itemDetails]);
 
   let productPrice = itemDetails[3];
@@ -23,30 +24,27 @@ const ProductView = ({ itemDetails, openProductViewPopup, onClose }) => {
     setCounter(counter + 1);
     setPrice(price + productPrice)
   }
+
   const handleDecrese = () => {
     if (counter > 1) setCounter(counter - 1);
     if (price > productPrice) setPrice(price - productPrice);
   }
-  
-  const [showPopup, setShowPopup] = useState(false);
 
-  const handleClose = () =>{
+  const handleClose = () => {
     setShowPopup(false);
   }
 
-  const addProduct = (amount, specifications) => {
+
+  const addProduct = () => {
     setCounter(1);
-    orderList.push(addProduct, specifications);
-    <AddOrder list={orderList} showPopup = {showPopup} onClose={handleClose} />
+    const spec = specRef.current.value;
+    setOrderList([...orderList, itemDetails[5], itemDetails[1], spec]);
     console.log(orderList);
+    setShowAddOrder(true);
   }
 
   const onCloseProduct = () => {
     setCounter(1);
-  }
-
-  const handleChange = (event) => {
-    setSpec(event.target.value);
   }
 
   return (
@@ -85,19 +83,25 @@ const ProductView = ({ itemDetails, openProductViewPopup, onClose }) => {
           </p>
         </div>
         <Form.Group className="textareastandard-formgroup">
-          <Form.Control as="textarea" placeholder="Specifications" onChange={handleChange} />
+          <Form.Control as="textarea" placeholder="Specifications" ref={specRef} />
         </Form.Group>
         <div className="buttons" id="btn_contrainer">
           <div onClick={onCloseProduct}>
-          <button className="delete-btn" id="delete_btn" onClick={onClose}>
-            <img className="vector-icon3" alt="" src="/vector2.svg" />
-          </button>
+            <button className="delete-btn" id="delete_btn" onClick={onClose}>
+              <img className="vector-icon3" alt="" src="/vector2.svg" />
+            </button>
           </div>
-          <div onClick={() => {addProduct(counter, spec)}} id="add_action">
+          <div onClick={addProduct} id="add_action">
             <button className="add-btn" id="add_btn" onClick={onClose}>
               <p className="font-size-16 text-white bold">Add</p>
             </button>
           </div>
+          {
+            showAddOrder && <AddOrder
+              list={orderList}
+              showPopup={showPopup}
+              onClose={handleClose} />
+          }
         </div>
       </div>
     </Modal>

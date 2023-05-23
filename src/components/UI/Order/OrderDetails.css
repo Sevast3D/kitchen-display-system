@@ -21,6 +21,11 @@
   justify-content: center;
   color: var(--color-white);
 }
+
+.lower-opacity {
+  opacity: 0.5;
+}
+
 .product-name1,
 .x {
   margin: 0;

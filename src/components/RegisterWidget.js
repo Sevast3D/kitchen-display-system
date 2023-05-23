@@ -1,10 +1,23 @@
-import React from 'react'
+import {React, useRef} from 'react'
 
 import './LoginWidget.css'
 
 import logo from '../assets/Logo.png'
 
 const LoginWidget = () => {
+  
+  const passwordRef = useRef();
+  const emailRef = useRef();
+  const firstName = useRef();
+  const lastName = useRef();
+  const phoneNumber = useRef();
+
+  const handleRegister = () => {
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
+
+  }
+
   return (
     <div className='loginFrame'>
       <div className='logoText frame-column-center'>
@@ -17,20 +30,20 @@ const LoginWidget = () => {
         <div className='double'>
           <div className='framesmall'>
             <p >First Name</p>
-            <input id='first-name-input' className='input-gray font-size-16'></input>
+            <input id='first-name-input' className='input-gray font-size-16' ref={firstName}></input>
           </div>
           <div className='framesmall'>
             <p >Last Name</p>
-            <input id='last-name-input' className='input-gray font-size-16'></input>
+            <input id='last-name-input' className='input-gray font-size-16' ref={lastName}></input>
           </div>
         </div>
         <div className='frame'>
           <p >Phone Number</p>
-          <input id='phone-input' className='input-gray font-size-16' type='number'></input>
+          <input id='phone-input' className='input-gray font-size-16' type='number' ref={phoneNumber}></input>
         </div>
         <div className='frame'>
           <p >Email</p>
-          <input className='input-gray font-size-16'></input>
+          <input className='input-gray font-size-16' ref={emailRef}></input>
         </div>
         <div className='frame'>
           <p>Password</p>
