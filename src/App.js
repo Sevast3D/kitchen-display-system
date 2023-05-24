@@ -7,7 +7,9 @@ import Sidebar from './components/UI/Sidebar/Sidebar';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import Waiter from './pages/Waiter/Waiter';
-import Members from './pages/Waiter/Members';
+import Members from './pages/Members/Members';
+import Empty from './pages/EmptyDesks';
+import Payment from './pages/ForPayments';
 
 function App() {
   const [showSidebar, setShowSidebar] = useState(true);
@@ -31,6 +33,18 @@ function App() {
         <RouteWithSidebar
           path="/members"
           component={Members}
+          onToggleSidebar={handleToggleSidebar}
+          showSidebar={showSidebar}
+        />
+        <RouteWithSidebar
+          path="/empty"
+          component={Empty}
+          onToggleSidebar={handleToggleSidebar}
+          showSidebar={showSidebar}
+        />
+        <RouteWithSidebar
+          path="/payment"
+          component={Payment}
           onToggleSidebar={handleToggleSidebar}
           showSidebar={showSidebar}
         />

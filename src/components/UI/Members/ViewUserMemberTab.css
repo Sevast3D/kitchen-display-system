@@ -161,7 +161,7 @@
   position: relative;
   border-radius: var(--br-5xl);
   background-color: var(--color-whitesmoke);
-  width: 450px;
+  width: fit-content;
   top: 140px;
   overflow: hidden;
   flex-direction: column;

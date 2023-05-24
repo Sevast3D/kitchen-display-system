@@ -6,7 +6,10 @@
   object-fit: cover;
 }
 .user-name-member {
-  align-self: stretch;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 .phone-number-member,
 .user-name-member {

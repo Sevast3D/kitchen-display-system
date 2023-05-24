@@ -15,7 +15,6 @@ const MenuAppetizers = [[2, "Burger Vita si Pui", "./product-image@2x.png", 26.5
 const MenuEntrees = [[5, "Salata cu de Toate", "./Salata1.jpg", 34.59, "Branza, salata, rosii, masline verzi, arder gras, avocado.", 1]];
 
 const AddOrder = ({ list, showPopup, onClose }) => {
-  // console.log(list);
   const [isProductViewPopupOpen, setProductViewPopupOpen] = useState(false);
   const [isOrderDetailsPopupOpen, setOrderDetailsPopupOpen] = useState(false);
 

@@ -4,6 +4,7 @@ import "./Desk.css";
 
 import OrderMenu from "../Order/AddOrder.js"
 import Payment from "../Order/Payment.js"
+import CleanPopup from "../Order/Clean.js"
 
 import Dolar from "./Assets/dollarsign.svg";
 import Eat from "./Assets/eat.svg";
@@ -27,18 +28,25 @@ const Desk = (props) => {
 
   const [showPopup, setShowPopup] = useState(false);
   const [showPaymentPopup, setPaymentPopup] = useState(false);
+  const [showCleanPopup, setCleanPopup] = useState(false);
 
   const handleButtonClick = () => {
     setShowPopup(!showPopup);
+    setCleanPopup(!showCleanPopup);
   }
 
   const handleClose = () => {
     setShowPopup(false);
   }
 
-  const handleOpenPayment = () => {
-    setPaymentPopup(!showPaymentPopup)
+  const handleCloseClean = () => {
+    setCleanPopup(false);
   }
+
+  const handleOpenPayment = () => {
+    setPaymentPopup(!showPaymentPopup);
+  }
+
 
 
   return (
@@ -51,7 +59,12 @@ const Desk = (props) => {
             <div className="font-size-16">
               {props.value[1] === 3 ? "Clean" : "Add"}
             </div>
-          </button><OrderMenu list={orderList} showPopup={showPopup} onClose={handleClose} />
+          </button>
+          {props.value[1] === 3 ? (
+            <CleanPopup openClean={showCleanPopup} onClose={handleCloseClean} />
+          ) : (
+            <OrderMenu list={orderList} showPopup={showPopup} onClose={handleClose} />
+          )}
           <button onClick={handleOpenPayment} className={`pay ${props.value[1] === 0 || props.value[1] === 3 ? `hidden` : ``}`}>
             <img className="dollar-sign-icon" alt="" src={Dolar} />
             <div className="font-size-16">Pay</div>

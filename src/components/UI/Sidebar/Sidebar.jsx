@@ -6,13 +6,25 @@ import './Sidebar.css'
 import logo from './assets/logo.png';
 import home from './assets/icons/home.png'
 import members from './assets/icons/users.png'
+import emptyDesk from "./assets/icons/emptyDesk.png"
+import Payment from "./assets/icons/payment.png"
 
 const Sidebar = ({ children }) => {
   const menuItem = [
     {
       path: '/w',
-      name: 'Main Page',
+      name: 'All Desks',
       icon: home
+    },
+    {
+      path: '/empty',
+      name: 'Empty Desks',
+      icon: emptyDesk
+    },
+    {
+      path: '/payment',
+      name: 'Payment',
+      icon: Payment
     },
     {
       path: '/members',
@@ -30,8 +42,8 @@ const Sidebar = ({ children }) => {
           menuItem.map((item, index) => (
             <NavLink to={item.path} key={index}>
               <div className="row text-white font-size-16">
-                  <img src={item.icon} alt='' className="icons"></img>
-                  {item.name}
+                <img src={item.icon} alt='' className="icons"></img>
+                {item.name}
               </div>
             </NavLink>
           ))

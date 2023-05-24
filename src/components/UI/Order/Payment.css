@@ -19,7 +19,8 @@
   padding: var(--padding-3xs) var(--padding-base);
   align-items: center;
   justify-content: flex-start;
-  gap: var(--gap-3xs);
+  gap: 10px;
+  height: 50px;
 }
 .euro-icon {
   position: relative;
@@ -33,16 +34,20 @@
   flex-direction: row;
 }
 .cash {
-  border-radius: var(--br-5xs);
   background-color: var(--color-gray-300);
-  border: 2px solid var(--color-tan);
   box-sizing: border-box;
-  height: 52px;
+  height: 50px;
   padding: var(--padding-3xs) var(--padding-base);
   align-items: center;
   justify-content: flex-start;
   gap: 30px;
 }
+
+.selected {
+  border-radius: var(--br-5xs);
+  border: 2px solid var(--color-tan);
+}
+
 .payment-method {
   align-self: stretch;
   align-items: flex-start;
@@ -152,7 +157,7 @@
   border-radius: var(--br-5xl);
   background-color: var(--color-whitesmoke);
   box-shadow: 0 4px 39px rgba(0, 0, 0, 0.25);
-  width: 374px;
+  width: 400px;
   overflow: hidden;
   flex-direction: column;
   padding: var(--padding-3xl) var(--padding-11xl);

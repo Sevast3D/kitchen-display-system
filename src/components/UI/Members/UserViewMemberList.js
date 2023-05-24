@@ -8,8 +8,12 @@ import deleteIcon from "./assets/delete.png";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./UserViewMemberList.css";
 
-const UserViewMemberList = () => {
+const UserViewMemberList = ({userData}) => {
   const [isUserInfoPopup, setUserInfoPopup] = useState(false);
+
+  const handleOpenProfile = () => {
+    setUserInfoPopup(!isUserInfoPopup)
+  }
 
   return (
     <div className="user-view-member-list">
@@ -18,10 +22,10 @@ const UserViewMemberList = () => {
           <img
             className="user-image-memebers-view"
             alt=""
-            src="/user-image-memebers-view@2x.png"
+            src={userData[4]} 
           />
-          <div className="user-name-member">Alexa Cristina Georgescu</div>
-          <b className="phone-number-member">+40 666 234 53</b>
+          <div className="user-name-member">{userData[0]} {userData[1]}</div>
+          <b className="phone-number-member">{userData[3]}</b>
         </div>
         <DropdownButton
           className="profile-info"
@@ -31,11 +35,11 @@ const UserViewMemberList = () => {
           align="start"
           drop="down"
         >
-          <Dropdown.Item onClick={() => setUserInfoPopup(true)}>
+          <Dropdown.Item onClick={handleOpenProfile}>
             <img src={userIcon}></img>
             View Profile
           </Dropdown.Item>
-          <ViewUserInfo showPopup={isUserInfoPopup} onClose={() => setUserInfoPopup(false)} />
+          <ViewUserInfo user={userData} showPopup={isUserInfoPopup} onClose={handleOpenProfile} />
           <Dropdown.Item>
             <img src={deleteIcon}></img>
             Delete
