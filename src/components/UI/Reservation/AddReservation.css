@@ -1,9 +1,9 @@
-.vector-icon {
+.fork-icon {
   position: relative;
   width: 18px;
   height: 22.5px;
 }
-.title {
+.reservation-title {
   display: flex;
   flex-direction: row;
   padding: var(--padding-3xs);
@@ -50,13 +50,17 @@
 }
 .dt-pickerfilled {
   align-self: stretch;
+  height: 40px;
+
+  padding: var(--padding-10xs) var(--padding-3xs);
+  border-radius: var(--br-5xs);
 }
 .div {
   position: relative;
   line-height: 120%;
   font-weight: 500;
 }
-.quantity {
+.selected-desk-number-label {
   border-radius: var(--br-5xs);
   background-color: var(--color-silver);
   width: 44px;
@@ -121,7 +125,6 @@
   height: 30px;
   display: flex;
   flex-direction: row;
-  padding: var(--padding-10xs) var(--padding-3xs);
   box-sizing: border-box;
   align-items: center;
   justify-content: center;
@@ -136,6 +139,10 @@
   font-weight: 500;
   font-family: var(--font-inter);
   font-size: var(--font-size-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 10px;
 }
 .divider-short-undefined-gl {
   position: relative;
@@ -228,11 +235,11 @@
   color: #c6c6c6;
 }
 .add-reservation,
-.buttons {
+.buttons-reservation {
   display: flex;
   justify-content: flex-start;
 }
-.buttons {
+.buttons-reservation {
   align-self: stretch;
   flex-direction: row;
   padding: var(--padding-xl) var(--padding-mini) var(--padding-8xs);
@@ -242,7 +249,7 @@
   position: relative;
   border-radius: var(--br-5xl);
   background-color: var(--color-darkgray);
-  width: 320px;
+  top: 180px;
   flex-direction: column;
   padding: var(--padding-xl) var(--padding-3xs);
   box-sizing: border-box;
@@ -255,4 +262,13 @@
   text-align: center;
   font-size: var(--font-size-base);
   font-family: var(--font-inter);
+}
+
+.input-error {
+  outline: 2px solid rgb(154, 50, 76);
+  transition: outline-color 0.3s ease-in-out;
+}
+
+.error{
+  color: rgb(154, 50, 76);
 }

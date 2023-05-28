@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import './Sidebar.css'
@@ -8,8 +8,19 @@ import home from './assets/icons/home.png'
 import members from './assets/icons/users.png'
 import emptyDesk from "./assets/icons/emptyDesk.png"
 import Payment from "./assets/icons/payment.png"
+import Clock from "../Reservation/assets/clock.png"
+
+import Reservation from "../Reservation/AddReservation"
 
 const Sidebar = ({ children }) => {
+  const [selectedMenuItem, setSelectedMenuItem] = useState(null);
+  const [isReservatonOpen, setReservationOpen] = useState(false);
+
+  // Function to handle modal close
+  const handleReservationModal = () => {
+    setReservationOpen(!isReservatonOpen);
+  };
+
   const menuItem = [
     {
       path: '/w',
@@ -30,7 +41,7 @@ const Sidebar = ({ children }) => {
       path: '/members',
       name: 'Members',
       icon: members
-    }
+    },
   ]
   return (
     <div className="sidebar-frame">
@@ -39,8 +50,13 @@ const Sidebar = ({ children }) => {
       </a>
       <div className="menu text-white font-size-16">
         {
+          // NavLink for pages with path
           menuItem.map((item, index) => (
-            <NavLink to={item.path} key={index}>
+            <NavLink
+              to={item.path}
+              key={index}
+              activeClassName="active"
+            >
               <div className="row text-white font-size-16">
                 <img src={item.icon} alt='' className="icons"></img>
                 {item.name}
@@ -48,7 +64,17 @@ const Sidebar = ({ children }) => {
             </NavLink>
           ))
         }
+        {
+        // Nav Link for simple Popups */
+          <NavLink to="#" onClick={handleReservationModal}>
+            <div className="row text-white font-size-16">
+              <img src={Clock} alt='' className="icons"></img>
+              Reservation
+            </div>
+          </NavLink>
+        }
       </div>
+      <Reservation showPopup={isReservatonOpen} onClose={handleReservationModal} />
     </div>
   );
 }
