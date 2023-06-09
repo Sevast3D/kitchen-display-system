@@ -1,97 +1,25 @@
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { Input } from "@chakra-ui/react";
-import { Modal } from "react-bootstrap";
-
-import "./AddReservation.css";
-
 import SelectDesk from "./SelectDesk";
-import Fork from "./assets/fork.png"
-
-const AddReservation = ({ showPopup, onClose }) => {
+import PortalPopup from "../Order/PortalPopup";
+import "./AddReservation.css";
+const AddReservation = ({ onClose }) => {
   const [isSelectDeskPopupOpen, setSelectDeskPopupOpen] = useState(false);
-  const [quantity, setQuantity] = useState(1);
-  const [selectedDesk, setSelectedDesk] = useState([]);
-  const [selectedDate, setSelectedDate] = useState('');
-  const descriptionRef = useRef();
-  const [error, setError] = useState("");
 
+  const openSelectDeskPopup = useCallback(() => {
+    setSelectDeskPopupOpen(true);
+  }, []);
 
-
-  const handleUpdateSelectedDesk = (desk) => {
-    setSelectedDesk(desk);
-
-    setTimeout(() => {
-      document.getElementById('desk-number-error').classList.remove('input-error');
-      setError('')
-    }, 300);
-  };
-
-  const handleInputChange = (event) => {
-    setQuantity(parseInt(event.target.value));
-  };
-
-  const handleDataChange = (event) => {
-    setSelectedDate(event.target.value);
-
-    setTimeout(() => {
-      document.getElementById('dt-picker').classList.remove('input-error');
-      setError('')
-    }, 300);
-  }
-
-  const handleOpenSelectDeskPopup = () => {
-    if (selectedDate) {
-      setSelectDeskPopupOpen(!isSelectDeskPopupOpen);
-    } else {
-      document.getElementById('dt-picker').classList.add('input-error');
-      setError("Select the Date/ Time firstly")
-    }
-  };
-
-  const onInceaseQuantity = (() => {
-    setQuantity(quantity + 1);
-  })
-
-  const onDecreseQuantity = () => {
-    if (quantity > 1) setQuantity(quantity - 1);
-  }
-
-  const handleAddReservation = () => {
-    const description = descriptionRef.current.value;
-    if((selectedDate.length !== 0) && (selectedDesk.length != 0)){
-      console.log([description, selectedDate, selectedDesk])
-      onClose();
-    }else{
-      if (!selectedDate) {
-        document.getElementById('dt-picker').classList.add('input-error');
-        setError("Set the Date/ Time")
-      }
-  
-      if (selectedDesk.length === 0) {
-        document.getElementById('desk-number-error').classList.add('input-error');
-      }
-    }
-  }
-
-  useEffect(() => {
-    setQuantity(quantity);
-  }, [quantity])
-
-  // When the modal is closing to reset the values.
-  useEffect(() => {
-    setSelectedDesk([]);
-    setSelectedDate('')
-    setQuantity(1)
-    setError('')
-  }, [showPopup]);
-
+  const closeSelectDeskPopup = useCallback(() => {
+    setSelectDeskPopupOpen(false);
+  }, []);
 
   return (
-    <Modal show={showPopup} onHide={onClose} animation={false} centered>
+    <>
       <div className="add-reservation">
-        <div className="reservation-title" id="title">
-          <img className="fork-icon" alt="" src={Fork} />
-          <div className="div text-white">Add Reservation</div>
+        <div className="title1" id="title">
+          <img className="vector-icon9" alt="" src="/fork_icon.svg" />
+          <div className="add-reservation1">Add Reservation</div>
         </div>
         <div className="event-row" id="event_row">
           <p className="event-description">Event Description</p>
@@ -100,13 +28,12 @@ const AddReservation = ({ showPopup, onClose }) => {
             type="text"
             placeholder="Description"
             required
-            ref={descriptionRef}
-            id="description" />
+            id="description"
+          />
         </div>
         <div className="event-row" id="date_row">
           <div className="date-time">Date/ Time</div>
           <Input
-            id="dt-picker"
             className="dt-pickerfilled"
             variant="filled"
             textColor="#fff"
@@ -114,55 +41,60 @@ const AddReservation = ({ showPopup, onClose }) => {
             borderColor="#bebebe"
             focusBorderColor="#93d36c"
             type="dateTime-local"
-            required
-            onChange={handleDataChange}
           />
         </div>
         <div className="table-row" id="table_row">
           <div className="table-column" id="desk number">
             <div className="date-time">Desk Number</div>
             <div className="desk-row" id="desk elements container">
-              <div className="selected-desk-number-label" id="desk-number-error">
-                <div className="div">{selectedDesk[0]}</div>
+              <div className="quantity" id="desk number">
+                <div className="add-reservation1">3</div>
               </div>
-              <button className="select-btn" onClick={handleOpenSelectDeskPopup}>
+              <button className="select-btn" onClick={openSelectDeskPopup}>
                 <div className="select">Select</div>
               </button>
-              <SelectDesk showPopup={isSelectDeskPopupOpen} onClose={handleOpenSelectDeskPopup} updateSelectedDesk={handleUpdateSelectedDesk} />
             </div>
           </div>
           <div className="people-column" id="people">
             <div className="date-time">Number of people</div>
             <div className="table-row" id="people counter">
-              <button className="plus-container" onClick={() => onInceaseQuantity()}>
+              <button className="plus-container">
                 <img
                   className="add-undefined-glyph-undef"
                   alt=""
-                  src="/add--undefined--glyph-undefined.svg" />
+                  src="/add--undefined--glyph-undefined.svg"
+                />
               </button>
-              <input className="quantity1" type="number" value={quantity} onChange={handleInputChange} />
-              <button className="minus-container" onClick={() => { onDecreseQuantity() }}>
+              <input className="quantity1" type="text" placeholder="33" />
+              <button className="minus-container">
                 <img
                   className="divider-short-undefined-gl"
                   alt=""
-                  src="/divider-short--undefined--glyph-undefined.svg" />
+                  src="/divider-short--undefined--glyph-undefined.svg"
+                />
               </button>
             </div>
           </div>
         </div>
-        <div className="event-row error">
-          {error}
-        </div>
-        <div className="buttons-reservation" id="btn_row">
-          <button className="add" id="AddBtn" onClick={handleAddReservation}>
-            <div className="add1">Add</div>
+        <div className="buttons" id="btn_row">
+          <button className="add3" id="AddBtn">
+            <div className="add4">Add</div>
           </button>
-          <button className="close2" id="close_btn" onClick={onClose}>
-            <div className="close3">Close</div>
+          <button className="close5" id="close_btn">
+            <div className="close6">Close</div>
           </button>
         </div>
       </div>
-    </Modal >
+      {isSelectDeskPopupOpen && (
+        <PortalPopup
+          overlayColor="rgba(113, 113, 113, 0.3)"
+          placement="Centered"
+          onOutsideClick={closeSelectDeskPopup}
+        >
+          <SelectDesk onClose={closeSelectDeskPopup} />
+        </PortalPopup>
+      )}
+    </>
   );
 };
 

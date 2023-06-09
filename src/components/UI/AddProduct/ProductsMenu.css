@@ -1,10 +1,10 @@
-.desk-menu-text {
+.products-menu {
   margin: 0;
   position: relative;
   line-height: 120%;
   font-weight: 700;
 }
-.vector-icon7 {
+.vector-icon3 {
   position: absolute;
   height: 58.33%;
   width: 58.33%;
@@ -16,7 +16,7 @@
   overflow: hidden;
   max-height: 100%;
 }
-.x3 {
+.x1 {
   cursor: pointer;
   border: 0;
   padding: 0;
@@ -26,7 +26,7 @@
   width: 24px;
   height: 24px;
 }
-.close-btn2 {
+.close-btn {
   align-self: stretch;
   border-radius: var(--br-5xs);
   display: flex;
@@ -36,60 +36,41 @@
   justify-content: space-between;
   cursor: pointer;
 }
-.desk-name {
-  position: relative;
-  line-height: 120%;
+.cleaning-msg,
+.product-name-productmenu {
+  font-size: var(--font-size-base);
+  font-family: var(--font-inter);
 }
-.name-text {
+.cleaning-msg {
+  border: 0;
+  background-color: var(--color-gainsboro-100);
   align-self: stretch;
-  border-radius: var(--br-5xl) var(--br-5xl) 0 0;
-  background-color: var(--color-darkgray);
-  height: 22px;
-  overflow: hidden;
-  flex-shrink: 0;
+  border-radius: var(--br-5xs);
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-.dest-number-text {
-  position: relative;
-  line-height: 95%;
-}
-.dest-number-text1 {
-  position: relative;
-  font-size: var(--font-size-sm);
-  line-height: 100%;
-}
-.desk-number,
-.desk2 {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.desk-number {
-  align-self: stretch;
+  flex-direction: row;
+  padding: var(--padding-3xs) var(--padding-base);
+  align-items: flex-start;
   justify-content: flex-start;
-  font-size: var(--font-size-45xl);
 }
-.desk2 {
-  border-radius: var(--br-5xl);
-  background-color: var(--color-silver);
-  width: 116px;
-  height: 105px;
-  padding: 0 0 var(--padding-5xs);
-  box-sizing: border-box;
-  justify-content: space-between;
-  opacity: 0.6;
+.product-name-productmenu {
+  position: relative;
+  line-height: 100%;
+  font-weight: 500;
+  color: var(--color-dimgray);
+  text-align: left;
 }
-.desk-menu-container {
+.product-product-menu {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  align-self: stretch;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  justify-content: flex-start;
-  color: var(--color-white);
+  justify-content: space-between;
 }
-.add2 {
+.add1 {
   position: relative;
   font-size: var(--font-size-base);
   letter-spacing: -0.02em;
@@ -99,7 +80,7 @@
   color: var(--color-darkgray);
   text-align: center;
 }
-.add-table-deskmenu {
+.add-productmenu {
   cursor: pointer;
   border: 1px solid var(--color-darkgray);
   padding: var(--padding-3xs);
@@ -113,20 +94,14 @@
   align-items: center;
   justify-content: center;
 }
-.delete-undefined1 {
+.delete-undefined {
   position: relative;
   width: 24px;
   height: 24px;
   overflow: hidden;
   flex-shrink: 0;
 }
-.add-del-btns,
-.remove-tabledeskmenu {
-  height: 40px;
-  display: flex;
-  flex-direction: row;
-}
-.remove-tabledeskmenu {
+.remove-productmenu {
   cursor: pointer;
   border: 1px solid var(--color-darkgray);
   padding: var(--padding-3xs);
@@ -134,22 +109,28 @@
   border-radius: var(--br-5xs);
   box-sizing: border-box;
   width: 40px;
+  height: 40px;
+  display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
 }
-.add-del-btns {
+.main-btns-productmenu {
+  height: 40px;
+  display: flex;
+  flex-direction: row;
   align-items: flex-start;
   justify-content: flex-start;
   gap: var(--gap-xs);
 }
-.view-desk {
+.view-product {
   position: relative;
   font-size: var(--font-size-base);
   font-family: var(--font-inter);
   color: var(--color-white);
   text-align: left;
 }
-.view-desk-btn {
+.viewproduct-productmenu {
   cursor: pointer;
   border: 0;
   padding: var(--padding-5xs) var(--padding-16xl);
@@ -163,18 +144,19 @@
   align-items: center;
   justify-content: center;
 }
-.desk-menu-btns-container {
+.btns-productmenu {
   align-self: stretch;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
 }
-.desk-menu {
+.productsmenu {
   position: relative;
   border-radius: var(--br-5xl);
   background-color: var(--color-whitesmoke);
   box-shadow: 0 4px 39px rgba(0, 0, 0, 0.25);
+  width: 668px;
   overflow: hidden;
   display: flex;
   flex-direction: column;

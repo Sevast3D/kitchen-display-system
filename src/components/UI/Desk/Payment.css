@@ -1,15 +1,86 @@
-.removing-tables-order {
+.payment1 {
   margin: 0;
   position: relative;
   line-height: 120%;
   font-weight: 700;
+  color: var(--color-gray-100);
 }
-.are-you-sure {
+.mastercard-icon {
+  position: relative;
+  width: 48px;
+  height: 32px;
+  object-fit: cover;
+}
+.credit-card {
+  border-radius: var(--br-5xs);
+  background-color: var(--color-gray-300);
+  display: flex;
+  flex-direction: row;
+  padding: var(--padding-3xs) var(--padding-base);
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-3xs);
+}
+.euro-icon {
+  position: relative;
+  width: 45px;
+  height: 45px;
+  object-fit: cover;
+}
+.cash,
+.payment-method {
+  display: flex;
+  flex-direction: row;
+}
+.cash {
+  border-radius: var(--br-5xs);
+  background-color: var(--color-gray-300);
+  border: 2px solid var(--color-tan);
+  box-sizing: border-box;
+  height: 52px;
+  padding: var(--padding-3xs) var(--padding-base);
+  align-items: center;
+  justify-content: flex-start;
+  gap: 30px;
+}
+.payment-method {
   align-self: stretch;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.billed-details,
+.menui-big-mac {
   position: relative;
   line-height: 120%;
 }
-.cleaning-msg2 {
+.billed-details {
+  align-self: stretch;
+}
+.menui-big-mac {
+  font-weight: 500;
+}
+.cart-items {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  padding: var(--padding-3xs) 0;
+  align-items: flex-start;
+  justify-content: flex-start;
+  opacity: 0.5;
+  text-align: center;
+}
+.bill-details-child {
+  align-self: stretch;
+  position: relative;
+  border-top: 1px solid var(--color-gray-200);
+  box-sizing: border-box;
+  height: 1px;
+}
+.to-pay {
+  position: relative;
+  line-height: 120%;
+}
+.bill-details {
   border-radius: var(--br-5xs);
   background-color: var(--color-gray-300);
   width: 314px;
@@ -19,9 +90,10 @@
   box-sizing: border-box;
   align-items: flex-start;
   justify-content: flex-start;
-  color: var(--color-gray-200);
+  gap: var(--gap-8xs);
+  text-align: left;
 }
-.close2 {
+.close11 {
   position: relative;
   font-size: var(--font-size-base);
   line-height: 120%;
@@ -29,13 +101,13 @@
   color: var(--color-black);
   text-align: center;
 }
-.cleaning-close-btn1 {
+.close10 {
   cursor: pointer;
   border: 0;
   padding: var(--padding-3xs);
   background-color: transparent;
   border-radius: var(--br-5xs);
-  width: 100px;
+  width: 126px;
   height: 40px;
   display: flex;
   flex-direction: row;
@@ -43,38 +115,38 @@
   align-items: center;
   justify-content: center;
 }
-.yes {
+.pay4 {
   position: relative;
   font-size: var(--font-size-base);
   font-family: var(--font-inter);
   color: var(--color-white);
   text-align: left;
 }
-.cleaning-yes-btn1 {
+.btns5,
+.pay3,
+.payment {
+  display: flex;
+  justify-content: center;
+}
+.pay3 {
   cursor: pointer;
   border: 0;
   padding: var(--padding-5xs) var(--padding-16xl);
   background-color: var(--color-tan);
   border-radius: var(--br-5xs);
-  width: 100px;
   height: 40px;
   overflow: hidden;
-  flex-shrink: 0;
-  display: flex;
   flex-direction: column;
   box-sizing: border-box;
   align-items: center;
-  justify-content: center;
 }
-.btns1,
-.confimation {
-  display: flex;
+.btns5,
+.payment {
   flex-direction: row;
   align-items: flex-start;
-  justify-content: center;
   gap: var(--gap-5xs);
 }
-.confimation {
+.payment {
   position: relative;
   border-radius: var(--br-5xl);
   background-color: var(--color-whitesmoke);
@@ -89,6 +161,6 @@
   max-height: 100%;
   text-align: center;
   font-size: var(--font-size-base);
-  color: var(--color-gray-100);
+  color: var(--color-gray-200);
   font-family: var(--font-inter);
 }

@@ -1,15 +1,16 @@
-.removing-tables-order {
-  margin: 0;
+.are-you-sure1,
+.cleaning {
   position: relative;
   line-height: 120%;
+}
+.cleaning {
+  margin: 0;
   font-weight: 700;
 }
-.are-you-sure {
+.are-you-sure1 {
   align-self: stretch;
-  position: relative;
-  line-height: 120%;
 }
-.cleaning-msg2 {
+.cleaning-msg3 {
   border-radius: var(--br-5xs);
   background-color: var(--color-gray-300);
   width: 314px;
@@ -21,7 +22,7 @@
   justify-content: flex-start;
   color: var(--color-gray-200);
 }
-.close2 {
+.close9 {
   position: relative;
   font-size: var(--font-size-base);
   line-height: 120%;
@@ -29,7 +30,7 @@
   color: var(--color-black);
   text-align: center;
 }
-.cleaning-close-btn1 {
+.cleaning-close-btn2 {
   cursor: pointer;
   border: 0;
   padding: var(--padding-3xs);
@@ -43,14 +44,20 @@
   align-items: center;
   justify-content: center;
 }
-.yes {
+.yes1 {
   position: relative;
   font-size: var(--font-size-base);
   font-family: var(--font-inter);
   color: var(--color-white);
   text-align: left;
 }
-.cleaning-yes-btn1 {
+.btns4,
+.clean,
+.cleaning-yes-btn2 {
+  display: flex;
+  justify-content: center;
+}
+.cleaning-yes-btn2 {
   cursor: pointer;
   border: 0;
   padding: var(--padding-5xs) var(--padding-16xl);
@@ -60,21 +67,17 @@
   height: 40px;
   overflow: hidden;
   flex-shrink: 0;
-  display: flex;
   flex-direction: column;
   box-sizing: border-box;
   align-items: center;
-  justify-content: center;
 }
-.btns1,
-.confimation {
-  display: flex;
+.btns4,
+.clean {
   flex-direction: row;
   align-items: flex-start;
-  justify-content: center;
   gap: var(--gap-5xs);
 }
-.confimation {
+.clean {
   position: relative;
   border-radius: var(--br-5xl);
   background-color: var(--color-whitesmoke);

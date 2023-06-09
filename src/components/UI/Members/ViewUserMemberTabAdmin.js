@@ -36,7 +36,7 @@ const ViewUserMemberTabAdmin = ({ onClose }) => {
         </div>
       </div>
       <button className="close-btn-user-view" onClick={onClose}>
-        <div className="close">Close</div>
+        <div className="close7">Close</div>
       </button>
     </div>
   );
