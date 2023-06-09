@@ -1,0 +1,179 @@
+.add-product {
+  margin: 0;
+  position: relative;
+  line-height: 120%;
+  font-weight: 700;
+}
+.vector-icon1 {
+  position: absolute;
+  height: 58.33%;
+  width: 58.33%;
+  top: 20.83%;
+  right: 20.83%;
+  bottom: 20.83%;
+  left: 20.83%;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+.x {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  position: relative;
+  border-radius: var(--br-9xs);
+  width: 24px;
+  height: 24px;
+}
+.close-btn-addproduct {
+  align-self: stretch;
+  border-radius: var(--br-5xs);
+  display: flex;
+  flex-direction: row;
+  padding: var(--padding-10xs);
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  text-align: center;
+  color: var(--color-gray-100);
+}
+.nametest-addproduct {
+  position: relative;
+}
+.nameinput-addproduct {
+  border: 0;
+  font-family: var(--font-inter);
+  font-size: var(--font-size-base);
+  background-color: var(--color-gainsboro-100);
+  align-self: stretch;
+  border-radius: var(--br-5xs);
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  padding: var(--padding-3xs);
+  align-items: center;
+  justify-content: flex-start;
+}
+.descriptiontextare-addproduct,
+.namecontainer-addproduct {
+  align-self: stretch;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.namecontainer-addproduct {
+  flex-direction: column;
+  gap: var(--gap-10xs);
+}
+.descriptiontextare-addproduct {
+  border: 0;
+  background-color: var(--color-gainsboro-100);
+  font-family: var(--font-inter);
+  font-size: var(--font-size-base);
+  border-radius: var(--br-5xs);
+  height: 87px;
+  overflow: hidden;
+  flex-shrink: 0;
+  flex-direction: row;
+  padding: var(--padding-3xs);
+  box-sizing: border-box;
+}
+.phone-input,
+.selectdefault-formselect {
+  align-self: stretch;
+}
+.phone-input {
+  border-radius: var(--br-5xs);
+  background-color: var(--color-gainsboro-100);
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  padding: var(--padding-3xs);
+  align-items: center;
+  justify-content: flex-start;
+}
+.add {
+  position: relative;
+  font-size: var(--font-size-base);
+  font-family: var(--font-inter);
+  color: var(--color-white);
+  text-align: left;
+}
+.addbtn-addproduct,
+.pay {
+  cursor: pointer;
+  border: 0;
+  display: flex;
+  justify-content: center;
+}
+.pay {
+  padding: var(--padding-5xs) var(--padding-16xl);
+  background-color: var(--color-tan);
+  border-radius: var(--br-5xs);
+  height: 40px;
+  overflow: hidden;
+  flex-direction: column;
+  box-sizing: border-box;
+  align-items: center;
+}
+.addbtn-addproduct {
+  padding: 0;
+  background-color: transparent;
+  flex-direction: row;
+  align-items: flex-start;
+}
+.cancel {
+  position: relative;
+  font-size: var(--font-size-base);
+  letter-spacing: -0.02em;
+  line-height: 44px;
+  font-weight: 500;
+  font-family: var(--font-inter);
+  color: var(--color-darkgray);
+  text-align: center;
+}
+.cancel-addproduct {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-3xs);
+  background-color: transparent;
+  border-radius: var(--br-5xs);
+  width: 80px;
+  height: 40px;
+  flex-direction: row;
+  box-sizing: border-box;
+  justify-content: center;
+}
+.addproduct,
+.btns-addproduct,
+.cancel-addproduct {
+  display: flex;
+  align-items: center;
+}
+.btns-addproduct {
+  align-self: stretch;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: var(--gap-3xs);
+}
+.addproduct {
+  position: relative;
+  border-radius: var(--br-5xl);
+  background-color: var(--color-whitesmoke);
+  box-shadow: 0 4px 39px rgba(0, 0, 0, 0.25);
+  width: 450px;
+  height: 550px;
+  overflow: hidden;
+  flex-direction: column;
+  padding: var(--padding-3xl) var(--padding-11xl);
+  box-sizing: border-box;
+  justify-content: center;
+  gap: var(--gap-xs);
+  max-width: 100%;
+  max-height: 100%;
+  text-align: left;
+  font-size: var(--font-size-base);
+  color: var(--color-silver);
+  font-family: var(--font-inter);
+}
