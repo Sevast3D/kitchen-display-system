@@ -1,14 +1,9 @@
-.vector-icon9 {
+.fork-icon {
   position: relative;
   width: 18px;
   height: 22.5px;
 }
-.add-reservation1 {
-  position: relative;
-  line-height: 120%;
-  font-weight: 500;
-}
-.title1 {
+.reservation-title {
   display: flex;
   flex-direction: row;
   padding: var(--padding-3xs);
@@ -16,7 +11,7 @@
   justify-content: flex-start;
   gap: var(--gap-3xs);
   font-size: var(--font-size-5xl);
-  color: var(--color-white);
+  color: var(--color-white) !important;
 }
 .event-description {
   margin: 0;
@@ -55,8 +50,17 @@
 }
 .dt-pickerfilled {
   align-self: stretch;
+  height: 40px;
+
+  padding: var(--padding-10xs) var(--padding-3xs);
+  border-radius: var(--br-5xs);
 }
-.quantity {
+.div {
+  position: relative;
+  line-height: 120%;
+  font-weight: 500;
+}
+.selected-desk-number-label {
   border-radius: var(--br-5xs);
   background-color: var(--color-silver);
   width: 44px;
@@ -121,7 +125,6 @@
   height: 30px;
   display: flex;
   flex-direction: row;
-  padding: var(--padding-10xs) var(--padding-3xs);
   box-sizing: border-box;
   align-items: center;
   justify-content: center;
@@ -136,6 +139,10 @@
   font-weight: 500;
   font-family: var(--font-inter);
   font-size: var(--font-size-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 10px;
 }
 .divider-short-undefined-gl {
   position: relative;
@@ -174,7 +181,7 @@
   flex-direction: row;
   align-items: flex-start;
 }
-.add4 {
+.add1 {
   position: relative;
   font-size: var(--font-size-base);
   font-weight: 500;
@@ -182,7 +189,7 @@
   color: var(--color-white);
   text-align: center;
 }
-.add3 {
+.add {
   cursor: pointer;
   border: 0;
   padding: var(--padding-10xs) var(--padding-mini);
@@ -196,13 +203,13 @@
   align-items: center;
   justify-content: center;
 }
-.add3:hover {
+.add:hover {
   background-color: #91cc6d;
 }
-.add3:hover .add4 {
+.add:hover .add1 {
   color: #e9e9e9;
 }
-.close6 {
+.close3 {
   position: relative;
   font-size: var(--font-size-base);
   font-weight: 500;
@@ -210,7 +217,7 @@
   color: var(--color-gainsboro-200);
   text-align: center;
 }
-.close5 {
+.close2 {
   cursor: pointer;
   border: 0;
   padding: var(--padding-10xs) var(--padding-mini);
@@ -224,15 +231,15 @@
   align-items: center;
   justify-content: center;
 }
-.close5:hover .close6 {
+.close2:hover .close3 {
   color: #c6c6c6;
 }
 .add-reservation,
-.buttons {
+.buttons-reservation {
   display: flex;
   justify-content: flex-start;
 }
-.buttons {
+.buttons-reservation {
   align-self: stretch;
   flex-direction: row;
   padding: var(--padding-xl) var(--padding-mini) var(--padding-8xs);
@@ -242,7 +249,7 @@
   position: relative;
   border-radius: var(--br-5xl);
   background-color: var(--color-darkgray);
-  width: 320px;
+  top: 180px;
   flex-direction: column;
   padding: var(--padding-xl) var(--padding-3xs);
   box-sizing: border-box;
@@ -255,4 +262,13 @@
   text-align: center;
   font-size: var(--font-size-base);
   font-family: var(--font-inter);
+}
+
+.input-error {
+  outline: 2px solid rgb(154, 50, 76);
+  transition: outline-color 0.3s ease-in-out;
+}
+
+.error{
+  color: rgb(154, 50, 76);
 }

@@ -2,12 +2,8 @@
   margin: 0;
   font-weight: 700;
 }
-.desk-title-text,
-.select-desk1 {
-  position: relative;
-  line-height: 120%;
-}
-.desk-title {
+
+.small-desk-title {
   align-self: stretch;
   border-radius: var(--br-5xl) var(--br-5xl) 0 0;
   background-color: var(--color-darkgray);
@@ -19,27 +15,38 @@
   align-items: center;
   justify-content: center;
 }
-.desk-number1,
+
+.desk-title-text,
+.select-desk1 {
+  position: relative;
+  line-height: 120%;
+}
+
+.desk-number,
 .desk-places {
   position: relative;
   line-height: 95%;
 }
+
 .desk-places {
   font-size: var(--font-size-sm);
   line-height: 100%;
 }
-.desk-data,
-.desk3 {
+
+.desk,
+.desk-data {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
 .desk-data {
   align-self: stretch;
   justify-content: flex-start;
-  font-size: var(--font-size-45xl);
+  font-size: 64px;
 }
-.desk3 {
+
+.small-desk {
   border-radius: var(--br-5xl);
   background-color: var(--color-silver);
   width: 116px;
@@ -48,15 +55,27 @@
   box-sizing: border-box;
   justify-content: space-between;
 }
+
+.small-desk.green {
+  background-color: #93D36C;
+}
+
+.small-desk-title.green {
+  background-color: #7FB65E;
+}
+
 .desk-list {
   align-self: stretch;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   justify-content: flex-start;
+  gap: 10px;
+  flex-wrap: wrap;
   color: var(--color-white);
 }
-.close4 {
+
+.close1 {
   position: relative;
   font-size: var(--font-size-base);
   line-height: 120%;
@@ -64,7 +83,8 @@
   color: var(--color-black);
   text-align: center;
 }
-.close3 {
+
+.close {
   cursor: pointer;
   border: 0;
   padding: var(--padding-3xs);
@@ -78,6 +98,7 @@
   align-items: center;
   justify-content: center;
 }
+
 .choose1 {
   position: relative;
   font-size: var(--font-size-base);
@@ -85,6 +106,7 @@
   color: var(--color-white);
   text-align: left;
 }
+
 .choose {
   cursor: pointer;
   border: 0;
@@ -97,24 +119,28 @@
   box-sizing: border-box;
   align-items: center;
 }
-.btns3,
+
+.btns,
 .choose,
 .select-desk {
   display: flex;
   justify-content: center;
 }
-.btns3 {
+
+.btns {
   align-self: stretch;
   flex-direction: row;
   align-items: flex-start;
   gap: var(--gap-5xs);
 }
+
 .select-desk {
   position: relative;
   border-radius: var(--br-5xl);
   background-color: var(--color-whitesmoke);
   box-shadow: 0 4px 39px rgba(0, 0, 0, 0.25);
-  width: 550px;
+  width: 555px;
+  top: 180px;
   overflow: hidden;
   flex-direction: column;
   padding: var(--padding-3xl) var(--padding-11xl);

@@ -10,7 +10,7 @@
 .id {
   align-self: stretch;
 }
-.cleaning-msg1 {
+.cleaning-msg {
   align-self: stretch;
   border-radius: var(--br-5xs);
   background-color: var(--color-gainsboro-100);
@@ -21,8 +21,9 @@
   justify-content: flex-start;
   text-align: left;
   color: var(--color-darkgray);
+  width: 100%;
 }
-.close1 {
+.close {
   position: relative;
   font-size: var(--font-size-base);
   line-height: 120%;

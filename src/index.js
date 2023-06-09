@@ -1,50 +1,27 @@
-import React from "react";
-import { createRoot } from "react-dom/client";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter } from "react-router-dom";
-import { ChakraProvider, extendTheme } from "@chakra-ui/react";
-import createCache from "@emotion/cache";
-import { CacheProvider } from "@emotion/react";
-import "./global.css";
+import React from 'react';
+import ReactDOM from 'react-dom';
+// import styled from 'styled-components';
+import './index.css';
+import './assets/global.css'
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+import { registerLicense } from '@syncfusion/ej2-base';
 
-const chakraTheme = extendTheme({
-  styles: { global: { img: { maxWidth: "unset" } } },
-  colors: {
-    gray: {
-      50: "#f7fafc",
-      100: "#edf2f7",
-      200: "#bebebe",
-      300: "#cbd5e0",
-      400: "#a0aec0",
-      500: "#718096",
-      600: "#4a5568",
-      700: "#2c3748",
-      800: "#1a202c",
-      900: "#171923",
-    },
-  },
-  fonts: { heading: "Inter", body: "Inter" },
-});
-const emotionCache = createCache({
-  key: "emotion-cache",
-  prepend: true,
-});
+registerLicense('Mgo+DSMBaFt+QHFqVkNrWU5BaV1CX2BZf1F8RmdTf1dgFChNYlxTR3ZbQlhiS31XdUJhXn1b;Mgo+DSMBPh8sVXJ1S0d+X1RPc0BHQmFJfFBmRGFTfFp6dFxWACFaRnZdQV1nSXtSdEZnWnhceH1Q;ORg4AjUWIQA/Gnt2VFhhQlJBfVpdWHxLflF1VWJbdV10flVPcDwsT3RfQF5jTX5Wd0dgXXxZc3RXQw==;MTYzMDYzM0AzMjMxMmUzMTJlMzMzNVhOb3RabGtDMEVqZlhlYXJOZklCeWlJMlB0Wk9kRGZzbFYvNU5xbVNZN009;MTYzMDYzNEAzMjMxMmUzMTJlMzMzNUk3bFFUdTIzcEVJYUcwcldGMnhoY2N2VlNWZVdBRVJMS2RWcENIT2ZJRlU9;NRAiBiAaIQQuGjN/V0d+XU9Hc1RHQmZWfFN0RnNYfVRzcF9GaUwxOX1dQl9gSXpTc0RhWntdd3dQTmU=;MTYzMDYzNkAzMjMxMmUzMTJlMzMzNVlHVFBlanhKelFuSmlkcmNrWHhLOFhpS2tzemxXeTVaQmF2L05YcWxBanc9;MTYzMDYzN0AzMjMxMmUzMTJlMzMzNUdVN2o4VVFCQlhKTTZQa3o2a2xtbytZMzNuVjFWSXZ4U3FHSzZoNFlaMlU9;Mgo+DSMBMAY9C3t2VFhhQlJBfVpdWHxLflF1VWJbdV10flVPcDwsT3RfQF5jTX5Wd0dgXXxZdHVcQw==;MTYzMDYzOUAzMjMxMmUzMTJlMzMzNWU2TllacTVuRCt5N09tUHo3ZlhpSG4vVVNkeWVaVllZaDlpN0dsaHBKRGM9;MTYzMDY0MEAzMjMxMmUzMTJlMzMzNUkvSkozbEkvb0t6UnF2TGpNd1FiRnhSYzhGK0Z4aXpRUlN2NXVrNzd0NGM9;MTYzMDY0MUAzMjMxMmUzMTJlMzMzNVlHVFBlanhKelFuSmlkcmNrWHhLOFhpS2tzemxXeTVaQmF2L05YcWxBanc9');
 
-const container = document.getElementById("root");
-const root = createRoot(container);
-
+const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <BrowserRouter>
-    <CacheProvider value={emotionCache}>
-      <ChakraProvider theme={chakraTheme}>
-        <App />
-      </ChakraProvider>
-    </CacheProvider>
-  </BrowserRouter>
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById('root')
+);
+

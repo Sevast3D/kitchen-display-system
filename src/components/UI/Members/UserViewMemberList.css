@@ -6,7 +6,10 @@
   object-fit: cover;
 }
 .user-name-member {
-  align-self: stretch;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 .phone-number-member,
 .user-name-member {
@@ -42,7 +45,6 @@
 }
 .user-view-member-list {
   position: relative;
-  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -51,4 +53,14 @@
   font-size: var(--font-size-base);
   color: var(--color-white);
   font-family: var(--font-inter);
+}
+
+.btn-primary {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: transparent;
+  --bs-btn-border-color:transparent;
+
+  --bs-btn-hover-bg: transparent;
+  --bs-btn-hover-border-color: transparent;
+  --bs-btn-active-border-color: transparent;
 }
