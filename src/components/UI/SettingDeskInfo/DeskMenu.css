@@ -1,0 +1,192 @@
+.desk-menu-text {
+  margin: 0;
+  position: relative;
+  line-height: 120%;
+  font-weight: 700;
+}
+.vector-icon2 {
+  position: absolute;
+  height: 58.33%;
+  width: 58.33%;
+  top: 20.83%;
+  right: 20.83%;
+  bottom: 20.83%;
+  left: 20.83%;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+.x1 {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  position: relative;
+  border-radius: var(--br-9xs);
+  width: 24px;
+  height: 24px;
+}
+.close-btn1 {
+  align-self: stretch;
+  border-radius: var(--br-5xs);
+  display: flex;
+  flex-direction: row;
+  padding: var(--padding-10xs);
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+.desk-name {
+  position: relative;
+  line-height: 120%;
+}
+.name-text {
+  align-self: stretch;
+  border-radius: var(--br-5xl) var(--br-5xl) 0 0;
+  background-color: var(--color-darkgray);
+  height: 22px;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.dest-number-text {
+  position: relative;
+  line-height: 95%;
+}
+.dest-number-text1 {
+  position: relative;
+  font-size: var(--font-size-sm);
+  line-height: 100%;
+}
+.desk-number,
+.desk2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.desk-number {
+  align-self: stretch;
+  justify-content: flex-start;
+  font-size: var(--font-size-45xl);
+}
+.desk2 {
+  border-radius: var(--br-5xl);
+  background-color: var(--color-silver);
+  width: 116px;
+  height: 105px;
+  padding: 0 0 var(--padding-5xs);
+  box-sizing: border-box;
+  justify-content: space-between;
+  opacity: 0.6;
+}
+.desk-menu-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  color: var(--color-white);
+}
+.add {
+  position: relative;
+  font-size: var(--font-size-base);
+  letter-spacing: -0.02em;
+  line-height: 44px;
+  font-weight: 500;
+  font-family: var(--font-inter);
+  color: var(--color-darkgray);
+  text-align: center;
+}
+.add-table-deskmenu {
+  cursor: pointer;
+  border: 1px solid var(--color-darkgray);
+  padding: var(--padding-3xs);
+  background-color: transparent;
+  align-self: stretch;
+  border-radius: var(--br-5xs);
+  box-sizing: border-box;
+  width: 80px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.delete-undefined {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.add-del-btns,
+.remove-tabledeskmenu {
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+}
+.remove-tabledeskmenu {
+  cursor: pointer;
+  border: 1px solid var(--color-darkgray);
+  padding: var(--padding-3xs);
+  background-color: transparent;
+  border-radius: var(--br-5xs);
+  box-sizing: border-box;
+  width: 40px;
+  align-items: center;
+  justify-content: center;
+}
+.add-del-btns {
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-xs);
+}
+.view-desk {
+  position: relative;
+  font-size: var(--font-size-base);
+  font-family: var(--font-inter);
+  color: var(--color-white);
+  text-align: left;
+}
+.view-desk-btn {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-5xs) var(--padding-16xl);
+  background-color: var(--color-tan);
+  border-radius: var(--br-5xs);
+  height: 40px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+}
+.desk-menu-btns-container {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.desk-menu {
+  position: relative;
+  border-radius: var(--br-5xl);
+  background-color: var(--color-whitesmoke);
+  box-shadow: 0 4px 39px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: var(--padding-3xl) var(--padding-11xl);
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-xs);
+  max-width: 100%;
+  max-height: 100%;
+  text-align: center;
+  font-size: var(--font-size-base);
+  color: var(--color-gray-100);
+  font-family: var(--font-inter);
+}
