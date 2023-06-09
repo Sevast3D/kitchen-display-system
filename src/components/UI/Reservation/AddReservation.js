@@ -91,7 +91,7 @@ const AddReservation = ({ showPopup, onClose }) => {
       <div className="add-reservation">
         <div className="reservation-title" id="title">
           <img className="fork-icon" alt="" src={Fork} />
-          <div className="div">Add Reservation</div>
+          <div className="div text-white">Add Reservation</div>
         </div>
         <div className="event-row" id="event_row">
           <p className="event-description">Event Description</p>

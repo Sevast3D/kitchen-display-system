@@ -2,13 +2,16 @@ import { React, useState } from 'react'
 
 import "./Settings.css"
 
+import DeskMenu from "../../components/UI/SettingDeskInfo/DeskMenu"
+
 import toggleIcon from '../../components/UI/Sidebar/assets/icons/sidebar-toggle.png'
 import iconSettings from './assets/iconSetting.png'
 
 function Settings({ onToggleSidebar }) {
+  const [isDeskMenuOpen, setDeskMenuOpen] = useState(false);
 
   const handleOpenDeskMenu = () => {
-
+    setDeskMenuOpen(!isDeskMenuOpen);
   }
   const handleProductsMenu = () => {
 
@@ -44,9 +47,10 @@ function Settings({ onToggleSidebar }) {
               </div>
             </div>
           </div>
-          <button className='action-btn' onClick={handleOpenDeskMenu}>
+          <button className='action-btn' onClick={handleOpenDeskMenu}> 
             <div className='font-size-16 bold text-white'>Open Desk Menu</div>
           </button>
+          <DeskMenu showPopup={isDeskMenuOpen} onClose={handleOpenDeskMenu} />
         </div>
         <div className='container-menu'>
           <h3 className='font-size-20 gray-color'>Menu</h3>

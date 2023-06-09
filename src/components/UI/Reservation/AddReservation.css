@@ -11,7 +11,7 @@
   justify-content: flex-start;
   gap: var(--gap-3xs);
   font-size: var(--font-size-5xl);
-  color: var(--color-white);
+  color: var(--color-white) !important;
 }
 .event-description {
   margin: 0;
