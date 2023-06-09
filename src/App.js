@@ -10,6 +10,8 @@ import Waiter from './pages/Waiter/Waiter';
 import Members from './pages/Members/Members';
 import Empty from './pages/EmptyDesks';
 import Payment from './pages/ForPayments';
+import Settings from './pages/Settings/Settings';
+
 
 function App() {
   const [showSidebar, setShowSidebar] = useState(true);
@@ -45,6 +47,12 @@ function App() {
         <RouteWithSidebar
           path="/payment"
           component={Payment}
+          onToggleSidebar={handleToggleSidebar}
+          showSidebar={showSidebar}
+        />
+        <RouteWithSidebar
+          path="/settings"
+          component={Settings}
           onToggleSidebar={handleToggleSidebar}
           showSidebar={showSidebar}
         />

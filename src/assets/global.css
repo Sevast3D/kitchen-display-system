@@ -114,10 +114,31 @@ input[type=number]::-webkit-outer-spin-button {
   line-height: 120%;
 }
 
+.font-size-20 {
+  font-family: 'Inter';
+  font-style: normal;
+  font-size: 20px;
+  line-height: 120%;
+}
+
+.font-size-32 {
+  font-family: 'Inter';
+  font-style: normal;
+  font-size: 32px;
+  line-height: 120%;
+}
+
 .font-size-36 {
   font-family: 'Inter';
   font-style: normal;
   font-size: 36px;
+  line-height: 120%;
+}
+
+.font-size-42 {
+  font-family: 'Inter';
+  font-style: normal;
+  font-size: 42px;
   line-height: 120%;
 }
 
@@ -132,6 +153,17 @@ input[type=number]::-webkit-outer-spin-button {
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+
+.flex-start {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0px;
+}
+
+.gap-18{
+  gap:18px;
 }
 
 .input-gray {

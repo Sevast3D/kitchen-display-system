@@ -1,0 +1,58 @@
+.icon {
+  width: 45px;
+  height: 100%;
+}
+
+.title-settings {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.container-settings {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 32px;
+}
+
+.container-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 12px;
+}
+
+.gray-color {
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 120%;
+  color: #A0A0A0;
+}
+
+.gray-line {
+  width: 1030px;
+  height: 0px;
+
+  border: 1px solid #A0A0A0;
+}
+
+.action-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 20px;
+
+  width: fit-content;
+  height: 40px;
+
+  background: #C1AE92;
+  border-radius: 8px;
+
+}
+
+.action-btn:hover{
+  opacity: 80%;
+}

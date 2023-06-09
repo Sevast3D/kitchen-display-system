@@ -9,11 +9,11 @@ import members from './assets/icons/users.png'
 import emptyDesk from "./assets/icons/emptyDesk.png"
 import Payment from "./assets/icons/payment.png"
 import Clock from "../Reservation/assets/clock.png"
+import Settings from "./assets/icons/settings.png"
 
 import Reservation from "../Reservation/AddReservation"
 
 const Sidebar = ({ children }) => {
-  const [selectedMenuItem, setSelectedMenuItem] = useState(null);
   const [isReservatonOpen, setReservationOpen] = useState(false);
 
   // Function to handle modal close
@@ -42,6 +42,11 @@ const Sidebar = ({ children }) => {
       name: 'Members',
       icon: members
     },
+    {
+      path: '/settings',
+      name: 'Settings',
+      icon: Settings
+    }
   ]
   return (
     <div className="sidebar-frame">
@@ -65,7 +70,7 @@ const Sidebar = ({ children }) => {
           ))
         }
         {
-        // Nav Link for simple Popups */
+          // Nav Link for simple Popups */
           <NavLink to="#" onClick={handleReservationModal}>
             <div className="row text-white font-size-16">
               <img src={Clock} alt='' className="icons"></img>
