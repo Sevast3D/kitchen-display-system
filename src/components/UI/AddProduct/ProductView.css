@@ -58,10 +58,10 @@
   justify-content: flex-start;
   gap: var(--gap-3xs);
 }
-.vector-icon {
+.vector-icon-productview {
   position: relative;
-  width: 20px;
-  height: 20.5px;
+  width: 40px;
+  height: auto;
 }
 .removebtn-productview {
   cursor: pointer;
@@ -79,7 +79,7 @@
   align-items: center;
   justify-content: center;
 }
-.close {
+.close-productview {
   position: relative;
   font-size: var(--font-size-base);
   line-height: 120%;
@@ -110,7 +110,7 @@
   align-items: center;
   justify-content: space-between;
 }
-.product-view {
+.product-view-setting {
   position: relative;
   border-radius: var(--br-5xl);
   background-color: var(--color-whitesmoke);
@@ -120,8 +120,11 @@
   align-items: center;
   justify-content: flex-start;
   max-width: 100%;
+  width: 370px;
+  left: 80px;
   max-height: 100%;
   text-align: left;
+  top: 150px;
   font-size: var(--font-size-base);
   color: var(--color-darkgray);
   font-family: var(--font-inter);

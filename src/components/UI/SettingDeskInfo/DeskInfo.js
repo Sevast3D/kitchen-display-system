@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from 'react'
+import { React, useState } from 'react'
 
 import Modal from 'react-bootstrap/Modal';
 
@@ -8,7 +8,7 @@ import RemoveAprove from '../ConfirmationModal/Confimation';
 import DeleteReservation from './DeleteReservation';
 
 const DeskInfo = ({ deskData, showPopup, onClose }) => {
-  const [orderList, setOrderList] = useState([[2, "Burger Vita"], [2, "Burger"], [1, "Salata"], [1, "Salata"]]);
+  const [orderList] = useState([[2, "Burger Vita"], [2, "Burger"], [1, "Salata"], [1, "Salata"]]);
   const [isRemoveProductPopup, setRemoveProductsPopup] = useState(false);
   const [isDeleteReservation, setDeleteReservation] = useState(false);
 

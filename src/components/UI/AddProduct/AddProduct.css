@@ -78,6 +78,7 @@
   flex-direction: row;
   padding: var(--padding-3xs);
   box-sizing: border-box;
+  resize: none;
 }
 .phone-input,
 .selectdefault-formselect {
@@ -93,7 +94,7 @@
   align-items: center;
   justify-content: flex-start;
 }
-.add {
+.add-addproduct {
   position: relative;
   font-size: var(--font-size-base);
   font-family: var(--font-inter);
@@ -101,13 +102,13 @@
   text-align: left;
 }
 .addbtn-addproduct,
-.pay {
+.pay-addproduct {
   cursor: pointer;
   border: 0;
   display: flex;
   justify-content: center;
 }
-.pay {
+.pay-addproduct {
   padding: var(--padding-5xs) var(--padding-16xl);
   background-color: var(--color-tan);
   border-radius: var(--br-5xs);
@@ -163,7 +164,7 @@
   background-color: var(--color-whitesmoke);
   box-shadow: 0 4px 39px rgba(0, 0, 0, 0.25);
   width: 450px;
-  height: 550px;
+  height: 580px;
   overflow: hidden;
   flex-direction: column;
   padding: var(--padding-3xl) var(--padding-11xl);
@@ -173,6 +174,7 @@
   max-width: 100%;
   max-height: 100%;
   text-align: left;
+  top: 150px;
   font-size: var(--font-size-base);
   color: var(--color-silver);
   font-family: var(--font-inter);

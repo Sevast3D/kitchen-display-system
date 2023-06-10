@@ -41,7 +41,7 @@ const DeskMenu = ({ onClose, showPopup }) => {
     console.log(selected);
     if(selected === "none"){
       setError("Please select a desk.")
-    }else if(DeskList[selected][1] != 0){
+    }else if(DeskList[selected][1] !== 0){
       setError("Error, the desk status is not empty!");
     }else{
       setError("");

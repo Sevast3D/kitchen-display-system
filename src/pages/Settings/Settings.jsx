@@ -3,18 +3,20 @@ import { React, useState } from 'react'
 import "./Settings.css"
 
 import DeskMenu from "../../components/UI/SettingDeskInfo/DeskMenu"
+import AddProduct from '../../components/UI/AddProduct/ProductsMenu';
 
 import toggleIcon from '../../components/UI/Sidebar/assets/icons/sidebar-toggle.png'
 import iconSettings from './assets/iconSetting.png'
 
 function Settings({ onToggleSidebar }) {
   const [isDeskMenuOpen, setDeskMenuOpen] = useState(false);
+  const [isProductMenuPopup, setProductMenuPopup] = useState(false);
 
   const handleOpenDeskMenu = () => {
     setDeskMenuOpen(!isDeskMenuOpen);
   }
   const handleProductsMenu = () => {
-
+    setProductMenuPopup(!isProductMenuPopup);
   }
 
   return (
@@ -26,7 +28,7 @@ function Settings({ onToggleSidebar }) {
       </div>
       <div className='container-settings'>
         <div className="font-size-42 bold title-settings">
-          <img src={iconSettings} className='icon'></img>Settings
+          <img src={iconSettings} className='icon' alt=''></img>Settings
         </div>
         <div className='container-menu'>
           <h3 className='font-size-20 gray-color'>Desks</h3>
@@ -47,7 +49,7 @@ function Settings({ onToggleSidebar }) {
               </div>
             </div>
           </div>
-          <button className='action-btn' onClick={handleOpenDeskMenu}> 
+          <button className='action-btn' onClick={handleOpenDeskMenu}>
             <div className='font-size-16 bold text-white'>Open Desk Menu</div>
           </button>
           <DeskMenu showPopup={isDeskMenuOpen} onClose={handleOpenDeskMenu} />
@@ -62,6 +64,7 @@ function Settings({ onToggleSidebar }) {
           <button className='action-btn' onClick={handleProductsMenu}>
             <div className='font-size-16 bold text-white'>Open Product's Menu</div>
           </button>
+          <AddProduct showPopup={isProductMenuPopup} onClose={handleProductsMenu}/>
         </div>
       </div>
     </div>
