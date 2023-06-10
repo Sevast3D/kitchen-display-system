@@ -1,0 +1,168 @@
+.desk-text-kitchen {
+  position: relative;
+  line-height: 120%;
+}
+.desk-top-kitchen {
+  align-self: stretch;
+  background-color: var(--color-darkgray);
+  height: 42px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.desk-text-kitchen1 {
+  position: relative;
+  line-height: 100%;
+}
+.hour-text-kitchen {
+  position: relative;
+  font-size: var(--font-size-sm);
+  line-height: 120%;
+}
+.number-container-kitchen {
+  align-self: stretch;
+  background-color: var(--color-silver);
+  display: flex;
+  flex-direction: column;
+  padding: 0 0 var(--padding-8xs);
+  align-items: center;
+  justify-content: flex-start;
+  font-size: var(--font-size-77xl);
+}
+.category-name-kitchen {
+  background-color: var(--color-darkgray);
+  width: 210px;
+  height: 25px;
+  display: flex;
+  flex-direction: row;
+  padding: 0 var(--padding-3xs);
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+}
+.amount-kitchen,
+.name-kitchen {
+  position: relative;
+  line-height: 120%;
+  font-weight: 500;
+}
+.name-kitchen {
+  color: var(--color-gray-100);
+}
+.product-details-kitchen {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-3xs);
+}
+.x-kitchen-icon {
+  position: relative;
+  width: 14px;
+  height: 14px;
+}
+.main-details-container-kitchen,
+.remove-product-kitchen {
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  align-items: center;
+}
+.remove-product-kitchen {
+  border-radius: var(--br-5xs);
+  width: 30px;
+  height: 30px;
+  padding: var(--padding-3xs);
+  justify-content: center;
+}
+.main-details-container-kitchen {
+  width: 210px;
+  padding: 0 var(--padding-xl);
+  justify-content: space-between;
+}
+.alergic-kitchen,
+.description-text-kitchen {
+  align-self: stretch;
+  position: relative;
+  line-height: 120%;
+}
+.alergic-kitchen {
+  color: var(--color-crimson);
+}
+.specification-kitchen {
+  width: 210px;
+  padding: 0 var(--padding-11xl);
+  box-sizing: border-box;
+  align-items: flex-start;
+  text-align: left;
+  font-size: var(--font-size-xs);
+  color: var(--color-mediumslateblue);
+}
+.order-details-kitchen,
+.product-kitchen,
+.specification-kitchen {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.product-kitchen {
+  align-items: flex-start;
+  font-size: var(--font-size-base);
+  color: var(--color-black);
+}
+.order-details-kitchen {
+  background-color: var(--color-white);
+  overflow: hidden;
+  align-items: center;
+  font-size: var(--font-size-sm);
+}
+.button-icon-kitchen {
+  position: absolute;
+  top: 13.13px;
+  left: 28px;
+  width: 11px;
+  height: 13.75px;
+}
+.button-text-kitchen {
+  position: absolute;
+  top: 10.5px;
+  left: 47px;
+  font-size: var(--font-size-base);
+  line-height: 120%;
+  font-family: var(--font-inter);
+  color: var(--color-black);
+  text-align: center;
+}
+.button-kitchen {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background-color: var(--color-salmon);
+  position: relative;
+  border-radius: var(--br-xs);
+  width: 180px;
+  height: 40px;
+}
+.button-container-kitchen,
+.desk-kitchen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+.button-container-kitchen {
+  align-self: stretch;
+  padding: var(--padding-3xs) var(--padding-mini) 13px;
+}
+.desk-kitchen {
+  position: relative;
+  border-radius: var(--br-5xl);
+  background-color: var(--color-white);
+  width: 100%;
+  overflow: hidden;
+  text-align: center;
+  font-size: var(--font-size-5xl);
+  color: var(--color-white);
+  font-family: var(--font-inter);
+}
