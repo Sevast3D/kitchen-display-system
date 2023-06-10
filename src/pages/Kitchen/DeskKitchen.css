@@ -11,6 +11,13 @@
   align-items: center;
   justify-content: center;
 }
+
+.top-orange{
+  background-color: #DB7C0D;
+}
+.top-red{
+  background-color: #C95353;
+}
 .desk-text-kitchen1 {
   position: relative;
   line-height: 100%;
@@ -29,6 +36,14 @@
   align-items: center;
   justify-content: flex-start;
   font-size: var(--font-size-77xl);
+}
+
+.body-red{
+  background-color: #D76666;
+}
+
+.body-orange{
+ background-color: #FF9900; 
 }
 .category-name-kitchen {
   background-color: var(--color-darkgray);
@@ -49,6 +64,7 @@
 }
 .name-kitchen {
   color: var(--color-gray-100);
+  
 }
 .product-details-kitchen {
   display: flex;
@@ -75,6 +91,8 @@
   height: 30px;
   padding: var(--padding-3xs);
   justify-content: center;
+  
+  text-decoration-line: line-through !important;
 }
 .main-details-container-kitchen {
   width: 210px;
@@ -118,16 +136,10 @@
   font-size: var(--font-size-sm);
 }
 .button-icon-kitchen {
-  position: absolute;
-  top: 13.13px;
-  left: 28px;
-  width: 11px;
+  width: auto;
   height: 13.75px;
 }
 .button-text-kitchen {
-  position: absolute;
-  top: 10.5px;
-  left: 47px;
   font-size: var(--font-size-base);
   line-height: 120%;
   font-family: var(--font-inter);
@@ -143,7 +155,33 @@
   border-radius: var(--br-xs);
   width: 180px;
   height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
+.button-kitchen-done {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background-color: #93D36C;
+  position: relative;
+  border-radius: var(--br-xs);
+  width: 180px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.button-kitchen:hover{
+  opacity: 85%;
+}
+.button-kitchen-done:hover{
+  opacity: 85%;
+}
+
 .button-container-kitchen,
 .desk-kitchen {
   display: flex;
@@ -159,10 +197,19 @@
   position: relative;
   border-radius: var(--br-5xl);
   background-color: var(--color-white);
-  width: 100%;
+  width: 210px;
   overflow: hidden;
   text-align: center;
   font-size: var(--font-size-5xl);
   color: var(--color-white);
   font-family: var(--font-inter);
+  
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.10);
+  flex: 0 0 auto;
+  margin-bottom: 20px;
+  margin-left: 20px;
+}
+
+.line-through{
+  text-decoration-line: line-through !important;
 }

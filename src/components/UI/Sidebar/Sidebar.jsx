@@ -10,6 +10,7 @@ import emptyDesk from "./assets/icons/emptyDesk.png"
 import Payment from "./assets/icons/payment.png"
 import Clock from "../Reservation/assets/clock.png"
 import Settings from "./assets/icons/settings.png"
+import Kitchen from "./assets/icons/kitchen.png"
 
 import Reservation from "../Reservation/AddReservation"
 
@@ -21,11 +22,16 @@ const Sidebar = ({ children }) => {
     setReservationOpen(!isReservatonOpen);
   };
 
-  const menuItem = [
+  const menuItem = [    
     {
       path: '/w',
       name: 'All Desks',
       icon: home
+    },
+    {
+      path: '/kitchen',
+      name: 'Kitchen',
+      icon: Kitchen
     },
     {
       path: '/empty',

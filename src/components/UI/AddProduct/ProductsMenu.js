@@ -40,8 +40,8 @@ const ProductsMenu = ({ showPopup, onClose }) => {
             Product’s Menu
           </p>
           <button className="x1" id="close-btn" onClick={onClose}>
-            <img className="vector-icon3" alt="" src="/vector3.svg" />
-            <img className="vector-icon3" alt="" src="/vector4.svg" />
+            <img className="vector-icon-ProductMenu" alt="" src="/vector3.svg" />
+            <img className="vector-icon-ProductMenu" alt="" src="/vector4.svg" />
           </button>
         </div>
         <input className="cleaning-msg" type="text" placeholder="Search" />

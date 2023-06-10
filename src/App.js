@@ -11,6 +11,7 @@ import Members from './pages/Members/Members';
 import Empty from './pages/EmptyDesks';
 import Payment from './pages/ForPayments';
 import Settings from './pages/Settings/Settings';
+import Kitchen from './pages/Kitchen/Kitchen';
 
 
 function App() {
@@ -53,6 +54,12 @@ function App() {
         <RouteWithSidebar
           path="/settings"
           component={Settings}
+          onToggleSidebar={handleToggleSidebar}
+          showSidebar={showSidebar}
+        />
+        <RouteWithSidebar
+          path="/kitchen"
+          component={Kitchen}
           onToggleSidebar={handleToggleSidebar}
           showSidebar={showSidebar}
         />

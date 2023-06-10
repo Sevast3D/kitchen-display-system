@@ -4,6 +4,7 @@ import "./Settings.css"
 
 import DeskMenu from "../../components/UI/SettingDeskInfo/DeskMenu"
 import AddProduct from '../../components/UI/AddProduct/ProductsMenu';
+import Profile from '../../components/UI/LoggedProfile/Profile'
 
 import toggleIcon from '../../components/UI/Sidebar/assets/icons/sidebar-toggle.png'
 import iconSettings from './assets/iconSetting.png'
@@ -25,6 +26,7 @@ function Settings({ onToggleSidebar }) {
         <button onClick={onToggleSidebar} className='btn-brown btn-hide-sidebar'>
           <img src={toggleIcon} className="icon" alt=''></img>
         </button>
+        <Profile />
       </div>
       <div className='container-settings'>
         <div className="font-size-42 bold title-settings">
