@@ -1,9 +1,12 @@
-import { React, useEffect, useRef, useState } from "react";
+import { React, useContext, useEffect, useRef, useState } from "react";
 import { useHistory } from 'react-router-dom';
+
 
 import './LoginWidget.css'
 
 import logo from '../assets/Logo.png';
+import { AuthContext, useAuth } from "../config/AuthContext";
+import Login from "../pages/Login/Login";
 
 function LoginWidget() {
   const history = useHistory();
@@ -12,8 +15,9 @@ function LoginWidget() {
   const [error, setError] = useState("")
 
   const [data, setData] = useState(null);
-  const [val, setVal] = useState('');
   const [fetchData, setFetch] = useState(false);
+
+  const { userInfo, setUserInfo, isLoggedIn, setIsLoggedIn } = useAuth();
 
 
   useEffect(() => {
@@ -54,32 +58,55 @@ function LoginWidget() {
     // fetch('http://localhost:8080/users/registration', payload)
     //   .then((res) => console.log(res.json()))
     //   .then((data) => setData(data.id));
-    
-    console.log(email);
-    console.log(password);
-    
-      const login = {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json, text/plain',
-          'Content-Type': 'application/json;charset=UTF-8',
-          'Bearer-Token': 'token-value'
-        },
-        body: JSON.stringify({
+
+    // console.log(email);
+    // console.log(password);
+
+    const login = {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json, text/plain',
+        'Content-Type': 'application/json;charset=UTF-8',
+        'Bearer-Token': 'token-value'
+      },
+      body: JSON.stringify({
         email: email,
-        password: password }),
-      }
-      fetch('http://localhost:8080/users/login', login)
-        .then((res) => console.log(res.json()))
-        .then((data) => setData(data.id));
-
-
-    if (email === "test" && password === "123") {
-      setError("Values match!");
-      // waiter();
-    } else {
-      setError("Error! Values do not match.");
+        password: password
+      }),
     }
+    fetch('http://localhost:8080/users/login', login)
+      .then(res => {
+        if (res.ok) {
+          setError("Values match!");
+          waiter();
+          return res.json();
+        } else {
+          setError("Error! Values do not match.");
+          throw new Error('Login failed!');
+        }
+      })
+      .then((data) => {
+        sessionStorage.setItem('token', data.accessToken);
+        const mappedData = {
+          userId: data.userId,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          email: data.email,
+          phoneNumber: data.phoneNumber,
+          profileImage: data.profileImage,
+          role: data.role
+        };
+        setData(mappedData);
+        console.log(mappedData);
+        sessionStorage.setItem('userInfo', JSON.stringify(userData));
+        // isLoggedIn(true);
+        // setUserInfo(mappedData);
+        // loginUser(mappedData);
+      })
+      .catch(error => {
+        // Handle the error
+        console.error(error);
+      });
   };
   return (
     <div className='loginFrame'>

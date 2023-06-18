@@ -6,13 +6,44 @@ import UserView from "../../components/UI/Members/UserViewMemberList.js"
 import "./Members.css"
 import toggleIcon from '../../components/UI/Sidebar/assets/icons/sidebar-toggle.png'
 import Profile from '../../components/UI/LoggedProfile/Profile.js'
+import { useEffect } from 'react';
 
 function Members({ onToggleSidebar }) {
-  const [allMembers, setAllMembers] = useState([["Cristina", "Constantinescu", "constantinescucristi@gmail.com", "+23123123", "/user-image-memebers-view@2x.png", "1234", 1], ["Alex", "Cristian Ionescu", "exampleemail@gmail.com", "+702311223", "/user-image-memeber2.png", "1234", 3], ["Adelina", "Popescu", "popescuadelina@gmail.com", "+4079021223", "/user-image-memeber3.png", "1234", 2]])
+  // const [allMembers, setAllMembers] = useState([["Cristina", "Constantinescu", "constantinescucristi@gmail.com", "+23123123", "/user-image-memebers-view@2x.png", "1234", 1], ["Alex", "Cristian Ionescu", "exampleemail@gmail.com", "+702311223", "/user-image-memeber2.png", "1234", 3], ["Adelina", "Popescu", "popescuadelina@gmail.com", "+4079021223", "/user-image-memeber3.png", "1234", 2]])
+  const [allMembers, setAllMembers] = useState([]);
   const [admins, setAdmins] = useState([["Alex", "Cristian Ionescu", "exampleemail@gmail.com", "+702311223", "/user-image-memeber2.png", "1234", 3]])
 
   const [activeKey, setActiveKey] = useState('link-0');
   const handleSelect = (eventKey) => setActiveKey(eventKey);
+
+//await send http setProduct status
+//fetchProducts get from back all products status 
+//fetchDeskStatus get from back desk 
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const getAllUsers = {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json, text/plain',
+          'Content-Type': 'application/json;charset=UTF-8',
+          Authorization: `Bearer ${sessionStorage.getItem('token')}`,
+        },
+      }
+      const response = await fetch('http://localhost:8080/users', getAllUsers)
+      const data = await response.json();
+      const formattedData = await data.map((user) => ({
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        phoneNumber: user.phoneNumber,
+        profileImage: user.profileImage,
+        role: user.role,
+      }))
+      setAllMembers(formattedData);
+    }
+    fetchData();
+  }, []);
 
   return (
     <div>

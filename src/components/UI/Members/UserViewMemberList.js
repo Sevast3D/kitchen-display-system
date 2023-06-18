@@ -15,6 +15,8 @@ const UserViewMemberList = ({userData}) => {
     setUserInfoPopup(!isUserInfoPopup)
   }
 
+  console.log(userData);
+
   return (
     <div className="user-view-member-list">
       <div className="user-profile-container-parent">
@@ -22,10 +24,10 @@ const UserViewMemberList = ({userData}) => {
           <img
             className="user-image-memebers-view"
             alt=""
-            src={userData[4]} 
+            src={userData.profileImage} 
           />
-          <div className="user-name-member">{userData[0]} {userData[1]}</div>
-          <b className="phone-number-member">{userData[3]}</b>
+          <div className="user-name-member">{userData.firstName} {userData.lastName}</div>
+          <b className="phone-number-member">{userData.phoneNumber}</b>
         </div>
         <DropdownButton
           className="profile-info"
