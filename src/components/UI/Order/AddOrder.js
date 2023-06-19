@@ -9,10 +9,11 @@ import "./AddOrder.css";
 
 import Eat from "./Assets/eat1.svg";
 
-const MenuAppetizers = [[2, "Burger Vita si Pui", "./product-image@2x.png", 26.59, "Cola 0.5, Carne Vita Mediu, Cartofi", 0],
-[4, "Shaorma Mare", "./shaorma.png", 11.59, "Pui, Lipie, Restu'", 0], [4, "Shaorma Mare", "./shaorma.png", 11.59, "Pui, Lipie, Restu'", 0], [4, "Shaorma Mare", "./shaorma.png", 11.59, "Pui, Lipie, Restu'", 0], [4, "Shaorma Mare", "./shaorma.png", 11.59, "Pui, Lipie, Restu'", 0], [4, "Shaorma Mare", "./shaorma.png", 11.59, "Pui, Lipie, Restu'", 0]]
+const MenuAppetizers = [{id: 2, nameProdus: "Burger Vita si Pui", img:"./product-image@2x.png", price: 26.59, components: "Cola 0.5, Carne Vita Mediu, Cartofi", category: 0},
+{id: 4, nameProdus: "Shaorma Mare", img: "./shaorma.png", price: 11.59, componets: "Pui, Lipie, Restu'", category: 0}]
 
-const MenuEntrees = [[5, "Salata cu de Toate", "./Salata1.jpg", 34.59, "Branza, salata, rosii, masline verzi, arder gras, avocado.", 1]];
+// const MenuEntrees = [[5, "Salata cu de Toate", "./Salata1.jpg", 34.59, "Branza, salata, rosii, masline verzi, arder gras, avocado.", 1]];
+const MenuEntrees = [];
 
 const AddOrder = ({ list, showPopup, onClose }) => {
   const [isProductViewPopupOpen, setProductViewPopupOpen] = useState(false);
@@ -63,30 +64,24 @@ const AddOrder = ({ list, showPopup, onClose }) => {
               MenuAppetizers.map(item => (
                 <div className="product-view1 gray-overlay"
                   id="product"
-                  onClick={() => handleOpenProduct(item)}>
-                  <img
-                    className="product-image-icon1"
-                    alt=""
-                    src={item[2]}
-                  />
+                  onClick={() => handleOpenProduct(item)}
+                  key={item.id}>
+                  <img className="product-image-icon1" alt="" src={item.img} />
                   <div className="text-cantainer" id="text-container">
                     <p className="product_name" id="product_name">
-                      {item[1]}
+                      {item.nameProdus}
                     </p>
                   </div>
                 </div>
               ))}
             <ProductView itemDetails={itemDetails} openProductViewPopup={isProductViewPopupOpen} onClose={handleOpenProduct} />
             {activeKey === 'link-1' &&
-              MenuEntrees.map(item => (
+              MenuEntrees.map((item, key) => (
                 <div className="product-view1 gray-overlay"
                   id="product"
-                  onClick={() => handleOpenProduct(item)}>
-                  <img
-                    className="product-image-icon1"
-                    alt=""
-                    src={item[2]}
-                  />
+                  onClick={() => handleOpenProduct(item)}
+                  key={item.id}>
+                  <img className="product-image-icon1" alt="" src={item[2]} />
                   <div className="text-cantainer" id="text-container">
                     <p className="product_name" id="product_name">
                       {item[1]}
@@ -97,7 +92,7 @@ const AddOrder = ({ list, showPopup, onClose }) => {
             <ProductView itemDetails={itemDetails} openProductViewPopup={isProductViewPopupOpen} onClose={handleOpenProduct} />
           </div>
           <div>
-            {list.map(item => (
+            {list.map((item) => (
               <p className="font-size-16 text-black">- {item[1]}</p>
             ))}
           </div>

@@ -27,7 +27,6 @@ const AuthProvider = ({ children }) => {
     // Set user information
     // setUserInfo(userData);
     setUserInfo(userData);
-    sessionStorage.setItem('userInfo', JSON.stringify(userData));
   };
 
   const logout = () => {

@@ -1,12 +1,13 @@
 import { React, useContext, useEffect, useRef, useState } from "react";
 import { useHistory } from 'react-router-dom';
-
+import { signInWithEmailAndPassword } from 'firebase/auth'
 
 import './LoginWidget.css'
 
 import logo from '../assets/Logo.png';
-import { AuthContext, useAuth } from "../config/AuthContext";
 import Login from "../pages/Login/Login";
+import { useAuth } from "../config/AuthContext";
+import { auth, writeUserData } from "../firebase";
 
 function LoginWidget() {
   const history = useHistory();
@@ -14,19 +15,9 @@ function LoginWidget() {
   const passwordRef = useRef();
   const [error, setError] = useState("")
 
-  const [data, setData] = useState(null);
-  const [fetchData, setFetch] = useState(false);
+  const [userData, setUserData] = useState(null);
 
-  const { userInfo, setUserInfo, isLoggedIn, setIsLoggedIn } = useAuth();
-
-
-  useEffect(() => {
-    if (fetchData) {
-
-    }
-
-  }, [fetchData]);
-
+  // const { errorAuth, SignUp, currentUser} = useAuth();
 
   const waiter = () => {
     history.push('/w',);
@@ -35,32 +26,6 @@ function LoginWidget() {
   const verifyValues = () => {
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
-
-    const userData = {
-      firstName: "Logan",
-      lastName: "Wolverin",
-      email: "logan@gmail.com",
-      phoneNumber: "+340604023",
-      password: "123456"
-    }
-    // const payload = {
-    //   method: 'POST',
-    //   headers: {
-    //     'Accept': 'application/json, text/plain',
-    //     'Content-Type': 'application/json;charset=UTF-8'
-    //   },
-    //   body: JSON.stringify({ firstName: "Logan",
-    //   lastName: "Wolverin",
-    //   email: "logan@gmail.com",
-    //   phoneNumber: "+340604023",
-    //   password: "123456" }),
-    // }
-    // fetch('http://localhost:8080/users/registration', payload)
-    //   .then((res) => console.log(res.json()))
-    //   .then((data) => setData(data.id));
-
-    // console.log(email);
-    // console.log(password);
 
     const login = {
       method: 'POST',
@@ -74,39 +39,55 @@ function LoginWidget() {
         password: password
       }),
     }
-    fetch('http://localhost:8080/users/login', login)
-      .then(res => {
-        if (res.ok) {
-          setError("Values match!");
-          waiter();
-          return res.json();
-        } else {
-          setError("Error! Values do not match.");
-          throw new Error('Login failed!');
-        }
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user.uid;
+        sessionStorage.setItem('userUID', user);
+        // console.log(userCredential.user.email);
+        // writeUserData(user, userCredential.user.userId, userCredential.user.firstName, userCredential.user.lastName, userCredential.user.email, userCredential.user.phoneNumber, userCredential.user.profileImage, userCredential.user.role);
+        fetch('http://localhost:8080/users/login', login)
+          .then(res => {
+            if (res.ok) {
+              setError("");
+
+              return res.json();
+            } else {
+              setError("Error! Values do not match.");
+              throw new Error('Login failed!');
+            }
+          })
+          .then((data) => {
+            sessionStorage.setItem('token', data.accessToken);
+            const mappedData = {
+              userId: data.userId,
+              firstName: data.firstName,
+              lastName: data.lastName,
+              email: data.email,
+              phoneNumber: data.phoneNumber,
+              profileImage: data.profileImage,
+              role: data.role
+            };
+            setUserData(mappedData);
+            return mappedData
+          })
+          .then((mappedData) => {
+            if (error === "") {
+              const user = sessionStorage.getItem('userUID');
+              const { userId, firstName, lastName, email, phoneNumber, profileImage, role } = mappedData;
+              writeUserData(user, userId, firstName, lastName, email, phoneNumber, profileImage, role);
+              waiter();
+            }
+          })
+          .catch(error => {
+            // Handle the error
+            console.error(error);
+          });
       })
-      .then((data) => {
-        sessionStorage.setItem('token', data.accessToken);
-        const mappedData = {
-          userId: data.userId,
-          firstName: data.firstName,
-          lastName: data.lastName,
-          email: data.email,
-          phoneNumber: data.phoneNumber,
-          profileImage: data.profileImage,
-          role: data.role
-        };
-        setData(mappedData);
-        console.log(mappedData);
-        sessionStorage.setItem('userInfo', JSON.stringify(userData));
-        // isLoggedIn(true);
-        // setUserInfo(mappedData);
-        // loginUser(mappedData);
+      .catch((error) => {
+        setError(error.code)
       })
-      .catch(error => {
-        // Handle the error
-        console.error(error);
-      });
+
   };
   return (
     <div className='loginFrame'>

@@ -14,11 +14,11 @@ const ProductView = ({ itemDetails, openProductViewPopup, onClose }) => {
   const specRef = useRef();
 
   useEffect(() => {
-    setPrice(itemDetails[3]);
+    setPrice(itemDetails.price);
     // console.log(orderList)
   }, [itemDetails]);
 
-  let productPrice = itemDetails[3];
+  let productPrice = itemDetails.price;
 
   const handleIncrease = () => {
     setCounter(counter + 1);
@@ -38,7 +38,7 @@ const ProductView = ({ itemDetails, openProductViewPopup, onClose }) => {
   const addProduct = () => {
     setCounter(1);
     const spec = specRef.current.value;
-    setOrderList([...orderList, itemDetails[5], itemDetails[1], spec]);
+    setOrderList([...orderList, itemDetails.components, itemDetails.nameProdus, spec]);
     console.log(orderList);
     setShowAddOrder(true);
   }
@@ -55,11 +55,11 @@ const ProductView = ({ itemDetails, openProductViewPopup, onClose }) => {
           className="product-image-icon"
           alt=""
           id="product_image"
-          src={itemDetails[2]}
+          src={itemDetails.img}
         />
         <div className="product-main" id="product_data_container">
           <p className="amount" id="product_name">
-            {itemDetails[1]}
+            {itemDetails.nameProdus}
           </p>
           <p className="lei" id="price">
             {Number(price).toFixed(2) + " lei"}
@@ -79,7 +79,7 @@ const ProductView = ({ itemDetails, openProductViewPopup, onClose }) => {
         </div>
         <div>
           <p className="font-size-16 buttons">
-            {itemDetails[4]}
+            {itemDetails.components}
           </p>
         </div>
         <Form.Group className="textareastandard-formgroup">

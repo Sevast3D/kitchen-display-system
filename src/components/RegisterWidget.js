@@ -1,22 +1,104 @@
-import {React, useRef} from 'react'
+import { React, useRef, useState } from 'react'
+import { useHistory } from 'react-router-dom';
+
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth, writeUserData } from "../firebase";
 
 import './LoginWidget.css'
 
 import logo from '../assets/Logo.png'
 
 const LoginWidget = () => {
-  
+
   const passwordRef = useRef();
   const emailRef = useRef();
-  const firstName = useRef();
-  const lastName = useRef();
-  const phoneNumber = useRef();
+  const firstNameRef = useRef();
+  const lastNameRef = useRef();
+  const phoneNumberRef = useRef();
+
+  const history = useHistory();
+  const [error, setError] = useState("");
+
+  const [profileImage, setProfileImage] = useState("image");
+  const [role, setRole] = useState("WAITER")
+  const [userData, setUserData] = useState(null);
 
   const handleRegister = () => {
+    const firstName = firstNameRef.current.value;
+    const lastName = lastNameRef.current.value;
+    const phoneNumber = phoneNumberRef.current.value;
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
 
+
+    const register = {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json, text/plain',
+        'Content-Type': 'application/json;charset=UTF-8',
+        'Bearer-Token': 'token-value'
+      },
+      body: JSON.stringify({
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        phoneNumber: phoneNumber,
+        password: password
+      }),
+    }
+    if(phoneNumber.length > 8 ){
+      createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const userUID = userCredential.user.uid;
+        sessionStorage.setItem('userUID', userUID);
+        // console.log(userCredential)
+        // history.push("/")
+
+        fetch('http://localhost:8080/users/registration', register)
+          .then(res => {
+            if (res.ok) {
+              setError("");
+              return res.json();
+            } else {
+              setError("Registration Error!");
+            }
+          })
+          .then(async (data) => {
+            sessionStorage.setItem('token', data.accessToken);
+            const mappedData = {
+              userId: data.userId,
+              firstName: data.firstName,
+              lastName: data.lastName,
+              email: data.email,
+              phoneNumber: data.phoneNumber,
+              profileImage: data.profileImage,
+              role: data.role
+            };
+            setUserData(mappedData);
+            return mappedData;
+          })
+          .then((async (mappedData) => {
+            const user = sessionStorage.getItem('userUID');
+            const { userId, firstName, lastName, email, phoneNumber, profileImage, role } = mappedData;
+            await Promise.resolve(writeUserData(user, userId, firstName, lastName, email, phoneNumber, profileImage, role));
+            await Promise.resolve(waiter());
+          }))
+          .catch(error => {
+            // Handle the error
+            console.error(error);
+          });
+
+      }).catch((error) => {
+        // Erorr Firebase
+        setError(error.code);
+      })
+
+    }
   }
+
+  const waiter = () => {
+    history.push('/w',);
+  };
 
   return (
     <div className='loginFrame'>
@@ -30,16 +112,16 @@ const LoginWidget = () => {
         <div className='double'>
           <div className='framesmall'>
             <p >First Name</p>
-            <input id='first-name-input' className='input-gray font-size-16' ref={firstName}></input>
+            <input id='first-name-input' className='input-gray font-size-16' ref={firstNameRef}></input>
           </div>
           <div className='framesmall'>
             <p >Last Name</p>
-            <input id='last-name-input' className='input-gray font-size-16' ref={lastName}></input>
+            <input id='last-name-input' className='input-gray font-size-16' ref={lastNameRef}></input>
           </div>
         </div>
         <div className='frame'>
           <p >Phone Number</p>
-          <input id='phone-input' className='input-gray font-size-16' type='number' ref={phoneNumber}></input>
+          <input id='phone-input' className='input-gray font-size-16' type='number' ref={phoneNumberRef}></input>
         </div>
         <div className='frame'>
           <p >Email</p>
@@ -47,13 +129,13 @@ const LoginWidget = () => {
         </div>
         <div className='frame'>
           <p>Password</p>
-          <input className='input-gray font-size-16' type='password'></input>
+          <input className='input-gray font-size-16' type='password' ref={passwordRef}></input>
         </div>
       </div>
       {/* Error Line with Login & Forgot Btn */}
       <div className='frame-column-center btnFrame gap-10 font-size-16'>
-        <p id='error-msg' className='text-red'>Error! Please try again.</p>
-        <button className='btn-orange font-size-16 bold'>Register</button>
+        <p id='error-msg' className='text-red'>{error}</p>
+        <button className='btn-orange font-size-16 bold' onClick={handleRegister}>Register</button>
         <a href='/' className='text-gray'>Back</a>
       </div>
     </div>
