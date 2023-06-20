@@ -27,7 +27,7 @@ const UserViewMemberList = ({userData}) => {
             src={userData.profileImage} 
           />
           <div className="user-name-member">{userData.firstName} {userData.lastName}</div>
-          <b className="phone-number-member">{userData.phoneNumber}</b>
+          <b className="phone-number-member">{`+ ${userData.phoneNumber}`}</b>
         </div>
         <DropdownButton
           className="profile-info"

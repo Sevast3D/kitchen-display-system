@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
+import { auth } from './firebase';
 
 import './pages/Waiter/Waiter.css'
+
 
 import Sidebar from './components/UI/Sidebar/Sidebar';
 import Login from './pages/Login/Login';
@@ -19,7 +21,6 @@ function App() {
 
   const handleToggleSidebar = () => {
     setShowSidebar(!showSidebar);
-    console.log(showSidebar)
   };
 
   return (
@@ -27,37 +28,38 @@ function App() {
       <Switch>
         <Route exact path="/" component={Login} />
         <Route exact path="/register" component={Register} />
-        <RouteWithSidebar
+
+        <PrivateRouteWithSidebar
           path="/w"
           component={Waiter}
           onToggleSidebar={handleToggleSidebar}
           showSidebar={showSidebar}
         />
-        <RouteWithSidebar
+        <PrivateRouteWithSidebar
           path="/members"
           component={Members}
           onToggleSidebar={handleToggleSidebar}
           showSidebar={showSidebar}
         />
-        <RouteWithSidebar
+        <PrivateRouteWithSidebar
           path="/empty"
           component={Empty}
           onToggleSidebar={handleToggleSidebar}
           showSidebar={showSidebar}
         />
-        <RouteWithSidebar
+        <PrivateRouteWithSidebar
           path="/payment"
           component={Payment}
           onToggleSidebar={handleToggleSidebar}
           showSidebar={showSidebar}
         />
-        <RouteWithSidebar
+        <PrivateRouteWithSidebar
           path="/settings"
           component={Settings}
           onToggleSidebar={handleToggleSidebar}
           showSidebar={showSidebar}
         />
-        <RouteWithSidebar
+        <PrivateRouteWithSidebar
           path="/kitchen"
           component={Kitchen}
           onToggleSidebar={handleToggleSidebar}
@@ -68,6 +70,7 @@ function App() {
   );
 }
 
+// Route for no login perm page
 function RouteWithSidebar({ path, component: Component, onToggleSidebar, showSidebar }) {
   return (
     <>
@@ -78,5 +81,49 @@ function RouteWithSidebar({ path, component: Component, onToggleSidebar, showSid
     </>
   );
 }
+
+// Custom PrivateRouteWithSidebar component for authenticated routes
+function PrivateRouteWithSidebar({ path, component: Component, onToggleSidebar, showSidebar }) {
+  const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setUser(user);
+      setIsLoading(false)
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  if (isLoading) {
+
+    // Display a loading state while checking the authentication state
+    return (
+      <div className='spinner-wrapper flex-row gap-10'>
+        <div className="spinner-border text-warning">
+        </div>
+          <span className='text-orange h4'>
+            Loading..
+          </span>
+      </div>
+    )
+  }
+
+  return (
+    <>
+      <div className={`sidebar-frame ${showSidebar ? '' : 'hide'} `}><Sidebar /></div>
+      <div className={showSidebar ? 'page-container' : 'page-container-full'}>
+        <Route path={path} render={(props) =>
+          user ?
+
+            (<Component {...props} onToggleSidebar={onToggleSidebar} />) :
+            (<Redirect to="/" />)
+        } />
+      </div>
+    </>
+  );
+}
+
 
 export default App;
