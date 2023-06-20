@@ -118,7 +118,7 @@ export async function writeUserData(userUID, userId, firstName, lastName, email,
       return user.uid;
     }
   }
-// uploadImage to Storage
+// uploadImage to Storage by User
   export function uploadImage(userId, image) {
     const storage = getStorage();
     const imageRef = storageRef(storage, `users/${userId}/profileImage`);
@@ -138,4 +138,16 @@ export async function writeUserData(userUID, userId, firstName, lastName, email,
           reject(error.message);
         });
     });
+  }
+
+// Get image URL
+  export async function getImageURL(imagePath) {
+    try {
+      const imageRef = storageRef(storage, imagePath);
+      const downloadURL = await getDownloadURL(imageRef);
+      return downloadURL;
+    } catch (error) {
+      console.error(error);
+      throw new Error('Failed to retrieve image URL.');
+    }
   }

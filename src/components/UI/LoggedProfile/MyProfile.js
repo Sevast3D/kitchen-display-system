@@ -4,6 +4,8 @@ import { useState, useEffect, useRef } from 'react';
 import { changeEmail, changePassword, getUserData, writeUserData, auth, storage, uploadImage } from "../../../firebase";
 import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage";
 
+import noProfilePic from './assets/user-no-image.png'
+
 const MyProfile = ({ showPopup, onClose }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [profileData, setUserData] = useState([]);
@@ -13,7 +15,7 @@ const MyProfile = ({ showPopup, onClose }) => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("")
-  const [editData, setEditData] = useState(false);
+  const [editData, setEditData] = useState(true);
 
   const passwordRef = useRef();
   const passwordRepetRef = useRef();
@@ -37,7 +39,7 @@ const MyProfile = ({ showPopup, onClose }) => {
 
         setIsLoading(false);
       })
-      setImage(profileData.profileImage)
+    setImage(profileData.profileImage)
     // const storage = getStorage();
     // const imageRef = storageRef(storage, `users/${profileData.userUID}/profileImage`);
     // getDownloadURL(imageRef)
@@ -88,71 +90,86 @@ const MyProfile = ({ showPopup, onClose }) => {
     const user = sessionStorage.getItem('userUID');
 
     // Upload Image to Storage
-    if (image) {
-      uploadImage(user, image)
-        .then((imageURL) => {
+    async function uploadImageToStorage() {
+      if (image) {
+        // console.log("old  Image:" + profileImage)
+        try {
+          const imageURL = await uploadImage(user, image);
           setImageURL(imageURL);
           profileImage = imageURL;
+          // console.log("new  Image:" + profileImage)
           setImage(null);
-        })
-        .catch((error) => {
+        } catch (error) {
           console.log(error);
-        });
+        }
+      } else {
+        console.log('No Image')
+        setImageURL(profileImage)
+      }
+    }
+
+    // Call the uploadIUserData function and wait for it to complete
+    async function updateUserData() {
+      // 
+      await uploadImageToStorage();
+      // console.log("Continue")
+
+      const updateUser = {
+        method: 'PUT',
+        headers: {
+          'Accept': 'application/json, text/plain',
+          'Content-Type': 'application/json;charset=UTF-8',
+          'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+        },
+        body: JSON.stringify({
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          phoneNumber: phoneNumber,
+          password: password,
+          profileImage: profileImage,
+          role: profileData.role
+        }),
+      }
+
+      // Update user Email in firebase
+      async function handleEmailChange(newEmail) {
+        try {
+          changeEmail(newEmail);
+        } catch (error) {
+          setError("Test:" + error);
+          setEditData(false)
+        }
+      }
+      if (emailInput.length !== 0) {
+        handleEmailChange(email);
+      }
+
+      if (editData) {
+        fetch(`http://localhost:8080/users/${profileData.userId}`, updateUser)
+          .then(res => {
+            if (res.ok) {
+              const user = sessionStorage.getItem('userUID');
+              // Update logged user values
+              // console.log("ProfileImage END: " + profileImage)
+              // console.log("Image END: " + imageURL)
+              writeUserData(user, profileData.userId, firstName, lastName, email, phoneNumber, profileImage, profileData.role);
+              changePassword(password);
+              handleSave();
+              return null;
+            } else {
+              setError('Update user Data Failed on Backend!');
+            }
+          })
+          .catch(error => {
+            // Handle the error
+            console.error(error);
+          });
       }else{
-        setImageURL(profileImage) 
-      }
-
-    const updateUser = {
-      method: 'PUT',
-      headers: {
-        'Accept': 'application/json, text/plain',
-        'Content-Type': 'application/json;charset=UTF-8',
-        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-      },
-      body: JSON.stringify({
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        phoneNumber: phoneNumber,
-        password: password,
-        profileImage: imageURL,
-        role: profileData.role
-      }),
-    }
-
-    // Update user Email in firebase
-    async function handleEmailChange(newEmail) {
-      try {
-        changeEmail(newEmail);
-      } catch (error) {
-        setError("Test:" + error);
-        setEditData(false)
+        console.log("Editdat off")
       }
     }
-    if (emailInput.length !== 0) {
-      handleEmailChange(email);
-    }
-
-    if (editData) {
-      fetch(`http://localhost:8080/users/${profileData.userId}`, updateUser)
-        .then(res => {
-          if (res.ok) {
-            const user = sessionStorage.getItem('userUID');
-            // Update logged user values
-            console.log(profileImage)
-            writeUserData(user, profileData.userId, firstName, lastName, email, phoneNumber, profileImage, profileData.role);
-            changePassword(password);
-            handleSave();
-            return null;
-          } else {
-            setError('Update user Data Failed on Backend!');
-          }
-        })
-        .catch(error => {
-          // Handle the error
-          console.error(error);
-        });
-    }
+      updateUserData();
   }
 
   const handleCheckValues = () => {
@@ -180,13 +197,13 @@ const MyProfile = ({ showPopup, onClose }) => {
   }
 
   const handleSave = () => {
-    // Add your save logic here
+    // Add save logic here
     window.location.reload();
   };
 
   const handleClose = () => {
     if (isEditing) {
-      window.location.reload();
+      // window.location.reload();
     } else {
       onClose();
     }
@@ -204,11 +221,11 @@ const MyProfile = ({ showPopup, onClose }) => {
         </div>
         <div className="main-container2" id="products_container">
           <div className="left-side-contrainer2">
-              <img
-                className="user-image-view-user2"
-                alt=""
-                src={profileData.profileImage}
-              />
+            <img
+              className="user-image-view-user2"
+              alt=""
+              src={profileData.profileImage}
+            />
             <div className="roles">
               <div className="first-name-text">Roles</div>
               <div className="roles-container">

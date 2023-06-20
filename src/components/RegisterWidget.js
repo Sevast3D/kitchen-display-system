@@ -2,11 +2,13 @@ import { React, useRef, useState } from 'react'
 import { useHistory } from 'react-router-dom';
 
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth, writeUserData } from "../firebase";
+import { auth, writeUserData, uploadImage, getImageURL } from "../firebase";
+
 
 import './LoginWidget.css'
 
 import logo from '../assets/Logo.png'
+import noPorfilePic from './UI/LoggedProfile/assets/user-no-image.png'
 
 const LoginWidget = () => {
 
@@ -19,7 +21,9 @@ const LoginWidget = () => {
   const history = useHistory();
   const [error, setError] = useState("");
 
-  const [profileImage, setProfileImage] = useState("image");
+  // Profile image 
+  const [imageURL, setImageURL] = useState(null);
+
   const [role, setRole] = useState("WAITER")
   const [userData, setUserData] = useState(null);
 
@@ -29,7 +33,6 @@ const LoginWidget = () => {
     const phoneNumber = phoneNumberRef.current.value;
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
-
 
     const register = {
       method: 'POST',
@@ -46,52 +49,68 @@ const LoginWidget = () => {
         password: password
       }),
     }
-    if(phoneNumber.length > 8 ){
+    if (phoneNumber.length > 8) {
       createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const userUID = userCredential.user.uid;
-        sessionStorage.setItem('userUID', userUID);
-        // console.log(userCredential)
-        // history.push("/")
+        .then((userCredential) => {
+          const userUID = userCredential.user.uid;
+          sessionStorage.setItem('userUID', userUID);
+          // console.log(userCredential)
+          // history.push("/")
 
-        fetch('http://localhost:8080/users/registration', register)
-          .then(res => {
-            if (res.ok) {
-              setError("");
-              return res.json();
-            } else {
-              setError("Registration Error!");
-            }
-          })
-          .then(async (data) => {
-            sessionStorage.setItem('token', data.accessToken);
-            const mappedData = {
-              userId: data.userId,
-              firstName: data.firstName,
-              lastName: data.lastName,
-              email: data.email,
-              phoneNumber: data.phoneNumber,
-              profileImage: data.profileImage,
-              role: data.role
-            };
-            setUserData(mappedData);
-            return mappedData;
-          })
-          .then((async (mappedData) => {
-            const user = sessionStorage.getItem('userUID');
-            const { userId, firstName, lastName, email, phoneNumber, profileImage, role } = mappedData;
-            await Promise.resolve(writeUserData(user, userId, firstName, lastName, email, phoneNumber, profileImage, role));
-            await Promise.resolve(waiter());
-          }))
-          .catch(error => {
-            // Handle the error
-            console.error(error);
-          });
+          // Upload Image to Storage
+          uploadImage(userUID, noPorfilePic)
+            .then((imageURL) => {
+              setImageURL(imageURL);
+              // console.log(imageURL)
+            })
+            .catch((error) => {
+              console.log(error);
+            });
 
-      }).catch((error) => {
-        // Erorr Firebase
-        setError(error.code);
-      })
+          fetch('http://localhost:8080/users/registration', register)
+            .then(res => {
+              if (res.ok) {
+                setError("");
+                return res.json();
+              } else {
+                setError("Registration Error!");
+              }
+            })
+            .then(async (data) => {
+              sessionStorage.setItem('token', data.accessToken);
+              const mappedData = {
+                userId: data.userId,
+                firstName: data.firstName,
+                lastName: data.lastName,
+                email: data.email,
+                phoneNumber: data.phoneNumber,
+                profileImage: imageURL,
+                role: data.role
+              };
+              setUserData(mappedData);
+              return mappedData;
+            })
+            .then((async (mappedData) => {
+              const user = sessionStorage.getItem('userUID');
+
+              const imagePath = 'user-no-image.png';
+              const imageURL = await getImageURL(imagePath);
+              setImageURL(imageURL);
+              mappedData.profileImage = imageURL;
+
+              const { userId, firstName, lastName, email, phoneNumber, profileImage, role } = mappedData;
+              await Promise.resolve(writeUserData(user, userId, firstName, lastName, email, phoneNumber, profileImage, role));
+              await Promise.resolve(waiter());
+            }))
+            .catch(error => {
+              // Handle the error
+              console.error(error);
+            });
+
+        }).catch((error) => {
+          // Erorr Firebase
+          setError(error.code);
+        })
 
     }
   }

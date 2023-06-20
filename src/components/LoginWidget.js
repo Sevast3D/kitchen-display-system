@@ -1,19 +1,20 @@
 import { React, useContext, useEffect, useRef, useState } from "react";
 import { useHistory } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth'
+import { auth, writeUserData, getImageURL } from "../firebase";
 
 import './LoginWidget.css'
 
 import logo from '../assets/Logo.png';
-import Login from "../pages/Login/Login";
-import { useAuth } from "../config/AuthContext";
-import { auth, writeUserData } from "../firebase";
+import noPorfilePic from './UI/LoggedProfile/assets/user-no-image.png'
 
 function LoginWidget() {
   const history = useHistory();
   const emailRef = useRef();
   const passwordRef = useRef();
   const [error, setError] = useState("")
+  // Profile image 
+  const [imageURL, setImageURL] = useState(null);
 
   const [userData, setUserData] = useState(null);
 
@@ -41,7 +42,7 @@ function LoginWidget() {
     }
 
     signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         const user = userCredential.user.uid;
         sessionStorage.setItem('userUID', user);
         // console.log(userCredential.user.email);
@@ -57,7 +58,7 @@ function LoginWidget() {
               throw new Error('Login failed!');
             }
           })
-          .then((data) => {
+          .then(async (data) => {
             sessionStorage.setItem('token', data.accessToken);
             const mappedData = {
               userId: data.userId,
@@ -71,11 +72,29 @@ function LoginWidget() {
             setUserData(mappedData);
             return mappedData
           })
+          .then(async (mappedData) => {
+            if (mappedData.profileImage === null || mappedData.profileImage === undefined) {
+              // Upload Image to Storage
+              try {
+                const imagePath = 'user-no-image.png';
+                const imageURL = await getImageURL(imagePath);
+                setImageURL(imageURL);
+                mappedData.profileImage = imageURL;
+                // console.log("Setted IMG LINK:" + imageURL);
+              } catch (error) {
+                console.log(error);
+              }
+            } else {
+              console.log("Profile IMG LINK:" + mappedData.profileImage)
+            }
+            return mappedData
+          })
           .then((mappedData) => {
             if (error === "") {
               const user = sessionStorage.getItem('userUID');
               const { userId, firstName, lastName, email, phoneNumber, profileImage, role } = mappedData;
               writeUserData(user, userId, firstName, lastName, email, phoneNumber, profileImage, role);
+              // console.log("image: " + mappedData.profileImage);
               waiter();
             }
           })

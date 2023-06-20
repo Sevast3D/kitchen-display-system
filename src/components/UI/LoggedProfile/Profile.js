@@ -11,6 +11,7 @@ import MyProfile from "./MyProfile.js"
 import profilePic from "./assets/ProfileImage.jpg"
 import logout from "./assets/log-out.png"
 import user from "./assets/user.png"
+import noProfilePic from './assets/user-no-image.png'
 
 const Profile = () => {
   const [isMyProfile, setMyProfile] = useState(false);
