@@ -11,7 +11,8 @@ import { useEffect } from 'react';
 function Members({ onToggleSidebar }) {
   // const [allMembers, setAllMembers] = useState([["Cristina", "Constantinescu", "constantinescucristi@gmail.com", "+23123123", "/user-image-memebers-view@2x.png", "1234", 1], ["Alex", "Cristian Ionescu", "exampleemail@gmail.com", "+702311223", "/user-image-memeber2.png", "1234", 3], ["Adelina", "Popescu", "popescuadelina@gmail.com", "+4079021223", "/user-image-memeber3.png", "1234", 2]])
   const [allMembers, setAllMembers] = useState([]);
-  const [admins, setAdmins] = useState([["Alex", "Cristian Ionescu", "exampleemail@gmail.com", "+702311223", "/user-image-memeber2.png", "1234", 3]])
+  const [admins, setAdmins] = useState([]);
+  // const [admins, setAdmins] = useState([["Alex", "Cristian Ionescu", "exampleemail@gmail.com", "+702311223", "/user-image-memeber2.png", "1234", 3]])
 
   const [activeKey, setActiveKey] = useState('link-0');
   const handleSelect = (eventKey) => setActiveKey(eventKey);
@@ -32,7 +33,8 @@ function Members({ onToggleSidebar }) {
       }
       const response = await fetch('http://localhost:8080/users', getAllUsers)
       const data = await response.json();
-      const formattedData = await data.map((user) => ({
+      const formattedData = data.map((user) => ({
+        userId: user.userId,
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
@@ -72,12 +74,12 @@ function Members({ onToggleSidebar }) {
       <div className="user-list" id="products_container">
         {activeKey === 'link-0' &&
           allMembers.map((item) => (
-            <UserView userData={item} />
+            <UserView key={item.userId} userData={item} />
           ))
         }
         {activeKey === 'link-1' &&
           admins.map((item) => (
-            <UserView userData={item} />
+            <UserView key={item.userId} userData={item} />
           ))
         }
       </div>

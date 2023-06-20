@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
-import { auth } from './firebase';
+import { auth, getUserData } from './firebase';
 
 import './pages/Waiter/Waiter.css'
 
@@ -86,8 +86,25 @@ function RouteWithSidebar({ path, component: Component, onToggleSidebar, showSid
 function PrivateRouteWithSidebar({ path, component: Component, onToggleSidebar, showSidebar }) {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [userInfo, setUserInfo] = useState([]);
+  const [userRole, setUserRole] = useState("");
 
   useEffect(() => {
+
+    getUserData()
+      .then((userData) => {
+        // Access and use the userData here
+        // console.log(userData);
+        setUserInfo(userData);
+        setUserRole(userData.role)
+        // console.log("user role:" + userRole);
+        setIsLoading(false)
+      })
+      .catch((error) => {
+        setIsLoading(true)
+        console.error(error);
+      })
+
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setUser(user);
       setIsLoading(false)
@@ -103,9 +120,9 @@ function PrivateRouteWithSidebar({ path, component: Component, onToggleSidebar, 
       <div className='spinner-wrapper flex-row gap-10'>
         <div className="spinner-border text-warning">
         </div>
-          <span className='text-orange h4'>
-            Loading..
-          </span>
+        <span className='text-orange h4'>
+          Loading..
+        </span>
       </div>
     )
   }
@@ -114,11 +131,29 @@ function PrivateRouteWithSidebar({ path, component: Component, onToggleSidebar, 
     <>
       <div className={`sidebar-frame ${showSidebar ? '' : 'hide'} `}><Sidebar /></div>
       <div className={showSidebar ? 'page-container' : 'page-container-full'}>
-        <Route path={path} render={(props) =>
-          user ?
+        <Route path={path} render={(props) => {
+          if (!user) {
+            return <Redirect to="/" />
+          }
 
-            (<Component {...props} onToggleSidebar={onToggleSidebar} />) :
-            (<Redirect to="/" />)
+          if (userRole === "WAITER") {
+            if (path === '/w' || path === '/empty'|| path === '/payment'|| path === '/members') {
+              return <Component {...props} onToggleSidebar={onToggleSidebar} />
+            } {
+              return <Redirect to="/w" />
+            }
+          }
+          if (userRole === "CHEF") {
+            if (path !== '/settings') {
+              return <Component {...props} onToggleSidebar={onToggleSidebar} />
+            } else {
+              return <Redirect to="/kitchen" />
+            }
+          }
+          if (userRole === "ADMIN") {
+              return <Component {...props} onToggleSidebar={onToggleSidebar} />
+          }
+        }
         } />
       </div>
     </>

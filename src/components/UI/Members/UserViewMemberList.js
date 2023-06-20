@@ -1,21 +1,34 @@
 import { Dropdown, DropdownButton } from "react-bootstrap";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { getUserData } from "../../../firebase.js";
 
 import ViewUserInfo from ".//ViewUserMemberTab.js";
+import ViewAdminUserInfo from ".//ViewUserMemberTabAdmin.js";
 import userIcon from "./assets/profile.png";
 import deleteIcon from "./assets/delete.png";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./UserViewMemberList.css";
 
-const UserViewMemberList = ({userData}) => {
+const UserViewMemberList = ({ userData }) => {
   const [isUserInfoPopup, setUserInfoPopup] = useState(false);
+  const [loggedUserData, setLoggedUserData] = useState([]);
+
+  useEffect(() => {
+    getUserData()
+      .then((loggedUserData) => {
+        // Access and use the userData here
+        // console.log(userData);
+        setLoggedUserData(loggedUserData);
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+  })
 
   const handleOpenProfile = () => {
     setUserInfoPopup(!isUserInfoPopup)
   }
-
-  console.log(userData);
 
   return (
     <div className="user-view-member-list">
@@ -24,7 +37,7 @@ const UserViewMemberList = ({userData}) => {
           <img
             className="user-image-memebers-view"
             alt=""
-            src={userData.profileImage} 
+            src={userData.profileImage}
           />
           <div className="user-name-member">{userData.firstName} {userData.lastName}</div>
           <b className="phone-number-member">{`+ ${userData.phoneNumber}`}</b>
@@ -41,7 +54,11 @@ const UserViewMemberList = ({userData}) => {
             <img src={userIcon}></img>
             View Profile
           </Dropdown.Item>
-          <ViewUserInfo user={userData} showPopup={isUserInfoPopup} onClose={handleOpenProfile} />
+          {loggedUserData.role === "ADMIN" ?
+            <ViewAdminUserInfo user={userData} showPopup={isUserInfoPopup} onClose={handleOpenProfile} />
+          :
+            <ViewUserInfo user={userData} showPopup={isUserInfoPopup} onClose={handleOpenProfile} />
+          }
           <Dropdown.Item>
             <img src={deleteIcon}></img>
             Delete

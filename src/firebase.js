@@ -20,23 +20,6 @@ const app = initializeApp(firebaseConfig);
 // export const userDataRef = databaseRef.child("kitchen-display")
 export const auth = getAuth(app)
 export const storage = getStorage(app)
-// const db = getDatabase();
-// // export default firebase;
-// const userRef = ref(db, `users/${user.uid}`);
-
-// const userData = {
-//   name: userName,
-//   image: userImage,
-// };
-
-// set(userRef, userData)
-//   .then(() => {
-//     console.log('User information saved to database');
-//   })
-//   .catch((error) => {
-//     console.error('Error saving user information:', error);
-// });
-
 export async function writeUserData(userUID, userId, firstName, lastName, email, phoneNumber, imageURL, role) {
   const db = getDatabase();
   const storage = getStorage();
@@ -52,21 +35,6 @@ export async function writeUserData(userUID, userId, firstName, lastName, email,
   };
 
   set(ref(db, `users/${userUID}`), userData);
-  // Upload image file to Firebase Storage
-  // if (imageFile) {
-  //   const imageRef = storageRef(storage, `users/${userUID}/profileImage`);
-  //   await uploadBytes(imageRef, imageFile);
-  //   const imageURL = await getDownloadURL(imageRef);
-
-
-  //   // Save user data to Firebase Realtime Database
-  //   try {
-  //     await set(ref(db, `users/${userUID}`), userData);
-  //     console.log("User data saved successfully");
-  //   } catch (error) {
-  //     console.error("Failed to save user data:", error);
-  //   }
-  // }
 }
 
   export function getUserData() {

@@ -51,7 +51,6 @@ function LoginWidget() {
           .then(res => {
             if (res.ok) {
               setError("");
-
               return res.json();
             } else {
               setError("Error! Values do not match.");

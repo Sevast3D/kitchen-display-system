@@ -8,44 +8,60 @@ const ViewUserMemberTab = ({ user, showPopup, onClose }) => {
       <div className="view-user-member-tab">
         <div className="main-container1" id="products_container">
           <div className="left-side-contrainer1">
+            <>
+            {console.log(user.profileImage)}
+            </>
             <img
               className="user-image-view-user1"
               alt=""
-              src={user[4]}
+              src={user.profileImage}
             />
             <div className="roles">
               <div className="roles-container">
-                {user[user.length - 1] === 0 ? "" : ""}
-
-                {user[user.length - 1] >= 1 ?
+                {user.role === "WAITER" ?
                   <div className="waiter">
                     <div className="chief">Waiter</div>
                   </div> : ""}
 
-                {user[user.length - 1] >= 2 ? <div className="cheif">
-                  <div className="chief">{`Chief `}</div>
-                </div>
+                {user.role === "CHEF" ?
+                  <>
+                    <div className="waiter">
+                      <div className="chief">Waiter</div>
+                    </div>
+                    <div className="cheif">
+                      <div className="chief">Chef </div>
+                    </div>
+                  </>
                   : ""}
 
-                {user[user.length - 1] === 3 ?
-                  <div className="admin">
-                    <div className="chief">{`Admin `}</div>
-                  </div> : ""}
+                {user.role === "ADMIN" ?
+                  <>
+                    <div className="waiter">
+                      <div className="chief">Waiter</div>
+                    </div>
+                    <div className="cheif">
+                      <div className="chief">Chef </div>
+                    </div>
+                    <div className="admin">
+                      <div className="chief">Admin</div>
+                    </div>
+                  </>
+                  : ""}
               </div>
             </div>
           </div>
           <div className="user-info1">
             <div className="username-container1">
               <div className="roles-text1">User Name</div>
-              <div className="usernameid1">{user[0]} {user[1]}</div>
+              <div className="usernameid1">{user.firstName} {user.lastName}</div>
             </div>
             <div className="phone-container1">
               <div className="roles-text1">Phone Number</div>
-              <div className="phone1">{user[3]}</div>
+              <div className="phone1">{`+ ${user.phoneNumber}`}</div>
             </div>
             <div className="phone-container1">
               <div className="roles-text1">Email</div>
-              <div className="phone1">{user[2]}</div>
+              <div className="phone1">{user.email}</div>
             </div>
           </div>
         </div>

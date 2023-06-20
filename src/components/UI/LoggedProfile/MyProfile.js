@@ -203,7 +203,7 @@ const MyProfile = ({ showPopup, onClose }) => {
 
   const handleClose = () => {
     if (isEditing) {
-      // window.location.reload();
+      window.location.reload();
     } else {
       onClose();
     }
