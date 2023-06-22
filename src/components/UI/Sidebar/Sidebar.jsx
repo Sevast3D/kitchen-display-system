@@ -1,5 +1,6 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
+import { getUserData } from "../../../firebase";
 
 import './Sidebar.css'
 
@@ -16,6 +17,18 @@ import Reservation from "../Reservation/AddReservation"
 
 const Sidebar = ({ children }) => {
   const [isReservatonOpen, setReservationOpen] = useState(false);
+  const [loggedUserData, setLoggedUserData] = useState([]);
+
+  useEffect(() => {
+    getUserData()
+      .then((loggedUserData) => {
+        setLoggedUserData(loggedUserData);
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+  })
+
 
   // Function to handle modal close
   const handleReservationModal = () => {
@@ -63,16 +76,17 @@ const Sidebar = ({ children }) => {
         {
           // NavLink for pages with path
           menuItem.map((item, index) => (
-            <NavLink
-              to={item.path}
-              key={index}
-              activeClassName="active"
-            >
+            (item.name === "Kitchen" && loggedUserData.role === "WAITER") ||
+            (item.name === "Settings" && loggedUserData.role === "WAITER") ||
+            (item.name === "Settings" && loggedUserData.role === "CHEF")
+            ? null : (
+            <NavLink to={item.path} key={index} activeClassName="active" >
               <div className="row text-white font-size-16">
                 <img src={item.icon} alt='' className="icons"></img>
                 {item.name}
               </div>
             </NavLink>
+            )
           ))
         }
         {

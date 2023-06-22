@@ -10,6 +10,8 @@ import deleteIcon from "./assets/delete.png";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./UserViewMemberList.css";
 
+import noImage from './../LoggedProfile/assets/user-no-image.png'
+
 const UserViewMemberList = ({ userData }) => {
   const [isUserInfoPopup, setUserInfoPopup] = useState(false);
   const [loggedUserData, setLoggedUserData] = useState([]);
@@ -34,11 +36,10 @@ const UserViewMemberList = ({ userData }) => {
     <div className="user-view-member-list">
       <div className="user-profile-container-parent">
         <div className="user-profile-container" id="user_profile_container">
-          <img
-            className="user-image-memebers-view"
-            alt=""
-            src={userData.profileImage}
-          />
+          {userData.profileImage === null || userData.profileImage === undefined ?
+            <img className="user-image-memebers-view" alt="" src={noImage} /> :
+            <img className="user-image-memebers-view" alt="" src={userData.profileImage} />
+          }
           <div className="user-name-member">{userData.firstName} {userData.lastName}</div>
           <b className="phone-number-member">{`+ ${userData.phoneNumber}`}</b>
         </div>
@@ -56,7 +57,7 @@ const UserViewMemberList = ({ userData }) => {
           </Dropdown.Item>
           {loggedUserData.role === "ADMIN" ?
             <ViewAdminUserInfo user={userData} showPopup={isUserInfoPopup} onClose={handleOpenProfile} />
-          :
+            :
             <ViewUserInfo user={userData} showPopup={isUserInfoPopup} onClose={handleOpenProfile} />
           }
           <Dropdown.Item>

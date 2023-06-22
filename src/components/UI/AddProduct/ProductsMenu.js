@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 import { Modal, Form } from 'react-bootstrap';
 
 import "./ProductsMenu.css";
@@ -7,12 +7,39 @@ import AddProduct from './AddProduct';
 import ProductView from './ProductView';
 
 const ProductsMenu = ({ showPopup, onClose }) => {
-  const [orderList] = useState([[2, "Burger Vita", 25.6, "https://acconstorage.blob.core.windows.net/acconpictures/202105111217_WRJ1_.jpeg", "Appertizer", "2 Chifle, cascaval topit, sorie, sos de ustroi, ceapa"], [2, "Burger", 27.5, "https://acconstorage.blob.core.windows.net/acconpictures/202105111215_OMFY_.jpeg"], [1, "Salata", 25.0, "https://www.rainbowls.ro/assets/images/gallery/salata1.jpg"], [1, "Salata", 50.4]]);
+  // const [orderList] = useState([[2, "Burger Vita", 25.6, "https://acconstorage.blob.core.windows.net/acconpictures/202105111217_WRJ1_.jpeg", "Appertizer", "2 Chifle, cascaval topit, sorie, sos de ustroi, ceapa"], [2, "Burger", 27.5, "https://acconstorage.blob.core.windows.net/acconpictures/202105111215_OMFY_.jpeg"], [1, "Salata Cessar", 55.40, "https://www.rainbowls.ro/assets/images/gallery/salata1.jpg"], [1, "Salata Crabi", 50.4]]);
+  const [orderList, setOrderList] = useState([]);
   const [selected, setSelected] = useState("none");
   const [isAddProductPopup, setAddProductPopUp] = useState(false);
   const [error, setError] = useState("");
   const [isProductView, setProductView] = useState(false);
   const [productData, setProductData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const getAllProducts = {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json, text/plain',
+          'Content-Type': 'application/json;charset=UTF-8',
+          Authorization: `Bearer ${sessionStorage.getItem('token')}`,
+        },
+      }
+      const response = await fetch('http://localhost:8080/products', getAllProducts)
+      const data = await response.json();
+      const formattedData = data.map((product) => ({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        image: product.image,
+        components: product.components,
+        category: product.category
+      }))
+      setOrderList(formattedData);
+      console.log(orderList)
+    }
+    fetchData();
+  }, []);
 
   const handleOnSelect = (index) => {
     setSelected(index);
@@ -51,8 +78,8 @@ const ProductsMenu = ({ showPopup, onClose }) => {
             ${selected === index ? "selected-button" : ""}
             `}
               onClick={() => handleOnSelect(index)}>
-              <div className="product-name-productmenu">{item[1]}</div>
-              <div className="product-name-productmenu">{item[2]} Lei</div>
+              <div className="product-name-productmenu">{item.name}</div>
+              <div className="product-name-productmenu">{item.price} Lei</div>
             </button>
           ))
         }

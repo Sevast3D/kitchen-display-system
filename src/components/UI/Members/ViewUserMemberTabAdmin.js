@@ -6,6 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./ViewUserMemberTabAdmin.css";
 import Modal from 'react-bootstrap/Modal';
 
+import noImage from './../LoggedProfile/assets/user-no-image.png'
 
 const ViewUserMemberTabAdmin = ({ user, showPopup, onClose }) => {
   const [userData, setUserData] = useState([])
@@ -15,20 +16,20 @@ const ViewUserMemberTabAdmin = ({ user, showPopup, onClose }) => {
   const [Admin, setAdmin] = useState(false);
   const [loggedUserData, setLoggedUserData] = useState([]);
 
- useEffect(()=>{
-  console.log(user.firstName)
-  console.log(user.role)
-  if (user.role === "ADMIN") {
-    setAdmin(true);
-  } else if (user.role === "WAITER") {
-    setRoleWaiter(true);
-  } else if (user.role === "CHEF") {
-    setRoleChef(true);
-  }
- },[])
+  useEffect(() => {
+    // console.log(user.firstName)
+    // console.log(user.role)
+    if (user.role === "ADMIN") {
+      setAdmin(true);
+    } else if (user.role === "WAITER") {
+      setRoleWaiter(true);
+    } else if (user.role === "CHEF") {
+      setRoleChef(true);
+    }
+  }, [])
 
   const handleCheckboxChange = (e) => {
-    const {value, checked} = e.target;
+    const { value, checked } = e.target;
 
     if (value === "ADMIN") {
       setAdmin(checked);
@@ -61,21 +62,17 @@ const ViewUserMemberTabAdmin = ({ user, showPopup, onClose }) => {
     }
 
     const updateUserProfile = {
-      method: 'POST',
+      method: 'PUT',
       headers: {
         'Accept': 'application/json, text/plain',
         'Content-Type': 'application/json;charset=UTF-8',
-        'Bearer-Token': 'token-value'
+        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
       },
       body: JSON.stringify({
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        phoneNumber: phoneNumber,
         role: user.role
       }),
     }
-    console.log(user.role)
+    // console.log(user.role)
 
     fetch(`http://localhost:8080/users/${user.userId}`, updateUserProfile)
       .then(res => {
@@ -85,28 +82,10 @@ const ViewUserMemberTabAdmin = ({ user, showPopup, onClose }) => {
           console.log("Update User Failed!");
         }
       })
-      .then(async (data) => {
-        const mappedData = {
-          userId: data.userId,
-          firstName: data.firstName,
-          lastName: data.lastName,
-          email: data.email,
-          phoneNumber: data.phoneNumber,
-          profileImage: Date.profileImage,
-          role: user.role
-        };
-        setUserData(mappedData);
-        return mappedData;
-      })
-      .then((async (mappedData) => {
-        const user = sessionStorage.getItem('userUID');
-        const { userId, firstName, lastName, email, phoneNumber, profileImage, role } = mappedData;
-        await Promise.resolve(writeUserData(user, userId, firstName, lastName, email, phoneNumber, profileImage, role));
-        await Promise.resolve(window.location.reload());
-      }))
       .catch(error => {
         console.error(error);
       });
+    window.location.reload()
   }
 
   return (
@@ -114,11 +93,10 @@ const ViewUserMemberTabAdmin = ({ user, showPopup, onClose }) => {
       <div className="view-user-member-tab-admin">
         <div className="main-container" id="products_container">
           <div className="left-side-contrainer">
-            <img
-              className="user-image-view-user"
-              alt=""
-              src={user.profileImage}
-            />
+            {userData.profileImage === null || userData.profileImage === undefined ?
+              <img className="user-image-view-user" alt="" src={noImage} /> :
+              <img className="user-image-view-user" alt="" src={userData.profileImage} />
+            }
           </div>
           <div className="user-info">
             <div className="username-container">
@@ -140,7 +118,7 @@ const ViewUserMemberTabAdmin = ({ user, showPopup, onClose }) => {
           <div className="select-roles-container">
             <Form.Check label="Waiter" type="checkbox" value="WAITER" inline checked={roleWaiter} onChange={handleCheckboxChange} />
             <Form.Check label="Chef" type="checkbox" value="CHEF" inline checked={roleChef} onChange={handleCheckboxChange} />
-            <Form.Check label="ADMIN" type="checkbox" value="ADMIN" inline checked={Admin} onChange={handleCheckboxChange} />
+            <Form.Check label="Admin" type="checkbox" value="ADMIN" inline checked={Admin} onChange={handleCheckboxChange} />
           </div>
         </div>
         <div className="flex-start gap-10">

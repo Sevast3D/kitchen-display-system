@@ -1,6 +1,7 @@
 import Modal from 'react-bootstrap/Modal';
 
 import "./ViewUserMemberTab.css";
+import noImage from './../LoggedProfile/assets/user-no-image.png'
 
 const ViewUserMemberTab = ({ user, showPopup, onClose }) => {
   return (
@@ -8,14 +9,15 @@ const ViewUserMemberTab = ({ user, showPopup, onClose }) => {
       <div className="view-user-member-tab">
         <div className="main-container1" id="products_container">
           <div className="left-side-contrainer1">
-            <>
-            {console.log(user.profileImage)}
-            </>
-            <img
+            {/* <img
               className="user-image-view-user1"
               alt=""
               src={user.profileImage}
-            />
+            /> */}
+            {user.profileImage === null || user.profileImage === undefined ?
+              <img className="user-image-view-user" alt="" src={noImage} /> :
+              <img className="user-image-view-user" alt="" src={user.profileImage} />
+            }
             <div className="roles">
               <div className="roles-container">
                 {user.role === "WAITER" ?

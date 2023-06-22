@@ -84,7 +84,7 @@ function LoginWidget() {
                 console.log(error);
               }
             } else {
-              console.log("Profile IMG LINK:" + mappedData.profileImage)
+              // console.log("Profile IMG LINK:" + mappedData.profileImage)
             }
             return mappedData
           })

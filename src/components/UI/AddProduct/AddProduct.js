@@ -1,5 +1,6 @@
 import { React, useState, useRef } from 'react';
 import { Modal, Form } from 'react-bootstrap';
+import { uploadProductImage } from '../../../firebase';
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./AddProduct.css";
@@ -9,16 +10,83 @@ const AddProduct = ({ showPopup, onClose }) => {
   const amountRef = useRef();
   const descriptionRef = useRef();
   const categoryRef = useRef();
-  const imageRef = useRef();
+  const [image, setImage] = useState("")
+  const [imageURL, setImageURL] = useState("")
+
 
   const handleOnAdd = () => {
     const name = nameRef.current.value;
     const amount = amountRef.current.value;
     const description = descriptionRef.current.value;
-    const category = categoryRef.current.value;
-    const image = imageRef.current.value;
+    const category = categoryRef.current.value.toUpperCase();
     console.log(name, amount, description, category, image);
-    window.location.reload();
+
+    // Upload Image to Storage
+    async function uploadImageToStorage() {
+      if (image) {
+        try {
+          const imageURL = await uploadProductImage(name, image);
+          setImageURL(imageURL);
+          console.log("new  Image:" + imageURL)
+          setImage(null);
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        console.log('No Image')
+      }
+    }
+
+    async function sendProductData() {
+      // 
+      await uploadImageToStorage();
+
+      console.log(imageURL)
+      const addProduct = {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json, text/plain',
+          'Content-Type': 'application/json;charset=UTF-8',
+          'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+        },
+        body: JSON.stringify({
+          name: name,
+          price: amount,
+          image: imageURL,
+          components: description,
+          category: category
+        }),
+      }
+
+      fetch('http://localhost:8080/products', addProduct)
+        .then(res => {
+          if (res.ok) {
+            // setError("");
+            return res.json();
+          } else {
+            // setError("Error! Can't add products");
+            throw new Error(`Can't add products`);
+          }
+        })
+        .catch(error => {
+          // Handle the error
+          console.error(error);
+        });
+      // window.location.reload();
+    }
+    sendProductData();
+  }
+
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+
+    if (file) {
+      setImage(file);
+      console.log(file)
+    } else {
+      // Handle case when no file is selected
+      console.log("No file selected.");
+    }
   }
 
   return (
@@ -78,9 +146,9 @@ const AddProduct = ({ showPopup, onClose }) => {
           <div className="nametest-addproduct">Image</div>
           <input
             className="nameinput-addproduct"
-            type="text"
+            type="file"
             placeholder="Image URL"
-            ref={imageRef}
+            onChange={handleImageUpload}
           />
         </div>
         <div className="btns-addproduct">

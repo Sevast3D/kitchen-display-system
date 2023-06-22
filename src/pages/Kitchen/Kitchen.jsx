@@ -8,13 +8,13 @@ import './Kitchen.css'
 
 function Kitchen({ onToggleSidebar }) {
   const [deskList] = useState([
-    [2, "2023-06-10T20:13:23", [[[1, "Pizza", 29.99, "Salam, Ananas, Lipie, Sos"], 0, "Intolerant Lactoza", 2],
+    [2, "2023-06-21T00:43:23", [[[1, "Pizza", 29.99, "Salam, Lipie, Sos, Motzarella"], 0, "Intolerant Lactoza", 2],
                         [[1, "Pizza Small", 29.99, "Lipie, Sos Rosii, Salam"], 1, "", 1],
-                        [[2, "Burger", 29.99, "Salam, Ananas, Lipie, Sos"], 0, "Intolerant Lactoza", 2],
-                        [[2, "Burger Vita", 29.99, "Salam, Ananas, Lipie, Sos"], 0, "Intolerant Lactoza", 2]
+                        [[2, "Burger", 29.99, "Carne Porc, Chifla, Salata, Rosii, Sos"], 0, "Elergic unt de arahide", 2],
+                        [[2, "Burger Vita", 29.99, "Carne Vita, Chifla, Rosii, Ou, Sos"], 0, "", 2]
                       ],1],
-    [43, "2023-06-10T21:23:23", [[[1, "Salat", 19.99, "Salam, Ananas, Lipie, Sos"], 0, "Intolerant Lactoza", 2]], 0],
-    [3, "2023-06-10T21:43:23", [[[1, "Salat", 19.99, "Salam, Ananas, Lipie, Sos"], 0, "Intolerant Lactoza", 2]], 2]
+    [43, "2023-06-21T01:20:23", [[[1, "Salata", 19.99, "Salata Verde, Rosii, Castraveti, Masline, Pesmeti"], 0, "Vegan", 2]], 0],
+    [3, "2023-06-21T01:40:23", [[[2, "Burger", 29.99, "Carne Porc, Chifla, Salata, Rosii, Sos"], 0, "Intolerant Lactoza", 2]], 2]
   ]);
 
   const handleMouseWheel = (event) => {
