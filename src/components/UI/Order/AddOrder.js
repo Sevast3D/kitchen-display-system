@@ -115,6 +115,7 @@ const AddOrder = ({ deskId, showPopup, onClose }) => {
         }
 
         await fetch(`http://localhost:8080/desks/${parseInt(deskId, 10)}?status=TAKEN`, updateDeskStatus)
+        await fetch(`http://localhost:8080/desks/${parseInt(deskId, 10)}?status=TAKEN&cookingStatus=NOT_STARTED`, updateDeskStatus)
         window.location.reload();
       }
       catch (error) {
@@ -122,7 +123,9 @@ const AddOrder = ({ deskId, showPopup, onClose }) => {
         console.error(error);
       }
     }
-    updateDeskStatus();
+    if(orderList.length !== 0 && orderList.some(item => item.status === "NOT_COOKED")){
+      updateDeskStatus();
+    }
   }
 
   return (

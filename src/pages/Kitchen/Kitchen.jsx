@@ -37,7 +37,7 @@ function Kitchen({ onToggleSidebar }) {
             orderItems: desk.orderItems
           }
         }
-        const allDesks = data.filter((item) => item.status === "TAKEN").map(formattedData)
+        const allDesks = data.filter((item) => item.status === "TAKEN" && item.cookingStatus !== "DONE").map(formattedData)
         setPrepareDesks(allDesks)
         console.log(allDesks)
       }

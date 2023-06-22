@@ -82,8 +82,11 @@ const DeskKitchen = ({ deskData }) => {
         }
 
         await fetch(`http://localhost:8080/orders/${parseInt(order.id, 10)}?status=${order.status === "COOKED" ? "NOT_COOKED" : "COOKED"}`, updateOrderStatus)
+        if(productList.every(item => item.status === "COOKED"))
+        {
+          handleDoneOrder();
+        }
         setRefresh(!refresh)
-        // window.location.reload();
       }
       catch (error) {
         // Handle the error
@@ -91,25 +94,54 @@ const DeskKitchen = ({ deskData }) => {
       }
     }
     updateDeskStatus();
-
-    // const updatedProductList = productList.map((product) => {
-    //   if (product[0][1] === productName) {
-    //     // Toggle the cooked status by negating the current value
-    //     product[1] = !product[1];
-    //   }
-    //   return product;
-    // });
-
-    // setProductList(updatedProductList);
   }
 
   const handleStartCooking = () => {
-    console.log("COOKING")
-    window.location.reload();
+    async function updateDeskStatus() {
+      try {
+        const updateOrderStatus = {
+          method: 'PATCH',
+          headers: {
+            'Accept': 'application/json, text/plain',
+            'Content-Type': 'application/json;charset=UTF-8',
+            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+          },
+        }
+
+        await fetch(`http://localhost:8080/desks/${parseInt(deskData.id, 10)}?status=TAKEN&cookingStatus=STARTED`, updateOrderStatus)
+      
+        window.location.reload();
+      }
+      catch (error) {
+        // Handle the error
+        console.error(error);
+      }
+    }
+    updateDeskStatus();
   };
 
   const handleDoneOrder = () => {
-    window.location.reload();
+    async function updateDeskStatus() {
+      // 
+      try {
+        const updateOrderStatus = {
+          method: 'PATCH',
+          headers: {
+            'Accept': 'application/json, text/plain',
+            'Content-Type': 'application/json;charset=UTF-8',
+            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+          },
+        }
+
+        await fetch(`http://localhost:8080/desks/${parseInt(deskData.id, 10)}?status=TAKEN&cookingStatus=DONE`, updateOrderStatus)
+        window.location.reload();
+      }
+      catch (error) {
+        // Handle the error
+        console.error(error);
+      }
+    }
+    updateDeskStatus();
   }
 
 
@@ -163,7 +195,7 @@ const DeskKitchen = ({ deskData }) => {
       }
       <div className="button-container-kitchen">
         {
-          deskData[3] === 0 ?
+          deskData.cookingStatus === "NOT_STARTED" ?
             <button className="button-kitchen" onClick={handleStartCooking}>
               <img className="button-icon-kitchen" alt="" src={cookingIcon} />
               <div className="button-text-kitchen">Start Cooking</div>
