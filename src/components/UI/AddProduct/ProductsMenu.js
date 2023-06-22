@@ -36,7 +36,6 @@ const ProductsMenu = ({ showPopup, onClose }) => {
         category: product.category
       }))
       setOrderList(formattedData);
-      console.log(orderList)
     }
     fetchData();
   }, []);
@@ -74,7 +73,7 @@ const ProductsMenu = ({ showPopup, onClose }) => {
         <input className="cleaning-msg" type="text" placeholder="Search" />
         {
           orderList.map((item, index) => (
-            <button className={`product-product-menu
+            <button  key={item.id} className={`product-product-menu
             ${selected === index ? "selected-button" : ""}
             `}
               onClick={() => handleOnSelect(index)}>

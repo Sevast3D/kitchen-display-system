@@ -1,4 +1,4 @@
-import { React, useState } from 'react'
+import { React, useEffect, useState } from 'react'
 
 import Modal from 'react-bootstrap/Modal';
 
@@ -8,9 +8,17 @@ import RemoveAprove from '../ConfirmationModal/Confimation';
 import DeleteReservation from './DeleteReservation';
 
 const DeskInfo = ({ deskData, showPopup, onClose }) => {
-  const [orderList] = useState([[2, "Burger Vita"], [2, "Burger"], [1, "Salata"], [1, "Salata"]]);
+  // const [orderList] = useState([[2, "Burger Vita"], [2, "Burger"], [1, "Salata"], [1, "Salata"]]);
+  const [orderList, setOrderList] = useState([])
+  const [totalPrice, setTotalPrice] = useState(0)
   const [isRemoveProductPopup, setRemoveProductsPopup] = useState(false);
   const [isDeleteReservation, setDeleteReservation] = useState(false);
+
+  useEffect (()=>{
+    setOrderList(deskData.orderItems)
+
+    // setTotalPrice()
+  },[])
 
   const handleOnRemoveProducts = () => {
     setRemoveProductsPopup(!isRemoveProductPopup);
@@ -34,20 +42,17 @@ const DeskInfo = ({ deskData, showPopup, onClose }) => {
         </div>
         <div className="desk-parent">
           <div className={`desk-deskInfo 
-                ${deskData[1] === 0 ? "gray-body2" : ""}
-                ${deskData[1] === 2 ? "red-body2" : ""}          
-                ${deskData[1] === 3 ? "green-body2" : ""}          
+                ${deskData.status === "EMPTY" ? "gray-body2" : ""}
+                ${deskData.status === "RESERVED" ? "red-body2" : ""}          
+                ${deskData.status === "CLEAN_UP" ? "green-body2" : ""}          
               ` }
             id="desk">
             <div className="middle-text-deskInfo" id="middle_text">
-              <p className="deskNumber-deskInfo">{deskData[0]}</p>
+              <p className="deskNumber-deskInfo">{deskData.id}</p>
               <div className="status-deskInfo" id="status_label">
                 <div className="amount-text-deskinfo">Status:</div>
                 <p className="empty font-size-14" id="status">
-                  {deskData[1] === 0 && 'Empty'}
-                  {deskData[1] === 1 && 'Taken'}
-                  {deskData[1] === 2 && 'Reserved'}
-                  {deskData[1] === 3 && 'Clean Up'}
+                  {deskData.status}
                 </p>
               </div>
               <p className="time-deskInfo" id="time">
@@ -56,9 +61,9 @@ const DeskInfo = ({ deskData, showPopup, onClose }) => {
             </div>
             <div
               className={`title-deskInfo 
-                ${deskData[1] === 0 ? "gray-title2" : ""}
-                ${deskData[1] === 2 ? "red-title2" : ""}          
-                ${deskData[1] === 3 ? "green-title2" : ""}          
+                ${deskData.status === "EMPTY"  ? "gray-title2" : ""}
+                ${deskData.status === "RESERVED" ? "red-title2" : ""}          
+                ${deskData.status === "CLEAN_UP" ? "green-title2" : ""}          
               ` }
               id="title">
               <p className="table-info-deskInfo text-white font-size-32">Desk</p>
@@ -68,7 +73,7 @@ const DeskInfo = ({ deskData, showPopup, onClose }) => {
             <div className="firstline-container-deskinfo">
               <div className="places-deskinfo">
                 <div className="taken">Places</div>
-                <div className="div">4</div>
+                <div className="div">{deskData.places}</div>
               </div>
               <div className="places-deskinfo">
                 <div className="taken">Payment Amount</div>
@@ -77,14 +82,14 @@ const DeskInfo = ({ deskData, showPopup, onClose }) => {
             </div>
             <div className="secondline-container-deskinfo">
               <div className="taken">Order List</div>
-              {
+              {/* {
                 orderList.map((item) => (
                   <div className="product-info">
-                    <div className="amount-text-deskinfo">{item[0]} x</div>
-                    <div className="product-name-deskinfo">{item[1]}</div>
+                    <div className="amount-text-deskinfo">{item.amount} x</div>
+                    <div className="product-name-deskinfo">{item.name}</div>
                   </div>
                 ))
-              }
+              } */}
             </div>
             <div className="secondline-container-deskinfo">
               <div className="taken">Rezervation list</div>

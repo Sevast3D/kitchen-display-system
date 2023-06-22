@@ -7,7 +7,27 @@ import trash from './assets/removeBtn.png';
 const ProductView = ({ productData, showPopup, onClose }) => {
 
   const handleOnProductRemove = () => {
-    console.log("Remove" + productData);
+
+    async function deleteProducts(productId) {
+      // 
+      try {
+        const deleteProductRequest = {
+          method: 'DELETE',
+          headers: {
+            'Accept': 'application/json, text/plain',
+            'Content-Type': 'application/json;charset=UTF-8',
+            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+          },
+        }
+
+        const response = await fetch(`http://localhost:8080/products/${parseInt(productId, 10)}`, deleteProductRequest)
+      }
+      catch (error) {
+        // Handle the error
+        console.error(error);
+      }
+    }
+    deleteProducts(productData.id);
     window.location.reload();
   }
   return (

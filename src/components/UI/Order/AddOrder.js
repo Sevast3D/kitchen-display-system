@@ -15,7 +15,7 @@ const MenuAppetizers = [{id: 2, nameProdus: "Burger Vita si Pui", img:"./product
 // const MenuEntrees = [[5, "Salata cu de Toate", "./Salata1.jpg", 34.59, "Branza, salata, rosii, masline verzi, arder gras, avocado.", 1]];
 const MenuEntrees = [];
 
-const AddOrder = ({ list, showPopup, onClose }) => {
+const AddOrder = ({showPopup, onClose }) => {
   const [isProductViewPopupOpen, setProductViewPopupOpen] = useState(false);
   const [isOrderDetailsPopupOpen, setOrderDetailsPopupOpen] = useState(false);
 
@@ -34,7 +34,7 @@ const AddOrder = ({ list, showPopup, onClose }) => {
 
   return (
     <>
-      <Modal list={list} show={showPopup} onHide={onClose} animation={false} centered>
+      <Modal show={showPopup} onHide={onClose} animation={false} centered>
         <div className="add-order">
           <div className="close-btn" id="top-bar-container">
             <button className="x2" id="close-btn" onClick={onClose}>
@@ -92,9 +92,9 @@ const AddOrder = ({ list, showPopup, onClose }) => {
             <ProductView itemDetails={itemDetails} openProductViewPopup={isProductViewPopupOpen} onClose={handleOpenProduct} />
           </div>
           <div>
-            {list.map((item) => (
+            {/* {list.map((item) => (
               <p className="font-size-16 text-black">- {item[1]}</p>
-            ))}
+            ))} */}
           </div>
           <div className="bottom-bar" id="bottom-bar">
             <div className="info">

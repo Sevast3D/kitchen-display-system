@@ -8,10 +8,27 @@ const DeleteReservation = ({ title, actionBtn, showPopup, onClose }) => {
   const [error, setError] = useState("");
 
   const handleAddDesk = () => {
-    const inputData = inputDataRef.current.value;
-    console.log(inputData)
-    onClose();
+    try {
+      const getAllDesks = {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json, text/plain',
+          'Content-Type': 'application/json;charset=UTF-8',
+          'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+        },
+      }
+
+      const inputData = inputDataRef.current.value;
+      fetch(`http://localhost:8080/desks?places=${parseInt(inputData, 10)}`, getAllDesks)
+
+    }
+    catch (error) {
+      // Handle the error
+      console.error(error);
+    }
+    window.location.reload();
   }
+
   const handleRemoveRez = () => {
     const inputData = inputDataRef.current.value;
     console.log("Removing" + inputData);

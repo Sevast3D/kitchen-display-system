@@ -12,19 +12,17 @@ import Clean from "./Assets/clean.svg";
 
 
 function getDeskStatus(value) {
-  if (value === 1) {
+  if (value === "TAKEN") {
     return "orange";
-  } else if (value === 2) {
+  } else if (value === "RESERVED") {
     return "red";
-  } else if (value === 3) {
+  } else if (value === "CLEAN_UP") {
     return "green";
   }
 }
 
-
-const Desk = (props) => {
+const Desk = ({deskData}) => {
   let currentTime = new Date();
-  let orderList = []
 
   const [showPopup, setShowPopup] = useState(false);
   const [showPaymentPopup, setPaymentPopup] = useState(false);
@@ -50,22 +48,22 @@ const Desk = (props) => {
 
 
   return (
-    <div className={`desk ${getDeskStatus(props.value[1])}`} id="desk">
+    <div className={`desk ${getDeskStatus(deskData.status)}`} id="desk">
       <div className="button" id="button_container">
         <div className="status-button" id="buttons_container2">
           <button onClick={handleButtonClick} className="add-btn">
             <img className="vector-icon" alt="" src=
-              {props.value[1] === 3 ? Clean : Eat} />
+              {deskData.status === "CLEAN_UP" ? Clean : Eat} />
             <div className="font-size-16">
-              {props.value[1] === 3 ? "Clean" : "Add"}
+              {deskData.status === "CLEAN_UP" ? "Clean" : "Add"}
             </div>
           </button>
-          {props.value[1] === 3 ? (
+          {deskData.status === "CLEAN_UP" ? (
             <CleanPopup openClean={showCleanPopup} onClose={handleCloseClean} />
           ) : (
-            <OrderMenu list={orderList} showPopup={showPopup} onClose={handleClose} />
+            <OrderMenu showPopup={showPopup} onClose={handleClose} />
           )}
-          <button onClick={handleOpenPayment} className={`pay ${props.value[1] === 0 || props.value[1] === 3 ? `hidden` : ``}`}>
+          <button onClick={handleOpenPayment} className={`pay ${deskData.status === "EMPTY" || deskData.status === "CLEAN_UP" ? `hidden` : ``}`}>
             <img className="dollar-sign-icon" alt="" src={Dolar} />
             <div className="font-size-16">Pay</div>
           </button><Payment openPayment={showPaymentPopup} onClose={handleOpenPayment} />
@@ -73,22 +71,19 @@ const Desk = (props) => {
       </div>
       <div className="middle-text" id="middle_text">
         <p className="p" id="desk_number">
-          {props.value[0]}
+          {deskData.id}
         </p>
         <div className="status" id="status_label">
           <div className="status1">Status:</div>
           <p className="empty" id="status">
-            {props.value[1] === 0 && 'Empty'}
-            {props.value[1] === 1 && 'Taken'}
-            {props.value[1] === 2 && 'Reserved'}
-            {props.value[1] === 3 && 'Clean Up'}
+            {deskData.status}
           </p>
         </div>
-        <p className={`pm ${props.value[1] === 1 || props.value[1] === 2 ? `visible` : ``}`} id="time">
+        <p className={`pm ${deskData.status === "TAKEN" || deskData.status === "RESERVED" ? `visible` : ``}`} id="time">
           {currentTime.toLocaleTimeString()}
         </p>
       </div>
-      <div className={`title ${getDeskStatus(props.value[1])}`} id="title">
+      <div className={`title ${getDeskStatus(deskData.status)}`} id="title">
         <p className="empty">Desk</p>
       </div>
     </div>

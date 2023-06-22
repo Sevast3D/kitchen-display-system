@@ -8,10 +8,10 @@ import trash from './assets/trash.png'
 import AddPopUp from "./DeleteReservation"
 import ViewDesk from "./DeskInfo"
 
-const DeskList = [[1, 0], [4, 1], [45, 3], [2, 3], [12, 2], [33, 1], [7, 2], [19, 0], [26, 3], [41, 2], [50, 1]]
+// const DeskList = [[1, 0], [4, 1], [45, 3], [2, 3], [12, 2], [33, 1], [7, 2], [19, 0], [26, 3], [41, 2], [50, 1]]
 
 
-const DeskMenu = ({ onClose, showPopup }) => {
+const DeskMenu = ({allDesks, onClose, showPopup }) => {
   const [selected, setSelected] = useState("none");
   const [isAddPopUpOpen, setAddPopUp] = useState(false);
   const [isViewDeskOpen, setViewDesk] = useState(false);
@@ -20,7 +20,7 @@ const DeskMenu = ({ onClose, showPopup }) => {
 
   const handleOnSelect = (index) => {
     setSelected(index);
-    setDeskData(DeskList[index]);
+    setDeskData(allDesks[index]);
   }
 
   const handleOnAdd = () => {
@@ -37,13 +37,32 @@ const DeskMenu = ({ onClose, showPopup }) => {
   }
 
   const handleoOnDelete = () =>{
-    // console.log(DeskList[selected][0]);
-    console.log(selected);
     if(selected === "none"){
       setError("Please select a desk.")
-    }else if(DeskList[selected][1] !== 0){
+    }else if(allDesks[selected].status !== "EMPTY"){
       setError("Error, the desk status is not empty!");
     }else{
+      async function deleteDesk(deskId) {
+        // 
+        try {
+          const deleteDeskRequest = {
+            method: 'DELETE',
+            headers: {
+              'Accept': 'application/json, text/plain',
+              'Content-Type': 'application/json;charset=UTF-8',
+              'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+            },
+          }
+  
+          await fetch(`http://localhost:8080/desks/${parseInt(deskId, 10)}`, deleteDeskRequest)
+        }
+        catch (error) {
+          // Handle the error
+          console.error(error);
+        }
+      }
+      deleteDesk(allDesks[selected].id);
+      window.location.reload();
       setError("");
     }
   }
@@ -61,13 +80,13 @@ const DeskMenu = ({ onClose, showPopup }) => {
         </div>
         <div className="desk-menu-container" id="desk-menu-container">
           {
-            DeskList.map((item, index) => (
+            allDesks.map((item, index) => (
               <div
                 className={`small-desk2
                 ${selected === index ? "selectedDesk" : ""}
-                ${item[1] === 1 ? "orange-body" : ""}
-                ${item[1] === 2 ? "red-body" : ""}
-                ${item[1] === 3 ? "green-body" : ""}
+                ${item.status === "TAKEN" ? "orange-body" : ""}
+                ${item.status === "RESERVED" ? "red-body" : ""}
+                ${item.status === "CLEAN_UP" ? "green-body" : ""}
                 `}
                 onClick={() => handleOnSelect(index)}
                 id="small desk"
@@ -75,22 +94,19 @@ const DeskMenu = ({ onClose, showPopup }) => {
               >
                 <div
                   className={`name-text 
-                  ${item[1] === 1 ? "orange-title" : ""}
-                  ${item[1] === 2 ? "red-title" : ""}
-                  ${item[1] === 3 ? "green-title" : ""}
+                  ${item.status === "TAKEN" ? "orange-title" : ""}
+                  ${item.status === "RESERVED" ? "red-title" : ""}
+                  ${item.status === "CLEAN_UP" ? "green-title" : ""}
                   `}
                   id="small desk title"
                 >
                   <b className="desk-title-text">Desk</b>
                 </div>
                 <div className="desk-data" id="small desk data">
-                  <b className="desk-number">{item[0]}</b>
+                  <b className="desk-number">{item.id}</b>
                   <div className="status " id="status_label">
                     <p className="empty font-size-14" id="status">
-                      {item[1] === 0 && 'Empty'}
-                      {item[1] === 1 && 'Taken'}
-                      {item[1] === 2 && 'Reserved'}
-                      {item[1] === 3 && 'Clean Up'}
+                      {item.places} places
                     </p>
                   </div>
                 </div>
