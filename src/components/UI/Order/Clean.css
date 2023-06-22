@@ -47,6 +47,9 @@
   align-items: center;
   justify-content: center;
 }
+.cleaning-close-btn:hover{
+  opacity: 80%;
+}
 
 .yes {
   position: relative;
@@ -71,6 +74,10 @@
   box-sizing: border-box;
   align-items: center;
   justify-content: center;
+}
+
+.cleaning-yes-btn:hover{
+  opacity: 80%;
 }
 
 .btns {

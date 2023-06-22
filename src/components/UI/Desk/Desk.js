@@ -25,6 +25,7 @@ const Desk = ({deskData}) => {
   let currentTime = new Date();
 
   const [showPopup, setShowPopup] = useState(false);
+  const [orderList, setOrderList] = useState(false);
   const [showPaymentPopup, setPaymentPopup] = useState(false);
   const [showCleanPopup, setCleanPopup] = useState(false);
 
@@ -42,9 +43,43 @@ const Desk = ({deskData}) => {
   }
 
   const handleOpenPayment = () => {
+    const fetchData = async () => {
+      try {
+        const getDeskData = {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json, text/plain',
+            'Content-Type': 'application/json;charset=UTF-8',
+            Authorization: `Bearer ${sessionStorage.getItem('token')}`,
+          },
+        }
+        const response = await fetch(`http://localhost:8080/desks/${deskData.id}`, getDeskData)
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error('Failed to get desks data.');
+        }
+        const mappedData = {
+          id: data.id,
+          number: data.number,
+          status: data.status,
+          places: data.places,
+          cookingStatus: data.cookingStatus,
+          orderItems: data.orderItems
+        }
+        setOrderList(mappedData.orderItems);
+      } catch (error) {
+        // Handle the error
+        console.error(error);
+      }
+    }
+    fetchData();
     setPaymentPopup(!showPaymentPopup);
   }
 
+  const getDeskData = () =>{
+
+  }
 
 
   return (
@@ -59,24 +94,28 @@ const Desk = ({deskData}) => {
             </div>
           </button>
           {deskData.status === "CLEAN_UP" ? (
-            <CleanPopup openClean={showCleanPopup} onClose={handleCloseClean} />
+            <CleanPopup deskId={deskData.id} openClean={showCleanPopup} onClose={handleCloseClean} />
           ) : (
-            <OrderMenu showPopup={showPopup} onClose={handleClose} />
+            <OrderMenu deskId={deskData.id} showPopup={showPopup} onClose={handleClose} />
           )}
           <button onClick={handleOpenPayment} className={`pay ${deskData.status === "EMPTY" || deskData.status === "CLEAN_UP" ? `hidden` : ``}`}>
             <img className="dollar-sign-icon" alt="" src={Dolar} />
             <div className="font-size-16">Pay</div>
-          </button><Payment openPayment={showPaymentPopup} onClose={handleOpenPayment} />
+          </button>
+          <Payment deskId={deskData.id} orderList={orderList} openPayment={showPaymentPopup} onClose={handleOpenPayment} />
         </div>
       </div>
       <div className="middle-text" id="middle_text">
         <p className="p" id="desk_number">
-          {deskData.id}
+          {deskData.number}
         </p>
         <div className="status" id="status_label">
           <div className="status1">Status:</div>
           <p className="empty" id="status">
-            {deskData.status}
+            {deskData.status === "CLEAN_UP" ? "Clean Up": ""}
+            {deskData.status === "EMPTY" ? "Empty": ""}
+            {deskData.status === "TAKEN" ? "Taken": ""}
+            {deskData.status === "RESERVED" ? "Reserved": ""}
           </p>
         </div>
         <p className={`pm ${deskData.status === "TAKEN" || deskData.status === "RESERVED" ? `visible` : ``}`} id="time">

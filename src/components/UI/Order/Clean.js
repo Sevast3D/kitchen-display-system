@@ -3,7 +3,33 @@ import "./Clean.css";
 
 import Modal from 'react-bootstrap/Modal';
 
-const Clean = ({openClean, onClose }) => {
+const Clean = ({deskId, openClean, onClose }) => {
+
+  const handleClean = () => {
+    async function updateDeskStatus() {
+      // 
+      try {
+        const updateDeskStatus = {
+          method: 'PATCH',
+          headers: {
+            'Accept': 'application/json, text/plain',
+            'Content-Type': 'application/json;charset=UTF-8',
+            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+          },
+        }
+        const response = await fetch(`http://localhost:8080/desks/${parseInt(deskId, 10)}?status=EMPTY`, updateDeskStatus)
+        if (!response.ok) {
+          throw new Error('Failed to do the payment.');
+        }
+        window.location.reload();
+      }
+      catch (error) {
+        // Handle the error
+        console.error(error);
+      }
+    }
+    updateDeskStatus();
+  }
   return (
     <Modal show={openClean} onHide={onClose} animation={false} centered>
       <div className="clean-popup">
@@ -19,7 +45,7 @@ const Clean = ({openClean, onClose }) => {
           <button className="cleaning-close-btn" onClick={onClose}>
             <div className="close2">Close</div>
           </button>
-          <button className="cleaning-yes-btn">
+          <button className="cleaning-yes-btn" onClick={handleClean}>
             <b className="yes">Yes</b>
           </button>
         </div>

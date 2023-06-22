@@ -7,10 +7,47 @@ import doneIcon from './assets/done.png';
 
 const DeskKitchen = ({ deskData }) => {
   const [timeDifference, setTimeDifference] = useState();
-  const [productList, setProductList] = useState(deskData[2]);
-  // [2, "01:23:23 PM", [[1, "Pizza", 29.99, "Salam, Ananas, Lipie, Sos"], 0, "Intolerant Lactoza", 2], 0],
+  const [productList, setProductList] = useState([]);
+  const sortedProductList = productList.sort((a, b) => a.product.category.localeCompare(b.product.category));
+  const [refresh, setRefresh] = useState(false)
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const getDeskData = {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json, text/plain',
+            'Content-Type': 'application/json;charset=UTF-8',
+            Authorization: `Bearer ${sessionStorage.getItem('token')}`,
+          },
+        }
+        const response = await fetch(`http://localhost:8080/desks/${deskData.id}`, getDeskData)
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error('Failed to get desks data.');
+        }
+        const mappedData = {
+          id: data.id,
+          number: data.number,
+          status: data.status,
+          places: data.places,
+          cookingStatus: data.cookingStatus,
+          orderItems: data.orderItems
+        }
+        setProductList(mappedData.orderItems);
+      } catch (error) {
+        // Handle the error
+        console.error(error);
+      }
+    }
+    fetchData();
+    // console.log(productList)
+  }, [refresh])
+
+  useEffect(() => {
+    // console.log(deskData)
     const startTimeString = new Date(deskData[1]);
     const startTime = new Date(startTimeString);
 
@@ -27,39 +64,43 @@ const DeskKitchen = ({ deskData }) => {
     return () => {
       clearInterval(intervalId);
     };
-    
+
   }, [deskData]);
 
-  const getCategoryName = (categoryNumber) => {
-    switch (categoryNumber) {
-      case 0:
-        return 'Appetizers';
-      case 1:
-        return 'Entrees';
-      case 2:
-        return 'Sides';
-      case 3:
-        return 'Desserts';
-      case 4:
-        return 'Beverages';
-      // Add more cases for different category numbers
-      default:
-        return 'Unknown Category';
-    }
-  };
 
-  const handleCookProduct = (productName) => {
-    console.log('Make roduct status Cooked:', productName);
+  const handleCookProduct = (order) => {
+    async function updateDeskStatus() {
+      // 
+      try {
+        const updateOrderStatus = {
+          method: 'PATCH',
+          headers: {
+            'Accept': 'application/json, text/plain',
+            'Content-Type': 'application/json;charset=UTF-8',
+            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+          },
+        }
 
-    const updatedProductList = productList.map((product) => {
-      if (product[0][1] === productName) {
-        // Toggle the cooked status by negating the current value
-        product[1] = !product[1];
+        await fetch(`http://localhost:8080/orders/${parseInt(order.id, 10)}?status=${order.status === "COOKED" ? "NOT_COOKED" : "COOKED"}`, updateOrderStatus)
+        setRefresh(!refresh)
+        // window.location.reload();
       }
-      return product;
-    });
+      catch (error) {
+        // Handle the error
+        console.error(error);
+      }
+    }
+    updateDeskStatus();
 
-    setProductList(updatedProductList);
+    // const updatedProductList = productList.map((product) => {
+    //   if (product[0][1] === productName) {
+    //     // Toggle the cooked status by negating the current value
+    //     product[1] = !product[1];
+    //   }
+    //   return product;
+    // });
+
+    // setProductList(updatedProductList);
   }
 
   const handleStartCooking = () => {
@@ -71,6 +112,8 @@ const DeskKitchen = ({ deskData }) => {
     window.location.reload();
   }
 
+
+
   return (
     <div className="desk-kitchen">
       <div className={`desk-top-kitchen ${timeDifference > 45 ? "top-red" : (timeDifference > 15 ? "top-orange" : "")}`}>
@@ -78,39 +121,40 @@ const DeskKitchen = ({ deskData }) => {
         <b className="desk-text-kitchen">Desk</b>
       </div>
       <div className={`number-container-kitchen ${timeDifference > 45 ? "body-red" : (timeDifference > 15 ? "body-orange" : "")}`}>
-        <b className="desk-text-kitchen1">{deskData[0]}</b>
-        <div className="hour-text-kitchen">{timeDifference} min</div>
+        <b className="desk-text-kitchen1">{deskData.number}</b>
+        {/* <div className="hour-text-kitchen">{timeDifference} min</div> */}
       </div>
       {
-        productList.map((product, index) => {
-          const categoryChanged = index === 0 || product[0][0] !== productList[index - 1][0][0];
+        sortedProductList.map((product, index) => {
+          const categoryChanged = index === 0 || product.product.category !== sortedProductList[index - 1].product.category;
+          // const categoryChanged = index
           return (
             <div className="order-details-kitchen" key={index}>
               {
                 categoryChanged && (
                   <div className="category-name-kitchen">
-                    <div className="desk-text-kitchen">{getCategoryName(product[0][0])}</div>
+                    <div className="desk-text-kitchen">{product.product.category}</div>
                   </div>
                 )
               }
-              <div className={`product-kitchen ${product[1] ? 'line-through' : ''}`}>
+              <div className={`product-kitchen ${product.status === "COOKED" ? 'line-through' : ''}`}>
                 <div className="main-details-container-kitchen">
                   <div className="product-details-kitchen">
-                    <div className="amount-kitchen">{product[3]} x</div>
-                    <div className="name-kitchen">{product[0][1]}</div>
+                    <div className="amount-kitchen">{product.amount} x</div>
+                    <div className="name-kitchen">{product.product.name}</div>
                   </div>
                   <button
                     className={`remove-product-kitchen btn-empty `}
-                    onClick={() => handleCookProduct(product[0][1])}
+                    onClick={() => handleCookProduct(product)}
                   >
                     <img className="x-kitchen-icon" alt="" src={xIcon} />
                   </button>
                 </div>
                 <div className="specification-kitchen">
                   <div className="description-text-kitchen">
-                    - {product[0][3]}
+                    - {product.product.components}
                   </div>
-                  <b className="alergic-kitchen">- {product[2] === "" ? "None" : product[2]}</b>
+                  <b className="alergic-kitchen">- {product.specification === "" ? "None" : product.specification}</b>
                 </div>
               </div>
             </div>

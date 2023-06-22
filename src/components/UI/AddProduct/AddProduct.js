@@ -60,104 +60,106 @@ const AddProduct = ({ showPopup, onClose }) => {
           }),
         }
 
-        const response = await fetch('http://localhost:8080/products', addProduct)
+        await fetch('http://localhost:8080/products', addProduct)
+
+        window.location.reload();
       }
       catch (error) {
         // Handle the error
         console.error(error);
       }
     }
-    window.location.reload();
     sendProductData();
+    // onClose();
   }
 
-const handleImageUpload = (event) => {
-  const file = event.target.files[0];
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
 
-  if (file) {
-    setImage(file);
-    console.log(file)
-  } else {
-    // Handle case when no file is selected
-    console.log("No file selected.");
+    if (file) {
+      setImage(file);
+      console.log(file)
+    } else {
+      // Handle case when no file is selected
+      console.log("No file selected.");
+    }
   }
-}
 
-return (
-  <Modal show={showPopup} onHide={onClose} animation={false} centered backdrop={false}>
-    <div className="addproduct">
-      <div
-        className="close-btn-addproduct"
-        id="top-bar-container"
-        onClick={onClose}
-      >
-        <p className="add-product" id="font-size-16">
-          Add Product
-        </p>
-        <button className="x" id="close-btn" onClick={onClose}>
-          <img className="vector-icon1" alt="" src="/vector3.svg" />
-          <img className="vector-icon1" alt="" src="/vector4.svg" />
-        </button>
+  return (
+    <Modal show={showPopup} onHide={onClose} animation={false} centered backdrop={false}>
+      <div className="addproduct">
+        <div
+          className="close-btn-addproduct"
+          id="top-bar-container"
+          onClick={onClose}
+        >
+          <p className="add-product" id="font-size-16">
+            Add Product
+          </p>
+          <button className="x" id="close-btn" onClick={onClose}>
+            <img className="vector-icon1" alt="" src="/vector3.svg" />
+            <img className="vector-icon1" alt="" src="/vector4.svg" />
+          </button>
+        </div>
+        <div className="namecontainer-addproduct">
+          <div className="nametest-addproduct">Product Name</div>
+          <input
+            className="nameinput-addproduct"
+            type="text"
+            placeholder="Name"
+            ref={nameRef}
+          />
+        </div>
+        <div className="namecontainer-addproduct">
+          <div className="nametest-addproduct">Price</div>
+          <input
+            className="nameinput-addproduct"
+            type="number"
+            placeholder="Amount"
+            ref={amountRef}
+          />
+        </div>
+        <div className="namecontainer-addproduct">
+          <div className="nametest-addproduct">Components</div>
+          <textarea
+            className="descriptiontextare-addproduct"
+            placeholder="Description"
+            ref={descriptionRef}
+          />
+        </div>
+        <div className="namecontainer-addproduct">
+          <div className="nametest-addproduct">Category</div>
+          <Form.Select className="selectdefault-formselect" ref={categoryRef}>
+            <option>Select category</option>
+            <option value="Appetizers">Appetizers</option>
+            <option value="Entrees">Entrees</option>
+            <option value="Sides">Sides</option>
+            <option value="Desserts">Desserts</option>
+            <option value="Beverages">Beverages</option>
+          </Form.Select>
+        </div>
+        <div className="namecontainer-addproduct">
+          <div className="nametest-addproduct">Image</div>
+          <input
+            className="nameinput-addproduct"
+            type="file"
+            placeholder="Image URL"
+            onChange={handleImageUpload}
+          />
+        </div>
+        <div className="btns-addproduct">
+          <button className="addbtn-addproduct" onClick={handleOnAdd}>
+            <div className="pay-addproduct">
+              <b className="add-addproduct">Add</b>
+            </div>
+          </button>
+          <button className="cancel-addproduct" onClick={onClose}>
+            <div className="cancel">Cancel</div>
+          </button>
+        </div>
       </div>
-      <div className="namecontainer-addproduct">
-        <div className="nametest-addproduct">Product Name</div>
-        <input
-          className="nameinput-addproduct"
-          type="text"
-          placeholder="Name"
-          ref={nameRef}
-        />
-      </div>
-      <div className="namecontainer-addproduct">
-        <div className="nametest-addproduct">Price</div>
-        <input
-          className="nameinput-addproduct"
-          type="number"
-          placeholder="Amount"
-          ref={amountRef}
-        />
-      </div>
-      <div className="namecontainer-addproduct">
-        <div className="nametest-addproduct">Components</div>
-        <textarea
-          className="descriptiontextare-addproduct"
-          placeholder="Description"
-          ref={descriptionRef}
-        />
-      </div>
-      <div className="namecontainer-addproduct">
-        <div className="nametest-addproduct">Category</div>
-        <Form.Select className="selectdefault-formselect" ref={categoryRef}>
-          <option>Select category</option>
-          <option value="Appetizers">Appetizers</option>
-          <option value="Entrees">Entrees</option>
-          <option value="Sides">Sides</option>
-          <option value="Desserts">Desserts</option>
-          <option value="Beverages">Beverages</option>
-        </Form.Select>
-      </div>
-      <div className="namecontainer-addproduct">
-        <div className="nametest-addproduct">Image</div>
-        <input
-          className="nameinput-addproduct"
-          type="file"
-          placeholder="Image URL"
-          onChange={handleImageUpload}
-        />
-      </div>
-      <div className="btns-addproduct">
-        <button className="addbtn-addproduct" onClick={handleOnAdd}>
-          <div className="pay-addproduct">
-            <b className="add-addproduct">Add</b>
-          </div>
-        </button>
-        <button className="cancel-addproduct" onClick={onClose}>
-          <div className="cancel">Cancel</div>
-        </button>
-      </div>
-    </div>
-  </Modal>
-);
+    </Modal>
+  );
 };
 
 export default AddProduct;

@@ -5,10 +5,10 @@ import "./ProductView.css";
 import { useEffect, useState, useRef } from "react";
 import AddOrder from "./AddOrder";
 
-const ProductView = ({ itemDetails, openProductViewPopup, onClose }) => {
+const ProductView = ({ deskId, itemDetails, openProductViewPopup, onClose }) => {
   const [orderList, setOrderList] = useState([]);
   const [counter, setCounter] = useState(1);
-  const [price, setPrice] = useState(itemDetails[3]);
+  const [price, setPrice] = useState(itemDetails.price);
   const [showPopup, setShowPopup] = useState(false);
   const [showAddOrder, setShowAddOrder] = useState(false);
   const specRef = useRef();
@@ -36,11 +36,41 @@ const ProductView = ({ itemDetails, openProductViewPopup, onClose }) => {
 
 
   const addProduct = () => {
-    setCounter(1);
     const spec = specRef.current.value;
-    setOrderList([...orderList, itemDetails.components, itemDetails.nameProdus, spec]);
-    console.log(orderList);
-    setShowAddOrder(true);
+
+    async function addProductsToList() {
+      // 
+      try {
+        // const imageURL = await uploadImageToStorage();
+        const addProduct = {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json, text/plain',
+            'Content-Type': 'application/json;charset=UTF-8',
+            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+          },
+          body: JSON.stringify({
+            productId: itemDetails.id,
+            specification: spec,
+            amount: counter,
+            deskId: deskId
+          }),
+        }
+
+        await fetch('http://localhost:8080/orders', addProduct)
+
+        setCounter(1);
+        // window.location.reload();
+      }
+      catch (error) {
+        // Handle the error
+        console.error(error);
+      }
+    }
+    addProductsToList();
+
+    // console.log(orderList);
+    // setShowAddOrder(true);
   }
 
   const onCloseProduct = () => {
@@ -55,11 +85,11 @@ const ProductView = ({ itemDetails, openProductViewPopup, onClose }) => {
           className="product-image-icon"
           alt=""
           id="product_image"
-          src={itemDetails.img}
+          src={itemDetails.image}
         />
         <div className="product-main" id="product_data_container">
           <p className="amount" id="product_name">
-            {itemDetails.nameProdus}
+            {itemDetails.name}
           </p>
           <p className="lei" id="price">
             {Number(price).toFixed(2) + " lei"}
