@@ -98,7 +98,7 @@ function Settings({ onToggleSidebar }) {
         </div>
         <div className='container-menu'>
           <h3 className='font-size-20 gray-color'>Menu</h3>
-          <div className='gray-line'></div>
+          {/* <div className='gray-line'></div> */}
           {/* <div className='title-settings'>
             <div className='font-size-32'> Available Products: </div>
             <div className='font-size-32 bold'>28</div>

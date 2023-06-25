@@ -1,18 +1,25 @@
 import { useState } from "react";
 import "./SelectDesk.css";
 import { Modal } from "react-bootstrap";
+import { useEffect } from "react";
 
-const DeskList = [[1, 2], [4, 2], [45, 4], [2, 8], [12, 2], [33, 4], [7, 2], [19, 5], [26, 3], [41, 2], [50, 1]]
+// const DeskList = [[1, 2], [4, 2], [45, 4], [2, 8], [12, 2], [33, 4], [7, 2], [19, 5], [26, 3], [41, 2], [50, 1]]
 
-const SelectDesk = ({ showPopup, onClose, updateSelectedDesk }) => {
-  const [selected, setSelected] = useState("none")
+const SelectDesk = ({allDesks, showPopup, onClose, updateSelectedDesk }) => {
+  const [selected, setSelected] = useState([])
+  const [desks, setAllDesks] = useState(allDesks)
 
-  const handleOnSelect = (index) => {
-    setSelected(index);
+  useEffect(()=>{
+
+  },[])
+
+  const handleOnSelect = (deskData) => {
+    setSelected(deskData);
   }
 
   const handleOnChoose = () =>{
-    updateSelectedDesk(DeskList[selected])
+    
+    updateSelectedDesk(selected)
     onClose();
   }
 
@@ -24,22 +31,22 @@ const SelectDesk = ({ showPopup, onClose, updateSelectedDesk }) => {
         </p>
         <div className="desk-list" id="select desk list">
           {
-            DeskList.map((item, index) => (
+            allDesks.map((item) => (
               <div
-                className={`small-desk ${selected === index ? "green" : ""}`}
-                onClick={() => handleOnSelect(index)}
+                className={`small-desk ${selected === item ? "green" : ""}`}
+                onClick={() => handleOnSelect(item)}
                 id="small desk"
-                key={index}
+                key={item.id}
               >
                 <div
-                  className={`small-desk-title ${selected === index ? "green" : ""}`}
+                  className={`small-desk-title ${selected === item ? "green" : ""}`}
                   id="small desk title"
                 >
                   <b className="desk-title-text">Desk</b>
                 </div>
                 <div className="desk-data" id="small desk data">
-                  <b className="desk-number">{item[0]}</b>
-                  <div className="desk-places">{item[1]} places</div>
+                  <b className="desk-number">{item.number}</b>
+                  <div className="desk-places">{item.places} places</div>
                 </div>
               </div>
             ))}

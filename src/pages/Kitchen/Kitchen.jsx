@@ -38,8 +38,15 @@ function Kitchen({ onToggleSidebar }) {
           }
         }
         const allDesks = data.filter((item) => item.status === "TAKEN" && item.cookingStatus !== "DONE").map(formattedData)
-        setPrepareDesks(allDesks)
-        console.log(allDesks)
+        setPrepareDesks(allDesks.sort((a, b) => {
+          if (a.cookingStatus === "STARTED" && b.cookingStatus !== "STARTED") {
+            return -1; // `a` comes before `b`
+          } else if (a.cookingStatus !== "STARTED" && b.cookingStatus === "STARTED") {
+            return 1; // `b` comes before `a`
+          } else {
+            return 0; // no sorting needed
+          }
+        }));
       }
       catch (error) {
         // Handle the error

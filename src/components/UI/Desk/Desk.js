@@ -18,7 +18,7 @@ function getDeskStatus(value) {
     return "red";
   } else if (value === "CLEAN_UP") {
     return "green";
-  }
+  }else return ""
 }
 
 const Desk = ({deskData}) => {
@@ -75,10 +75,6 @@ const Desk = ({deskData}) => {
     }
     fetchData();
     setPaymentPopup(!showPaymentPopup);
-  }
-
-  const getDeskData = () =>{
-
   }
 
 

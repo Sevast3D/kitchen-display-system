@@ -12,19 +12,27 @@ const AddReservation = ({ showPopup, onClose }) => {
   const [quantity, setQuantity] = useState(1);
   const [selectedDesk, setSelectedDesk] = useState([]);
   const [selectedDate, setSelectedDate] = useState('');
+
+  const [allDesks, setAllDesks] = useState([])
   const descriptionRef = useRef();
   const [error, setError] = useState("");
 
 
+  const handleUpdateSelectedDesk = (deskData) => {
+    setSelectedDesk(deskData);
+    console.log(deskData)
 
-  const handleUpdateSelectedDesk = (desk) => {
-    setSelectedDesk(desk);
+
 
     setTimeout(() => {
       document.getElementById('desk-number-error').classList.remove('input-error');
       setError('')
     }, 300);
   };
+
+  useEffect(() => {
+
+  }, [selectedDesk])
 
   const handleInputChange = (event) => {
     setQuantity(parseInt(event.target.value));
@@ -40,8 +48,61 @@ const AddReservation = ({ showPopup, onClose }) => {
   }
 
   const handleOpenSelectDeskPopup = () => {
+
     if (selectedDate) {
-      setSelectDeskPopupOpen(!isSelectDeskPopupOpen);
+      const options = {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+      };
+
+      const formattedDate = selectedDate.toLocaleString('en-US', options).replace('T', ' ');
+      setSelectedDate(formattedDate)
+      const fetchData = async () => {
+        try {
+          const getAllDesks = {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json, text/plain',
+              'Content-Type': 'application/json;charset=UTF-8',
+              'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+            },
+            body: JSON.stringify({
+              people: quantity,
+              dateTime: formattedDate,
+            }),
+          }
+
+          const response = await fetch(`http://localhost:8080/reservations/desks`, getAllDesks)
+          if (!response.ok) {
+            throw new Error('Failed to get desks data.');
+          }
+          const data = await response.json();
+
+          function formattedData(desk) {
+            return {
+              id: desk.id,
+              number: desk.number,
+              status: desk.status,
+              places: desk.places,
+              cookingStatus: desk.cookingStatus,
+              orderItems: desk.orderItems,
+              reservations: desk.reservations
+            }
+          }
+          const allDesks = data.map(formattedData)
+          setAllDesks(allDesks)
+
+          setSelectDeskPopupOpen(!isSelectDeskPopupOpen);
+        }
+        catch (error) {
+          // Handle the error
+          console.error(error);
+        }
+      }
+      fetchData();
     } else {
       document.getElementById('dt-picker').classList.add('input-error');
       setError("Select the Date/ Time firstly")
@@ -58,15 +119,45 @@ const AddReservation = ({ showPopup, onClose }) => {
 
   const handleAddReservation = () => {
     const description = descriptionRef.current.value;
-    if((selectedDate.length !== 0) && (selectedDesk.length != 0)){
-      console.log([description, selectedDate, selectedDesk])
-      onClose();
-    }else{
+
+    if ((selectedDate.length !== 0) && (selectedDesk.number.length != 0)) {
+      const fetchData = async () => {
+        try {
+          const addReservation = {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json, text/plain',
+              'Content-Type': 'application/json;charset=UTF-8',
+              'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+            },
+            body: JSON.stringify({
+              eventDescription: description,
+              people: quantity,
+              dateTime: selectedDate,
+              deskId: selectedDesk.id,
+            }),
+          }
+
+          const response = await fetch(`http://localhost:8080/reservations`, addReservation)
+          if (!response.ok) {
+            throw new Error('Failed to add reservation.');
+          }
+
+          console.log([description, selectedDate, selectedDesk])
+          onClose();
+        }
+        catch (error) {
+          // Handle the error
+          console.error(error);
+        }
+      }
+      fetchData();
+    } else {
       if (!selectedDate) {
         document.getElementById('dt-picker').classList.add('input-error');
         setError("Set the Date/ Time")
       }
-  
+
       if (selectedDesk.length === 0) {
         document.getElementById('desk-number-error').classList.add('input-error');
       }
@@ -123,12 +214,12 @@ const AddReservation = ({ showPopup, onClose }) => {
             <div className="date-time">Desk Number</div>
             <div className="desk-row" id="desk elements container">
               <div className="selected-desk-number-label" id="desk-number-error">
-                <div className="div">{selectedDesk[0]}</div>
+                <div className="div">{selectedDesk.number}</div>
               </div>
               <button className="select-btn" onClick={handleOpenSelectDeskPopup}>
                 <div className="select">Select</div>
               </button>
-              <SelectDesk showPopup={isSelectDeskPopupOpen} onClose={handleOpenSelectDeskPopup} updateSelectedDesk={handleUpdateSelectedDesk} />
+              <SelectDesk allDesks={allDesks} showPopup={isSelectDeskPopupOpen} onClose={handleOpenSelectDeskPopup} updateSelectedDesk={handleUpdateSelectedDesk} />
             </div>
           </div>
           <div className="people-column" id="people">

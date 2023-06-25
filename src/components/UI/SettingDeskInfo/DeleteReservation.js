@@ -31,9 +31,32 @@ const DeleteReservation = ({ title, actionBtn, showPopup, onClose }) => {
 
   const handleRemoveRez = () => {
     const inputData = inputDataRef.current.value;
-    console.log("Removing" + inputData);
+
+    async function deleteReservation() {
+      // 
+      try {
+        const deleteReservation = {
+          method: 'DELETE',
+          headers: {
+            'Accept': 'application/json, text/plain',
+            'Content-Type': 'application/json;charset=UTF-8',
+            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+          },
+        }
+
+        await fetch(`http://localhost:8080/reservations/${parseInt(inputData, 10)}`, deleteReservation)
+
+        window.location.reload();
+      }
+      catch (error) {
+        // Handle the error
+        setError("Invalid ID!");
+        console.error(error);
+      }
+    }
     if (inputData != "") {
-      window.location.reload();
+      deleteReservation();
+      console.log("Removing " + inputData);
     } else {
       setError("Invalid ID!");
     }
