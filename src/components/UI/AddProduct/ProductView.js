@@ -20,7 +20,7 @@ const ProductView = ({ productData, showPopup, onClose }) => {
           },
         }
 
-        const response = await fetch(`http://localhost:8080/products/${parseInt(productId, 10)}`, deleteProductRequest)
+      await fetch(`http://localhost:8080/products/${parseInt(productId, 10)}`, deleteProductRequest)
       }
       catch (error) {
         // Handle the error

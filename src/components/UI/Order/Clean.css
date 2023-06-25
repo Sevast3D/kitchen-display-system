@@ -11,7 +11,7 @@
   line-height: 120%;
 }
 
-.cleaning-msg {
+.cleaning-msg-div {
   border-radius: var(--br-5xs);
   background-color: var(--color-gray-300);
   width: 314px;

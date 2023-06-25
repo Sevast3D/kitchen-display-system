@@ -17,7 +17,7 @@ const ViewUserMemberTabAdmin = ({ user, showPopup, onClose }) => {
   const [loggedUserData, setLoggedUserData] = useState([]);
 
   useEffect(() => {
-    // console.log(user.firstName)
+    console.log(user)
     // console.log(user.role)
     if (user.role === "ADMIN") {
       setAdmin(true);
@@ -26,7 +26,7 @@ const ViewUserMemberTabAdmin = ({ user, showPopup, onClose }) => {
     } else if (user.role === "CHEF") {
       setRoleChef(true);
     }
-  }, [])
+  }, [user])
 
   const handleCheckboxChange = (e) => {
     const { value, checked } = e.target;
@@ -77,6 +77,9 @@ const ViewUserMemberTabAdmin = ({ user, showPopup, onClose }) => {
     fetch(`http://localhost:8080/users/${user.userId}`, updateUserProfile)
       .then(res => {
         if (res.ok) {
+          // const user = sessionStorage.getItem('userUID');
+          // const { userId, role } = mappedData;
+          
           return res.json();
         } else {
           console.log("Update User Failed!");
@@ -93,9 +96,9 @@ const ViewUserMemberTabAdmin = ({ user, showPopup, onClose }) => {
       <div className="view-user-member-tab-admin">
         <div className="main-container" id="products_container">
           <div className="left-side-contrainer">
-            {userData.profileImage === null || userData.profileImage === undefined ?
+            {user.profileImage === null || user.profileImage === undefined ?
               <img className="user-image-view-user" alt="" src={noImage} /> :
-              <img className="user-image-view-user" alt="" src={userData.profileImage} />
+              <img className="user-image-view-user" alt="" src={user.profileImage} />
             }
           </div>
           <div className="user-info">

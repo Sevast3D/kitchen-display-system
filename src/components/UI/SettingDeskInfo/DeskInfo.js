@@ -23,7 +23,7 @@ const DeskInfo = ({ deskData, showPopup, onClose }) => {
     const reservation = deskData.reservations;
     setReservations(reservation)
     // setTotalPrice()
-    if (orderList.length > 0) {
+    if (orderList && orderList.length) {
       const totalPrice = orderList.reduce((acc, item) => acc + item.price, 0).toFixed(2);
       setTotalPrice(totalPrice)
     }else{
@@ -91,9 +91,6 @@ const DeskInfo = ({ deskData, showPopup, onClose }) => {
                   {deskData.status}
                 </p>
               </div>
-              <p className="time-deskInfo" id="time">
-                01:34:02 PM
-              </p>
             </div>
             <div
               className={`title-deskInfo 

@@ -15,6 +15,17 @@ const ProductsMenu = ({ showPopup, onClose }) => {
   const [isProductView, setProductView] = useState(false);
   const [productData, setProductData] = useState([]);
 
+  const [searchTerm, setSearchTerm] = useState('');
+  // Filter the orderList based on the search term
+  const filteredList = orderList.filter(item =>
+    item.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const handleSearchChange = e => {
+    setSearchTerm(e.target.value);
+  };
+
+
   useEffect(() => {
     const fetchData = async () => {
       const getAllProducts = {
@@ -40,9 +51,9 @@ const ProductsMenu = ({ showPopup, onClose }) => {
     fetchData();
   }, []);
 
-  const handleOnSelect = (index) => {
-    setSelected(index);
-    setProductData(orderList[index]);
+  const handleOnSelect = (product) => {
+    setSelected(product.id);
+    setProductData(product);
   }
 
   const handleOnAddProduct = () => {
@@ -70,13 +81,13 @@ const ProductsMenu = ({ showPopup, onClose }) => {
             <img className="vector-icon-ProductMenu" alt="" src="/vector4.svg" />
           </button>
         </div>
-        <input className="cleaning-msg" type="text" placeholder="Search" />
+        <input className="cleaning-msg" type="text" placeholder="Search" value={searchTerm} onChange={handleSearchChange} />
         {
-          orderList.map((item, index) => (
-            <button  key={item.id} className={`product-product-menu
-            ${selected === index ? "selected-button" : ""}
+          filteredList.slice(0, 10).map((item, index) => (
+            <button key={item.id} className={`product-product-menu
+            ${selected === item.id ? "selected-button" : ""}
             `}
-              onClick={() => handleOnSelect(index)}>
+              onClick={() => handleOnSelect(item)}>
               <div className="product-name-productmenu">{item.name}</div>
               <div className="product-name-productmenu">{item.price} Lei</div>
             </button>
@@ -95,7 +106,7 @@ const ProductsMenu = ({ showPopup, onClose }) => {
           <button className="viewproduct-productmenu" onClick={() => handleOnViewProduct()}>
             <b className="view-product">View Product</b>
           </button>
-          <ProductView productData={productData} showPopup={isProductView} onClose={handleOnViewProduct}/>
+          <ProductView productData={productData} showPopup={isProductView} onClose={handleOnViewProduct} />
         </div>
       </div>
     </Modal>

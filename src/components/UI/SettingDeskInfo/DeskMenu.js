@@ -17,7 +17,7 @@ const DeskMenu = ({ allDesks, onClose, showPopup }) => {
   const [deskData, setDeskData] = useState([])
 
   const handleOnSelect = (item) => {
-    setDeskId(item.Id);
+    // setDeskId(item.Id);
     setSelected(item);
   }
 

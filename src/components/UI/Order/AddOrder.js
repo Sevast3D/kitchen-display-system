@@ -123,7 +123,7 @@ const AddOrder = ({ deskId, showPopup, onClose }) => {
         console.error(error);
       }
     }
-    if(orderList.length !== 0 && orderList.some(item => item.status === "NOT_COOKED")){
+    if (orderList.length !== 0 && orderList.some(item => item.status === "NOT_COOKED")) {
       updateDeskStatus();
     }
   }
@@ -171,7 +171,7 @@ const AddOrder = ({ deskId, showPopup, onClose }) => {
                 </div>
               ))}
             {activeKey === 'link-1' &&
-              entrees.map((item, key) => (
+              entrees.map((item) => (
                 <div className="product-view1 gray-overlay"
                   id="product"
                   onClick={() => handleOpenProduct(item)}
@@ -185,7 +185,7 @@ const AddOrder = ({ deskId, showPopup, onClose }) => {
                 </div>
               ))}
             {activeKey === 'link-2' &&
-              sides.map((item, key) => (
+              sides.map((item) => (
                 <div className="product-view1 gray-overlay"
                   id="product"
                   onClick={() => handleOpenProduct(item)}
@@ -199,7 +199,7 @@ const AddOrder = ({ deskId, showPopup, onClose }) => {
                 </div>
               ))}
             {activeKey === 'link-3' &&
-              desserts.map((item, key) => (
+              desserts.map((item) => (
                 <div className="product-view1 gray-overlay"
                   id="product"
                   onClick={() => handleOpenProduct(item)}
@@ -213,7 +213,7 @@ const AddOrder = ({ deskId, showPopup, onClose }) => {
                 </div>
               ))}
             {activeKey === 'link-4' &&
-              beverages.map((item, key) => (
+              beverages.map((item) => (
                 <div className="product-view1 gray-overlay"
                   id="product"
                   onClick={() => handleOpenProduct(item)}
@@ -238,13 +238,13 @@ const AddOrder = ({ deskId, showPopup, onClose }) => {
               <div className="pieces" id="pieces_container">
                 <div className="pieces-ordered">Products Ordered:</div>
                 <p className="product_name" id="pieces_number">
-                  7
+                  {orderList.length}
                 </p>
               </div>
               <div className="order" id="order_container">
-                <p className="order-id">Order ID:</p>
+                <p className="order-id">Desk ID:</p>
                 <p className="order-id" id="order_id">
-                  1323
+                  {deskId}
                 </p>
               </div>
             </div>

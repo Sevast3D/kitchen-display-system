@@ -44,6 +44,7 @@ function Settings({ onToggleSidebar }) {
         }
         const allDesks = data.map(formattedData)
         setAllDesks(allDesks)
+        // console.log(allDesks)
       }
       catch (error) {
         // Handle the error

@@ -36,7 +36,7 @@ const Clean = ({deskId, openClean, onClose }) => {
         <p className="cleaning" id="font-size-16">
           Cleaning
         </p>
-        <div className="cleaning-msg" id="cleaning_msg">
+        <div className="cleaning-msg-div" id="cleaning_msg">
           <div className="are-you-sure">
             Are you sure that you want to mark the desk as clean?
           </div>

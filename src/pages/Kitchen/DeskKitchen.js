@@ -172,7 +172,7 @@ const DeskKitchen = ({ deskData }) => {
               <div className={`product-kitchen ${product.status === "COOKED" ? 'line-through' : ''}`}>
                 <div className="main-details-container-kitchen">
                   <div className="product-details-kitchen">
-                    <div className="amount-kitchen">{product.amount} x</div>
+                    <div className="amount-kitchen">{product.amount + "x"}</div>
                     <div className="name-kitchen">{product.product.name}</div>
                   </div>
                   <button
