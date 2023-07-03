@@ -112,6 +112,7 @@ function LoginWidget() {
   const handleOnForgotPass = () => {
     setForgotPass(!isForgotPass)
   }
+  
   return (
     <div className='loginFrame'>
       <div className='logoText frame-column-center'>
@@ -133,9 +134,8 @@ function LoginWidget() {
       <div className='frame-column-center btnFrame gap-10 font-size-16'>
         <p id='error-msg' className='text-red'>{error}</p>
         <button className='btn-orange font-size-16 bold' onClick={verifyValues}>Login</button>
-        <a href='' className='text-black'>Forgot your password?</a>
-        <ForgotPass title="Enter your email for reseting:" actionBtn='Send' showPopup={isForgotPass} onClose={handleOnForgotPass} />
-      </div>
+        <a className='text-black' onClick={handleOnForgotPass}>Forgot your password?</a>
+        <ForgotPass title="Enter your email for reseting:" actionBtn='Send' showPopup={isForgotPass} onClose={handleOnForgotPass} />      </div>
       {/* Move to Sign Up Section */}
       <div className='font-size-16'>
         <p className='text-gray'>You don’t have an account? <span></span>

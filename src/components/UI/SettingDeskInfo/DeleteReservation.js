@@ -7,8 +7,13 @@ import { useEffect } from 'react';
 
 const DeleteReservation = ({ title, actionBtn, showPopup, onClose }) => {
   const inputDataRef = useRef();
+  const newPassRef = useRef();
+
   const [error, setError] = useState("");
+  const [msg, setMsg] = useState("")
   const [placeholderText, setPlaceHolderText] = useState("");
+  const [rightPass, setRightPass] = useState(false);
+  const [userId, setUserId] = useState("")
 
   useEffect(() => {
     if (actionBtn === "Add") {
@@ -76,57 +81,90 @@ const DeleteReservation = ({ title, actionBtn, showPopup, onClose }) => {
   }
 
   const resetPassword = () => {
-    const auth = getAuth();
-    const emailAddress = inputDataRef.current.value;
-    console.log(emailAddress)
-    sendPasswordResetEmail(auth, emailAddress)
-      // .then(() => {
-      //   // Password reset email sent successfully
-      //   const updateUser = {
-      //     method: 'PUT',
-      //     headers: {
-      //       'Accept': 'application/json, text/plain',
-      //       'Content-Type': 'application/json;charset=UTF-8',
-      //       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-      //     },
-      //     body: JSON.stringify({
-      //       firstName: firstName,
-      //       lastName: lastName,
-      //       email: email,
-      //       phoneNumber: phoneNumber,
-      //       password: password,
-      //       profileImage: profileImage,
-      //       role: profileData.role
-      //     }),
-      //   }
-        
-      //   fetch(`http://localhost:8080/users/${profileData.userId}`, updateUser)
-      //   .then(res => {
-      //     if (res.ok) {
-      //       const user = sessionStorage.getItem('userUID');
-      //       // Update logged user values
-      //       // console.log("ProfileImage END: " + profileImage)
-      //       // console.log("Image END: " + imageURL)
-      //       writeUserData(user, profileData.userId, firstName, lastName, email, phoneNumber, profileImage, profileData.role);
-      //       changePassword(password);
-      //       handleSave();
-      //       return null;
-      //     } else {
-      //       setError('Update user Data Failed on Backend!');
-      //     }
-      //   })
-      //   .catch(error => {
-      //     // Handle the error
-      //     console.error(error);
-      //   });
-      //   onClose()
-      // })
-      // .catch((error) => {
-      //   // Error occurred while sending the password reset email
-      //   console.error('Error sending password reset email:', error);
-      //   setError("Error: " + error.code)
-      // });
+    if (!rightPass) {
+      const auth = getAuth();
+      const emailAddress = inputDataRef.current.value;
+      console.log(emailAddress)
 
+      // Get UserId for Firebase Listener
+      const fetchData = async () => {
+        try {
+          const getUserId = {
+            method: 'GET',
+            headers: {
+              'Accept': 'application/json, text/plain',
+              'Content-Type': 'application/json;charset=UTF-8',
+              Authorization: `Bearer ${sessionStorage.getItem('token')}`,
+            },
+          }
+          // Get all members
+          const response = await fetch(`http://localhost:8080/users/?email=${emailAddress}`, getUserId)
+          if (!response.ok) {
+            throw new Error('Failed to get user Id.');
+          }
+          const data = await response.text();
+
+          if (data.length === 0) {
+            setError("Invalid Email");
+            setMsg("")
+          } else {
+            setError("")
+            setMsg("Succes! Check your email and retype the new pass!")
+            setRightPass(true)
+            setUserId(data)
+
+
+            sendPasswordResetEmail(auth, emailAddress)
+              .catch((error) => {
+                // Error occurred while sending the password reset email
+                console.error('Error sending password reset email:', error);
+                setError("Error: " + error.code)
+              });
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      }
+      fetchData();
+    } else {
+      updateUserData();
+    }
+  }
+
+  // Password reset email on backend
+  const updateUserData = () => {
+    let password = newPassRef.current.value;
+    const updateUser = {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json, text/plain',
+        'Content-Type': 'application/json;charset=UTF-8',
+        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+      },
+      body: JSON.stringify({
+        password: password
+      }),
+    }
+
+    if(password.length > 0){
+    fetch(`http://localhost:8080/users/${userId}`, updateUser)
+      .then(res => {
+        if (!res.ok) {
+          setError('Update user password Failed on Backend!');
+        }else{
+          setMsg("")
+          setError("")
+          window.location.reload();
+        }
+      })
+      .catch(error => {
+        // Handle the error
+        console.error(error);
+      }); 
+    }else{
+      setMsg("")
+      setError("Please enter the new pass!")
+    }
   }
 
   return (
@@ -142,9 +180,20 @@ const DeleteReservation = ({ title, actionBtn, showPopup, onClose }) => {
           ref={inputDataRef}
           id="inputData"
         />
+        {rightPass ? <>
+          <input
+            className="cleaning-msg"
+            type='password'
+            placeholder="Retype pass used on mail"
+            ref={newPassRef}
+            id="inputPass"
+          /></>
+          : ""
+        }
         <div className="event-row error">
           {error}
         </div>
+        <p className='text-success'>{msg}</p>
         <div className="btns" id="btns_container">
           <button className="cleaning-close-btn" onClick={onClose}>
             <div className="close text-black">Close</div>

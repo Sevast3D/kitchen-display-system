@@ -82,6 +82,7 @@
   background-color: var(--color-whitesmoke);
   box-shadow: 0 4px 39px rgba(0, 0, 0, 0.25);
   width: 309px;
+  top: 180px;
   overflow: hidden;
   flex-direction: column;
   padding: var(--padding-3xl) var(--padding-11xl);
