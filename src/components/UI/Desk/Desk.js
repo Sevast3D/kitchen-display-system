@@ -9,6 +9,7 @@ import CleanPopup from "../Order/Clean.js"
 import Dolar from "./Assets/dollarsign.svg";
 import Eat from "./Assets/eat.svg";
 import Clean from "./Assets/clean.svg";
+import { useEffect } from "react";
 
 
 function getDeskStatus(value) {

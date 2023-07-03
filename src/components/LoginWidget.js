@@ -7,6 +7,7 @@ import './LoginWidget.css'
 
 import logo from '../assets/Logo.png';
 import noPorfilePic from './UI/LoggedProfile/assets/user-no-image.png'
+import ForgotPass from './UI/SettingDeskInfo/DeleteReservation'
 
 function LoginWidget() {
   const history = useHistory();
@@ -18,7 +19,7 @@ function LoginWidget() {
 
   const [userData, setUserData] = useState(null);
 
-  // const { errorAuth, SignUp, currentUser} = useAuth();
+  const [isForgotPass, setForgotPass] = useState(false)
 
   const waiter = () => {
     history.push('/w',);
@@ -106,7 +107,11 @@ function LoginWidget() {
         setError(error.code)
       })
 
-  };
+  }
+
+  const handleOnForgotPass = () => {
+    setForgotPass(!isForgotPass)
+  }
   return (
     <div className='loginFrame'>
       <div className='logoText frame-column-center'>
@@ -129,6 +134,7 @@ function LoginWidget() {
         <p id='error-msg' className='text-red'>{error}</p>
         <button className='btn-orange font-size-16 bold' onClick={verifyValues}>Login</button>
         <a href='' className='text-black'>Forgot your password?</a>
+        <ForgotPass title="Enter your email for reseting:" actionBtn='Send' showPopup={isForgotPass} onClose={handleOnForgotPass} />
       </div>
       {/* Move to Sign Up Section */}
       <div className='font-size-16'>

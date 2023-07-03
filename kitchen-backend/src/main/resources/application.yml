@@ -1,0 +1,17 @@
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          public-key-location: 'file:config/jwk-public.pem'
+          private-key-location: 'file:config/jwk-private.pem'
+  datasource:
+#    url: jdbc:h2:mem:test
+#      driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: 123
+    url: jdbc:postgresql://localhost:5432/kitchen
+
+  h2:
+    console:
+      enabled: true

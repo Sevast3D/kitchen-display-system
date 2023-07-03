@@ -5,7 +5,7 @@ import cookingIcon from './assets/button-icon-kitchen.svg';
 import xIcon from './assets/x-kitchen.svg';
 import doneIcon from './assets/done.png';
 
-const DeskKitchen = ({ deskData }) => {
+const  DeskKitchen = ({ deskData }) => {
   const [timeDifference, setTimeDifference] = useState();
   const [productList, setProductList] = useState([]);
   const sortedProductList = productList.sort((a, b) => a.product.category.localeCompare(b.product.category));
