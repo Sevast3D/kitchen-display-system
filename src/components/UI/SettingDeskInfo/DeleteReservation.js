@@ -30,7 +30,7 @@ const DeleteReservation = ({ title, actionBtn, showPopup, onClose }) => {
   }
 
   const handleRemoveRez = () => {
-    const inputData = inputDataRef.current.value;
+    const inputData = parseInt(inputDataRef.current.value, 10);
 
     async function deleteReservation() {
       // 

@@ -18,10 +18,10 @@ function getDeskStatus(value) {
     return "red";
   } else if (value === "CLEAN_UP") {
     return "green";
-  }else return ""
+  } else return ""
 }
 
-const Desk = ({deskData}) => {
+const Desk = ({ deskData, time }) => {
   let currentTime = new Date();
 
   const [showPopup, setShowPopup] = useState(false);
@@ -94,7 +94,7 @@ const Desk = ({deskData}) => {
           ) : (
             <OrderMenu deskId={deskData.id} showPopup={showPopup} onClose={handleClose} />
           )}
-          <button onClick={handleOpenPayment} className={`pay ${deskData.status === "EMPTY" || deskData.status === "CLEAN_UP" ? `hidden` : ``}`}>
+          <button onClick={handleOpenPayment} className={`pay ${deskData.status === "EMPTY" || deskData.status === "CLEAN_UP" || deskData.status === "RESERVED" ? `hidden` : ``}`}>
             <img className="dollar-sign-icon" alt="" src={Dolar} />
             <div className="font-size-16">Pay</div>
           </button>
@@ -108,14 +108,14 @@ const Desk = ({deskData}) => {
         <div className="status" id="status_label">
           <div className="status1">Status:</div>
           <p className="empty" id="status">
-            {deskData.status === "CLEAN_UP" ? "Clean Up": ""}
-            {deskData.status === "EMPTY" ? "Empty": ""}
-            {deskData.status === "TAKEN" ? "Taken": ""}
-            {deskData.status === "RESERVED" ? "Reserved": ""}
+            {deskData.status === "CLEAN_UP" ? "Clean Up" : ""}
+            {deskData.status === "EMPTY" ? "Empty" : ""}
+            {deskData.status === "TAKEN" ? "Taken" : ""}
+            {deskData.status === "RESERVED" ? "Reserved" : ""}
           </p>
         </div>
         <p className={`pm ${deskData.status === "TAKEN" || deskData.status === "RESERVED" ? `visible` : ``}`} id="time">
-          {currentTime.toLocaleTimeString()}
+          {/* {deskData.status !== "RESERVED" ? "" : (time.toLocaleTimeString())} */}
         </p>
       </div>
       <div className={`title ${getDeskStatus(deskData.status)}`} id="title">
