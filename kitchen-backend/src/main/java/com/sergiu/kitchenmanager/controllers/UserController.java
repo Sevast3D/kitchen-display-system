@@ -55,6 +55,12 @@ public class UserController {
         return ResponseEntity.ok(userList);
     }
 
+    @GetMapping("/")
+    public ResponseEntity<String> getUserIdByEmail(@RequestParam("email") String email){
+        var userId = userService.getUserIdByEmail(email);
+        return ResponseEntity.ok(userId);
+    }
+
     @PutMapping("/{userId}")
     @ResponseStatus(HttpStatus.OK)
     public void updateUserProfile(@PathVariable String userId, @RequestBody ProfileUpdateRequestDto profile){

@@ -106,6 +106,11 @@ public class UserServiceImpl implements UserService {
                 .toList();
     }
 
+    @Override
+    public String getUserIdByEmail(String email) {
+        var userEty = userRepository.findUserEtyByEmail(email);
+        return userEty.map(UserEty::getUserId).orElse(null);
+    }
 
     @Override
     public void updateUser(String userId, ProfileUpdateRequestDto profile) {

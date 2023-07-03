@@ -19,5 +19,7 @@ public interface UserService {
 
     List<UserResponseDto> getAllUsersByRole(UserRole role);
 
+    String getUserIdByEmail(String email);
+
     void updateUser(String userId, ProfileUpdateRequestDto profile);
 }
