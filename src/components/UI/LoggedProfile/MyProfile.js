@@ -8,7 +8,194 @@ import noProfilePic from './assets/user-no-image.png'
 
 const MyProfile = ({ showPopup, onClose }) => {
   const [isEditing, setIsEditing] = useState(false);
+  const [profileData, setUserData] = useState([]);
+  // Profile image 
+  const [image, setImage] = useState([]);
+  const [imageURL, setImageURL] = useState(null);
 
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState("")
+  const [editData, setEditData] = useState(true);
+
+  const passwordRef = useRef();
+  const passwordRepetRef = useRef();
+  const newPasswordRef = useRef();
+  const emailRef = useRef();
+  const firstNameRef = useRef();
+  const lastNameRef = useRef();
+  const phoneNumberRef = useRef();
+
+  useEffect(() => {
+    setIsLoading(true);
+    getUserData()
+      .then((userData) => {
+        // Access and use the userData here
+        // console.log(userData);
+        setUserData(userData);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error(error);
+
+        setIsLoading(false);
+      })
+    setImage(profileData.profileImage)
+    // const storage = getStorage();
+    // const imageRef = storageRef(storage, `users/${profileData.userUID}/profileImage`);
+    // getDownloadURL(imageRef)
+    //   .then((url) => {
+    //     setImageUrl(url);
+    //   })
+    //   .catch((error) => {
+    //     console.log("Failed to retrieve image:", error);
+    //   });
+  }, []);
+
+  const handleUpdateUser = () => {
+    const firstNameInput = firstNameRef.current.value;
+    const lastNameInput = lastNameRef.current.value;
+    const phoneNumberInput = phoneNumberRef.current.value;
+    const emailInput = emailRef.current.value;
+    const newPasswordInput = newPasswordRef.current.value;
+
+    setEditData(true);
+    setError("")
+
+    let firstName = profileData.firstName;
+    let lastName = profileData.lastName;
+    let email = profileData.email;
+    let phoneNumber = profileData.phoneNumber;
+    let profileImage = profileData.profileImage;
+    let password = newPasswordInput;
+
+    if (firstNameInput != "") {
+      firstName = firstNameInput;
+    }
+    if (lastNameInput != "") {
+      lastName = lastNameInput;
+    }
+    if (emailInput != "") {
+      email = emailInput;
+    }
+    if (phoneNumberInput != "") {
+      if (phoneNumberInput.length > 8) {
+        phoneNumber = phoneNumberInput;
+        setEditData(true)
+      } else {
+        setError("Phone Number Should to have at least 9 character!")
+        setEditData(false)
+      }
+    }
+    // const imageURL = await getDownloadURL(imageRef);
+    const user = sessionStorage.getItem('userUID');
+
+    // Upload Image to Storage
+    async function uploadImageToStorage() {
+      if (image) {
+        // console.log("old  Image:" + profileImage)
+        try {
+          const imageURL = await uploadImage(user, image);
+          setImageURL(imageURL);
+          profileImage = imageURL;
+          // console.log("new  Image:" + profileImage)
+          setImage(null);
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        console.log('No Image')
+        setImageURL(profileImage)
+      }
+    }
+
+    // Call the uploadIUserData function and wait for it to complete
+    async function updateUserData() {
+      // 
+      await uploadImageToStorage();
+      // console.log("Continue")
+
+      const updateUser = {
+        method: 'PUT',
+        headers: {
+          'Accept': 'application/json, text/plain',
+          'Content-Type': 'application/json;charset=UTF-8',
+          'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+        },
+        body: JSON.stringify({
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          phoneNumber: phoneNumber,
+          password: password,
+          profileImage: profileImage,
+          role: profileData.role
+        }),
+      }
+
+      // Update user Email in firebase
+      async function handleEmailChange(newEmail) {
+        try {
+          changeEmail(newEmail);
+        } catch (error) {
+          setError("Test:" + error);
+          setEditData(false)
+        }
+      }
+      if (emailInput.length !== 0) {
+        handleEmailChange(email);
+      }
+
+      if (editData) {
+        fetch(`http://localhost:8080/users/${profileData.userId}`, updateUser)
+          .then(res => {
+            if (res.ok) {
+              const user = sessionStorage.getItem('userUID');
+              // Update logged user values
+              // console.log("ProfileImage END: " + profileImage)
+              // console.log("Image END: " + imageURL)
+              writeUserData(user, profileData.userId, firstName, lastName, email, phoneNumber, profileImage, profileData.role);
+              changePassword(password);
+              handleSave();
+              return null;
+            } else {
+              setError('Update user Data Failed on Backend!');
+            }
+          })
+          .catch(error => {
+            // Handle the error
+            console.error(error);
+          });
+      }else{
+        console.log("Editat off")
+      }
+    }
+      updateUserData();
+  }
+
+  const handleCheckValues = () => {
+    const newPassword = newPasswordRef.current.value;
+    const passwordRepet = passwordRepetRef.current.value;
+
+    if ((newPassword === passwordRepet) && (newPassword != "")) {
+      handleUpdateUser();
+    } else {
+      setError("Paswords are not the same, retype.")
+    }
+
+  }
+
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+
+    if (file) {
+      setImage(file);
+      console.log(file)
+    } else {
+      // Handle case when no file is selected
+      console.log("No file selected.");
+    }
+  }
+  
   const handleSave = () => {
     // Add save logic here
     window.location.reload();

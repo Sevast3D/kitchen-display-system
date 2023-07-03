@@ -8,8 +8,6 @@ import Desk from '../../components/UI/Desk/Desk'
 // const DeskList = [[1, 0], [4, 1], [45, 3], [2, 3], [12, 2], [33, 1], [7, 2], [19, 0], [26, 3], [41, 2], [50, 1]]
 
 function Waiter({ onToggleSidebar }) {
-<<<<<<< Updated upstream
-=======
   const [allDesks, setAllDesks] = useState([]);
   const currentDate = new Date();
 
@@ -59,7 +57,6 @@ function Waiter({ onToggleSidebar }) {
     fetchData();
   }, [])
 
->>>>>>> Stashed changes
   return (
     <div>
       <div className='top-bar'>
@@ -69,11 +66,6 @@ function Waiter({ onToggleSidebar }) {
         <Profile />
       </div>
       <div className='container'>
-<<<<<<< Updated upstream
-          {DeskList.map((desk, status)=>(
-            <Desk key={status} value={desk} />
-          ))}
-=======
         {allDesks.map((item) => {
           let reserved = false;
           let time = currentDate;
@@ -122,7 +114,6 @@ function Waiter({ onToggleSidebar }) {
             return <Desk key={item.id} deskData={item} time={time} />;
           }
         })}
->>>>>>> Stashed changes
       </div>
     </div>
   )

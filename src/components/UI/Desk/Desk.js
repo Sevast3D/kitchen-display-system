@@ -116,7 +116,7 @@ const Desk = ({ deskData, time }) => {
           </p>
         </div>
         <p className={`pm ${deskData.status === "TAKEN" || deskData.status === "RESERVED" ? `visible` : ``}`} id="time">
-          {/* {deskData.status !== "RESERVED" ? "" : (time.toLocaleTimeString())} */}
+          {deskData.status !== "RESERVED" ? "" : (time.toLocaleTimeString())}
         </p>
       </div>
       <div className={`title ${getDeskStatus(deskData.status)}`} id="title">

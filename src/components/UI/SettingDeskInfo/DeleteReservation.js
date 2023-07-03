@@ -80,52 +80,52 @@ const DeleteReservation = ({ title, actionBtn, showPopup, onClose }) => {
     const emailAddress = inputDataRef.current.value;
     console.log(emailAddress)
     sendPasswordResetEmail(auth, emailAddress)
-      .then(() => {
-        // Password reset email sent successfully
-        const updateUser = {
-          method: 'PUT',
-          headers: {
-            'Accept': 'application/json, text/plain',
-            'Content-Type': 'application/json;charset=UTF-8',
-            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-          },
-          body: JSON.stringify({
-            firstName: firstName,
-            lastName: lastName,
-            email: email,
-            phoneNumber: phoneNumber,
-            password: password,
-            profileImage: profileImage,
-            role: profileData.role
-          }),
-        }
+      // .then(() => {
+      //   // Password reset email sent successfully
+      //   const updateUser = {
+      //     method: 'PUT',
+      //     headers: {
+      //       'Accept': 'application/json, text/plain',
+      //       'Content-Type': 'application/json;charset=UTF-8',
+      //       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+      //     },
+      //     body: JSON.stringify({
+      //       firstName: firstName,
+      //       lastName: lastName,
+      //       email: email,
+      //       phoneNumber: phoneNumber,
+      //       password: password,
+      //       profileImage: profileImage,
+      //       role: profileData.role
+      //     }),
+      //   }
         
-        fetch(`http://localhost:8080/users/${profileData.userId}`, updateUser)
-        .then(res => {
-          if (res.ok) {
-            const user = sessionStorage.getItem('userUID');
-            // Update logged user values
-            // console.log("ProfileImage END: " + profileImage)
-            // console.log("Image END: " + imageURL)
-            writeUserData(user, profileData.userId, firstName, lastName, email, phoneNumber, profileImage, profileData.role);
-            changePassword(password);
-            handleSave();
-            return null;
-          } else {
-            setError('Update user Data Failed on Backend!');
-          }
-        })
-        .catch(error => {
-          // Handle the error
-          console.error(error);
-        });
-        onClose()
-      })
-      .catch((error) => {
-        // Error occurred while sending the password reset email
-        console.error('Error sending password reset email:', error);
-        setError("Error: " + error.code)
-      });
+      //   fetch(`http://localhost:8080/users/${profileData.userId}`, updateUser)
+      //   .then(res => {
+      //     if (res.ok) {
+      //       const user = sessionStorage.getItem('userUID');
+      //       // Update logged user values
+      //       // console.log("ProfileImage END: " + profileImage)
+      //       // console.log("Image END: " + imageURL)
+      //       writeUserData(user, profileData.userId, firstName, lastName, email, phoneNumber, profileImage, profileData.role);
+      //       changePassword(password);
+      //       handleSave();
+      //       return null;
+      //     } else {
+      //       setError('Update user Data Failed on Backend!');
+      //     }
+      //   })
+      //   .catch(error => {
+      //     // Handle the error
+      //     console.error(error);
+      //   });
+      //   onClose()
+      // })
+      // .catch((error) => {
+      //   // Error occurred while sending the password reset email
+      //   console.error('Error sending password reset email:', error);
+      //   setError("Error: " + error.code)
+      // });
 
   }
 
