@@ -9,6 +9,7 @@ import CleanPopup from "../Order/Clean.js"
 import Dolar from "./Assets/dollarsign.svg";
 import Eat from "./Assets/eat.svg";
 import Clean from "./Assets/clean.svg";
+import { useEffect } from "react";
 
 
 function getDeskStatus(value) {
@@ -18,11 +19,18 @@ function getDeskStatus(value) {
     return "red";
   } else if (value === 3) {
     return "green";
+<<<<<<< Updated upstream
   }
 }
 
 
 const Desk = (props) => {
+=======
+  } else return ""
+}
+
+const Desk = ({ deskData, time }) => {
+>>>>>>> Stashed changes
   let currentTime = new Date();
   let orderList = []
 
@@ -44,6 +52,41 @@ const Desk = (props) => {
   }
 
   const handleOpenPayment = () => {
+<<<<<<< Updated upstream
+=======
+    const fetchData = async () => {
+      try {
+        const getDeskData = {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json, text/plain',
+            'Content-Type': 'application/json;charset=UTF-8',
+            Authorization: `Bearer ${sessionStorage.getItem('token')}`,
+          },
+        }
+        const response = await fetch(`http://localhost:8080/desks/${deskData.id}`, getDeskData)
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error('Failed to get desks data.');
+        }
+        const mappedData = {
+          id: data.id,
+          number: data.number,
+          status: data.status,
+          places: data.places,
+          cookingStatus: data.cookingStatus,
+          orderItems: data.orderItems,
+          reservations: data.reservations
+        }
+        setOrderList(mappedData.orderItems);
+      } catch (error) {
+        // Handle the error
+        console.error(error);
+      }
+    }
+    fetchData();
+>>>>>>> Stashed changes
     setPaymentPopup(!showPaymentPopup);
   }
 
@@ -65,7 +108,11 @@ const Desk = (props) => {
           ) : (
             <OrderMenu list={orderList} showPopup={showPopup} onClose={handleClose} />
           )}
+<<<<<<< Updated upstream
           <button onClick={handleOpenPayment} className={`pay ${props.value[1] === 0 || props.value[1] === 3 ? `hidden` : ``}`}>
+=======
+          <button onClick={handleOpenPayment} className={`pay ${deskData.status === "EMPTY" || deskData.status === "CLEAN_UP" || deskData.status === "RESERVED" ? `hidden` : ``}`}>
+>>>>>>> Stashed changes
             <img className="dollar-sign-icon" alt="" src={Dolar} />
             <div className="font-size-16">Pay</div>
           </button><Payment openPayment={showPaymentPopup} onClose={handleOpenPayment} />
@@ -78,6 +125,7 @@ const Desk = (props) => {
         <div className="status" id="status_label">
           <div className="status1">Status:</div>
           <p className="empty" id="status">
+<<<<<<< Updated upstream
             {props.value[1] === 0 && 'Empty'}
             {props.value[1] === 1 && 'Taken'}
             {props.value[1] === 2 && 'Reserved'}
@@ -86,6 +134,16 @@ const Desk = (props) => {
         </div>
         <p className={`pm ${props.value[1] === 1 || props.value[1] === 2 ? `visible` : ``}`} id="time">
           {currentTime.toLocaleTimeString()}
+=======
+            {deskData.status === "CLEAN_UP" ? "Clean Up" : ""}
+            {deskData.status === "EMPTY" ? "Empty" : ""}
+            {deskData.status === "TAKEN" ? "Taken" : ""}
+            {deskData.status === "RESERVED" ? "Reserved" : ""}
+          </p>
+        </div>
+        <p className={`pm ${deskData.status === "TAKEN" || deskData.status === "RESERVED" ? `visible` : ``}`} id="time">
+          {/* {deskData.status !== "RESERVED" ? "" : (time.toLocaleTimeString())} */}
+>>>>>>> Stashed changes
         </p>
       </div>
       <div className={`title ${getDeskStatus(props.value[1])}`} id="title">

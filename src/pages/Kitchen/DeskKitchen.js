@@ -5,7 +5,7 @@ import cookingIcon from './assets/button-icon-kitchen.svg';
 import xIcon from './assets/x-kitchen.svg';
 import doneIcon from './assets/done.png';
 
-const DeskKitchen = ({ deskData }) => {
+const  DeskKitchen = ({ deskData }) => {
   const [timeDifference, setTimeDifference] = useState();
   const [productList, setProductList] = useState(deskData[2]);
   // [2, "01:23:23 PM", [[1, "Pizza", 29.99, "Salam, Ananas, Lipie, Sos"], 0, "Intolerant Lactoza", 2], 0],
