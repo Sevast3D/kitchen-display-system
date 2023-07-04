@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
         newUser.setLastName(requestDto.getLastName());
         newUser.setPhoneNumber(requestDto.getPhoneNumber());
         newUser.setPassword(passwordEncoder.encode(requestDto.getPassword()));
-        newUser.setRole(UserRole.WAITER);
+        newUser.setRole(UserRole.GUEST);
 
         var accessToken = tokenGeneration.generateToken(newUser, jwtProperties.getAccessDuration(),
                 jwtProperties.getKeyId());

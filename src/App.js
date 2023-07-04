@@ -153,6 +153,13 @@ function PrivateRouteWithSidebar({ path, component: Component, onToggleSidebar, 
           if (userRole === "ADMIN") {
               return <Component {...props} onToggleSidebar={onToggleSidebar} />
           }
+          if (userRole === "GUEST") {
+            if (path === '/members') {
+              return <Component {...props} onToggleSidebar={onToggleSidebar} />
+            } else {
+              return <Redirect to="/members" />
+            }
+          }
         }
         } />
       </div>

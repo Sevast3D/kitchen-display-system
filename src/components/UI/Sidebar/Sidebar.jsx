@@ -76,6 +76,11 @@ const Sidebar = ({ children }) => {
         {
           // NavLink for pages with path
           menuItem.map((item, index) => (
+            (item.name === "All Desks" && loggedUserData.role === "GUEST") ||
+            (item.name === "Kitchen" && loggedUserData.role === "GUEST") ||
+            (item.name === "Empty Desks" && loggedUserData.role === "GUEST") ||
+            (item.name === "Payment" && loggedUserData.role === "GUEST") ||
+            (item.name === "Settings" && loggedUserData.role === "GUEST") ||
             (item.name === "Kitchen" && loggedUserData.role === "WAITER") ||
             (item.name === "Settings" && loggedUserData.role === "WAITER") ||
             (item.name === "Settings" && loggedUserData.role === "CHEF")
@@ -90,13 +95,17 @@ const Sidebar = ({ children }) => {
           ))
         }
         {
-          // Nav Link for simple Popups */
+          (loggedUserData.role === "GUEST") ? <>
+          <p className="text-warning">Contact an admin for more...</p>
+          </> : 
+          <>
           <NavLink to="#" onClick={handleReservationModal}>
             <div className="row text-white font-size-16">
               <img src={Clock} alt='' className="icons"></img>
               Reservation
             </div>
           </NavLink>
+          </>
         }
       </div>
       <Reservation showPopup={isReservatonOpen} onClose={handleReservationModal} />

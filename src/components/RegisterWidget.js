@@ -23,8 +23,6 @@ const LoginWidget = () => {
 
   // Profile image 
   const [imageURL, setImageURL] = useState(null);
-
-  const [role, setRole] = useState("WAITER")
   const [userData, setUserData] = useState(null);
 
   const handleRegister = () => {

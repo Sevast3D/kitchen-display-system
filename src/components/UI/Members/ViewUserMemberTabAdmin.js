@@ -33,14 +33,12 @@ const ViewUserMemberTabAdmin = ({ user, showPopup, onClose }) => {
 
     if (value === "ADMIN") {
       setAdmin(checked);
-      setRoleChef(!checked)
-      setRoleWaiter(!checked)
     } else if (value === "WAITER") {
       setRoleWaiter(checked);
-      setAdmin(!checked);
-      setRoleChef(!checked)
     } else if (value === "CHEF") {
       setRoleChef(checked);
+    } else {
+      setRoleChef(!checked);
       setRoleWaiter(!checked);
       setAdmin(!checked);
     }
@@ -48,10 +46,6 @@ const ViewUserMemberTabAdmin = ({ user, showPopup, onClose }) => {
 
 
   const handleOnSave = () => {
-    const firstName = user.firstName;
-    const lastName = user.lastName;
-    const phoneNumber = user.phoneNumber;
-    const email = user.email;
 
     if (Admin) {
       user.role = "ADMIN";
@@ -59,6 +53,8 @@ const ViewUserMemberTabAdmin = ({ user, showPopup, onClose }) => {
       user.role = "CHEF";
     } else if (roleWaiter) {
       user.role = "WAITER";
+    } else {
+      user.role = "GUEST";
     }
 
     const updateUserProfile = {
@@ -77,9 +73,7 @@ const ViewUserMemberTabAdmin = ({ user, showPopup, onClose }) => {
     fetch(`http://localhost:8080/users/${user.userId}`, updateUserProfile)
       .then(res => {
         if (res.ok) {
-          // const user = sessionStorage.getItem('userUID');
-          // const { userId, role } = mappedData;
-          
+
           return res.json();
         } else {
           console.log("Update User Failed!");
