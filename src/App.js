@@ -14,6 +14,7 @@ import Empty from './pages/EmptyDesks';
 import Payment from './pages/ForPayments';
 import Settings from './pages/Settings/Settings';
 import Kitchen from './pages/Kitchen/Kitchen';
+import PaymentHistory from './pages/PaymentHistory';
 
 
 function App() {
@@ -62,6 +63,12 @@ function App() {
         <PrivateRouteWithSidebar
           path="/kitchen"
           component={Kitchen}
+          onToggleSidebar={handleToggleSidebar}
+          showSidebar={showSidebar}
+        />
+        <PrivateRouteWithSidebar
+          path="/payment-history"
+          component={PaymentHistory}
           onToggleSidebar={handleToggleSidebar}
           showSidebar={showSidebar}
         />
@@ -144,7 +151,7 @@ function PrivateRouteWithSidebar({ path, component: Component, onToggleSidebar, 
             }
           }
           if (userRole === "CHEF") {
-            if (path !== '/settings') {
+            if (path !== '/settings' || path !== '/payment-history') {
               return <Component {...props} onToggleSidebar={onToggleSidebar} />
             } else {
               return <Redirect to="/kitchen" />
