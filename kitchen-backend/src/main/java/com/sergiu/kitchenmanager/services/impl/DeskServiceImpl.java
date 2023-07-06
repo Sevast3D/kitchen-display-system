@@ -64,6 +64,7 @@ public class DeskServiceImpl implements DeskService {
         var createdDesk = new DeskEty();
         createdDesk.setStatus(DeskStatus.EMPTY);
         createdDesk.setCookingStatus(CookingStatus.NOT_STARTED);
+        createdDesk.setCookingTime(null);
         createdDesk.setPlaces(places);
         createdDesk.setNumber(getDeskNumber());
 
@@ -98,8 +99,10 @@ public class DeskServiceImpl implements DeskService {
         var reservations = requestedDeskEty.getReservations().stream()
                 .map(ReservationMapper.INSTANCE::mapReservationEtyToDto)
                 .toList();
+        var cookingTime = requestedDeskEty.getCookingTime();
         response.setOrderItems(orderItemsList);
         response.setReservations(reservations);
+        response.setCookingTime(cookingTime);
         return response;
     }
 
@@ -188,6 +191,14 @@ public class DeskServiceImpl implements DeskService {
         var deskEty = deskRepository.findById(deskId)
                 .orElseThrow(() -> new DeskNotFoundException(String.format("Desk with id:%d not found", deskId)));
         deskEty.setCookingStatus(cookingStatus);
+        deskRepository.save(deskEty);
+    }
+
+    @Override
+    public void updateCookingTime(Integer deskId, LocalDateTime cookingTime){
+        var deskEty = deskRepository.findById(deskId)
+                .orElseThrow(() -> new DeskNotFoundException(String.format("Desk with id:%d not found", deskId)));
+        deskEty.setCookingTime(cookingTime);
         deskRepository.save(deskEty);
     }
 

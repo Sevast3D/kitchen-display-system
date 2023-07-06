@@ -7,6 +7,7 @@ import com.sergiu.kitchenmanager.models.response.DeskResponseDto;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -32,6 +33,6 @@ public interface DeskService {
 
     void updateCookingStatus(Integer deskId, CookingStatus cookingStatus);
 
-//    void updateCookingStatus(Integer deskId, CookingStatus status);
+    void updateCookingTime(Integer deskId, LocalDateTime cookingTime);
 
 }

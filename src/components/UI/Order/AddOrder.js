@@ -113,9 +113,11 @@ const AddOrder = ({ deskId, showPopup, onClose }) => {
             'Authorization': `Bearer ${sessionStorage.getItem('token')}`
           },
         }
-
-        await fetch(`http://localhost:8080/desks/${parseInt(deskId, 10)}?status=TAKEN`, updateDeskStatus)
-        await fetch(`http://localhost:8080/desks/${parseInt(deskId, 10)}?status=TAKEN&cookingStatus=NOT_STARTED`, updateDeskStatus)
+        const currentDate = new Date();
+        const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false };
+        const formattedDate = currentDate.toLocaleString('en-US', options)
+          .replace(/(\d+)\/(\d+)\/(\d+), (\d+):(\d+)/, '$3-$1-$2T$4:$5');
+        await fetch(`http://localhost:8080/desks/${parseInt(deskId, 10)}?status=TAKEN&cookingStatus=NOT_STARTED&cookingTime=${formattedDate}`, updateDeskStatus)
         window.location.reload();
       }
       catch (error) {

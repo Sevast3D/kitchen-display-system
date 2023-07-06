@@ -5,11 +5,12 @@ import cookingIcon from './assets/button-icon-kitchen.svg';
 import xIcon from './assets/x-kitchen.svg';
 import doneIcon from './assets/done.png';
 
-const  DeskKitchen = ({ deskData }) => {
+const DeskKitchen = ({ deskData }) => {
   const [timeDifference, setTimeDifference] = useState();
   const [productList, setProductList] = useState([]);
   const sortedProductList = productList.sort((a, b) => a.product.category.localeCompare(b.product.category));
   const [refresh, setRefresh] = useState(false)
+  const [startTimeString, setStartTimeString] = useState();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,19 +25,23 @@ const  DeskKitchen = ({ deskData }) => {
         }
         const response = await fetch(`http://localhost:8080/desks/${deskData.id}`, getDeskData)
         const data = await response.json();
-
         if (!response.ok) {
           throw new Error('Failed to get desks data.');
         }
+
+        console.log(data)
         const mappedData = {
           id: data.id,
           number: data.number,
           status: data.status,
           places: data.places,
           cookingStatus: data.cookingStatus,
-          orderItems: data.orderItems
+          orderItems: data.orderItems,
+          cookingTime: data.cookingTime
         }
         setProductList(mappedData.orderItems);
+        setStartTimeString(mappedData.cookingTime)
+
       } catch (error) {
         // Handle the error
         console.error(error);
@@ -48,9 +53,7 @@ const  DeskKitchen = ({ deskData }) => {
 
   useEffect(() => {
     // console.log(deskData)
-    const startTimeString = new Date(deskData[1]);
     const startTime = new Date(startTimeString);
-
     // Update time difference every second
     const intervalId = setInterval(() => {
       const currentDate = new Date();
@@ -65,7 +68,7 @@ const  DeskKitchen = ({ deskData }) => {
       clearInterval(intervalId);
     };
 
-  }, [deskData]);
+  }, [startTimeString]);
 
 
   const handleCookProduct = (order) => {
@@ -82,8 +85,7 @@ const  DeskKitchen = ({ deskData }) => {
         }
 
         await fetch(`http://localhost:8080/orders/${parseInt(order.id, 10)}?status=${order.status === "COOKED" ? "NOT_COOKED" : "COOKED"}`, updateOrderStatus)
-        if(productList.every(item => item.status === "COOKED"))
-        {
+        if (productList.every(item => item.status === "COOKED")) {
           handleDoneOrder();
         }
         setRefresh(!refresh)
@@ -109,7 +111,7 @@ const  DeskKitchen = ({ deskData }) => {
         }
 
         await fetch(`http://localhost:8080/desks/${parseInt(deskData.id, 10)}?status=TAKEN&cookingStatus=STARTED`, updateOrderStatus)
-      
+
         window.location.reload();
       }
       catch (error) {
@@ -154,7 +156,7 @@ const  DeskKitchen = ({ deskData }) => {
       </div>
       <div className={`number-container-kitchen ${timeDifference > 45 ? "body-red" : (timeDifference > 15 ? "body-orange" : "")}`}>
         <b className="desk-text-kitchen1">{deskData.number}</b>
-        {/* <div className="hour-text-kitchen">{timeDifference} min</div> */}
+        <div className="hour-text-kitchen">{timeDifference} min</div>
       </div>
       {
         sortedProductList.map((product, index) => {

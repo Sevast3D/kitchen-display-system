@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -81,13 +82,17 @@ public class DeskController {
     @ResponseStatus(HttpStatus.OK)
     public void updateDeskStatus(@PathVariable Integer deskId,
                                  @RequestParam(required = false) DeskStatus status,
-                                 @RequestParam(required = false)  CookingStatus cookingStatus) {
+                                 @RequestParam(required = false) CookingStatus cookingStatus,
+                                 @RequestParam(required = false) LocalDateTime cookingTime) {
 
         if (status != null) {
             deskService.updateStatus(deskId, status);
         }
         if (cookingStatus != null) {
             deskService.updateCookingStatus(deskId, cookingStatus);
+        }
+        if (cookingTime != null) {
+            deskService.updateCookingTime(deskId, cookingTime);
         }
     }
 

@@ -14,6 +14,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -40,6 +41,9 @@ public class DeskEty {
     @Enumerated(EnumType.STRING)
     @Column(name = "cooking_status")
     private CookingStatus cookingStatus;
+
+    @Column(name = "cooking_starting_time")
+    private LocalDateTime cookingTime;
 
     @OneToMany(mappedBy = "desk", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<ReservationEty> reservations;
